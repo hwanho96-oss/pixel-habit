@@ -1,0 +1,57 @@
+{
+  "@@locale": "ko",
+  "appTitle": "Pixel Habit",
+  "tabRoutine": "루틴",
+  "tabTodo": "To do",
+  "tabCalendar": "캘린더",
+  "tabCharacter": "캐릭터",
+  "tabSummary": "종합",
+  "addRoutine": "새로운 루틴을 추가할 수 있는 버튼",
+  "myProfile": "내 프로필",
+  "emptyRoutines": "아직 퀘스트가 없습니다.\n+ 버튼으로 첫 루틴을 등록하세요.",
+  "addRoutineTitle": "새 퀘스트 등록",
+  "routineNameHint": "루틴 이름 (예: 아침 수련)",
+  "routineNoteHint": "메모 (선택)",
+  "save": "등록",
+  "cancel": "닫기",
+  "xpLabel": "+{xp} XP",
+  "@xpLabel": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "levelLabel": "Lv.{level}",
+  "@levelLabel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "expLabel": "EXP",
+  "expProgress": "{current}/{max}",
+  "@expProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "comingSoon": "이 지역은 아직 봉인되어 있습니다.",
+  "deleteRoutine": "루틴 삭제",
+  "deleteRoutineConfirm": "이 퀘스트를 포기할까요?",
+  "completedStamp": "완료",
+  "completedToast": "퀘스트 완료! +{xp} XP",
+  "@completedToast": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  }
+}
