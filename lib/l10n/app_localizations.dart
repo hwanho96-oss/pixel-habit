@@ -235,6 +235,282 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'퀘스트 완료! +{xp} XP'**
   String completedToast(int xp);
+
+  /// No description provided for @sectionTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'퀘스트 이름'**
+  String get sectionTitle;
+
+  /// No description provided for @sectionChecklist.
+  ///
+  /// In ko, this message translates to:
+  /// **'세부 체크리스트'**
+  String get sectionChecklist;
+
+  /// No description provided for @sectionDateTime.
+  ///
+  /// In ko, this message translates to:
+  /// **'날짜 · 시간'**
+  String get sectionDateTime;
+
+  /// No description provided for @sectionRepeat.
+  ///
+  /// In ko, this message translates to:
+  /// **'반복 요일'**
+  String get sectionRepeat;
+
+  /// No description provided for @sectionTags.
+  ///
+  /// In ko, this message translates to:
+  /// **'태그'**
+  String get sectionTags;
+
+  /// No description provided for @suggestionCategoryStudent.
+  ///
+  /// In ko, this message translates to:
+  /// **'학생'**
+  String get suggestionCategoryStudent;
+
+  /// No description provided for @suggestionCategoryWorker.
+  ///
+  /// In ko, this message translates to:
+  /// **'직장인'**
+  String get suggestionCategoryWorker;
+
+  /// No description provided for @suggestionCategoryExercise.
+  ///
+  /// In ko, this message translates to:
+  /// **'운동'**
+  String get suggestionCategoryExercise;
+
+  /// No description provided for @suggestionStudentMorningStudy.
+  ///
+  /// In ko, this message translates to:
+  /// **'아침 자습'**
+  String get suggestionStudentMorningStudy;
+
+  /// No description provided for @suggestionStudentReview.
+  ///
+  /// In ko, this message translates to:
+  /// **'복습 30분'**
+  String get suggestionStudentReview;
+
+  /// No description provided for @suggestionStudentHomework.
+  ///
+  /// In ko, this message translates to:
+  /// **'과제 끝내기'**
+  String get suggestionStudentHomework;
+
+  /// No description provided for @suggestionStudentVocabulary.
+  ///
+  /// In ko, this message translates to:
+  /// **'영어 단어'**
+  String get suggestionStudentVocabulary;
+
+  /// No description provided for @suggestionWorkerCommutePrep.
+  ///
+  /// In ko, this message translates to:
+  /// **'출근 준비'**
+  String get suggestionWorkerCommutePrep;
+
+  /// No description provided for @suggestionWorkerCheckMail.
+  ///
+  /// In ko, this message translates to:
+  /// **'업무 메일 확인'**
+  String get suggestionWorkerCheckMail;
+
+  /// No description provided for @suggestionWorkerMeetingNotes.
+  ///
+  /// In ko, this message translates to:
+  /// **'회의 정리'**
+  String get suggestionWorkerMeetingNotes;
+
+  /// No description provided for @suggestionWorkerLeaveRoutine.
+  ///
+  /// In ko, this message translates to:
+  /// **'퇴근 루틴'**
+  String get suggestionWorkerLeaveRoutine;
+
+  /// No description provided for @suggestionExerciseStretch.
+  ///
+  /// In ko, this message translates to:
+  /// **'스트레칭'**
+  String get suggestionExerciseStretch;
+
+  /// No description provided for @suggestionExerciseRun.
+  ///
+  /// In ko, this message translates to:
+  /// **'러닝'**
+  String get suggestionExerciseRun;
+
+  /// No description provided for @suggestionExerciseStrength.
+  ///
+  /// In ko, this message translates to:
+  /// **'근력 운동'**
+  String get suggestionExerciseStrength;
+
+  /// No description provided for @suggestionExerciseHydrate.
+  ///
+  /// In ko, this message translates to:
+  /// **'물 마시기'**
+  String get suggestionExerciseHydrate;
+
+  /// No description provided for @checklistItemHint.
+  ///
+  /// In ko, this message translates to:
+  /// **'세부 항목 (예: 당근 사기)'**
+  String get checklistItemHint;
+
+  /// No description provided for @addChecklistItem.
+  ///
+  /// In ko, this message translates to:
+  /// **'추가'**
+  String get addChecklistItem;
+
+  /// No description provided for @deleteChecklistItem.
+  ///
+  /// In ko, this message translates to:
+  /// **'항목 삭제'**
+  String get deleteChecklistItem;
+
+  /// No description provided for @pickStartDate.
+  ///
+  /// In ko, this message translates to:
+  /// **'시작 날짜 선택'**
+  String get pickStartDate;
+
+  /// No description provided for @pickReminderTime.
+  ///
+  /// In ko, this message translates to:
+  /// **'알림 시간 선택'**
+  String get pickReminderTime;
+
+  /// No description provided for @clearDateTime.
+  ///
+  /// In ko, this message translates to:
+  /// **'지우기'**
+  String get clearDateTime;
+
+  /// No description provided for @dateTimeUnset.
+  ///
+  /// In ko, this message translates to:
+  /// **'날짜 · 시간 미설정 (선택)'**
+  String get dateTimeUnset;
+
+  /// No description provided for @dateTimeCombined.
+  ///
+  /// In ko, this message translates to:
+  /// **'{date} · {time}'**
+  String dateTimeCombined(String date, String time);
+
+  /// No description provided for @weekdayMon.
+  ///
+  /// In ko, this message translates to:
+  /// **'월'**
+  String get weekdayMon;
+
+  /// No description provided for @weekdayTue.
+  ///
+  /// In ko, this message translates to:
+  /// **'화'**
+  String get weekdayTue;
+
+  /// No description provided for @weekdayWed.
+  ///
+  /// In ko, this message translates to:
+  /// **'수'**
+  String get weekdayWed;
+
+  /// No description provided for @weekdayThu.
+  ///
+  /// In ko, this message translates to:
+  /// **'목'**
+  String get weekdayThu;
+
+  /// No description provided for @weekdayFri.
+  ///
+  /// In ko, this message translates to:
+  /// **'금'**
+  String get weekdayFri;
+
+  /// No description provided for @weekdaySat.
+  ///
+  /// In ko, this message translates to:
+  /// **'토'**
+  String get weekdaySat;
+
+  /// No description provided for @weekdaySun.
+  ///
+  /// In ko, this message translates to:
+  /// **'일'**
+  String get weekdaySun;
+
+  /// No description provided for @repeatEverydayHint.
+  ///
+  /// In ko, this message translates to:
+  /// **'선택 없으면 매일 반복으로 저장됩니다.'**
+  String get repeatEverydayHint;
+
+  /// No description provided for @tagExercise.
+  ///
+  /// In ko, this message translates to:
+  /// **'운동'**
+  String get tagExercise;
+
+  /// No description provided for @tagStudy.
+  ///
+  /// In ko, this message translates to:
+  /// **'학업'**
+  String get tagStudy;
+
+  /// No description provided for @tagLife.
+  ///
+  /// In ko, this message translates to:
+  /// **'생활'**
+  String get tagLife;
+
+  /// No description provided for @tagWork.
+  ///
+  /// In ko, this message translates to:
+  /// **'업무'**
+  String get tagWork;
+
+  /// No description provided for @tagHealth.
+  ///
+  /// In ko, this message translates to:
+  /// **'건강'**
+  String get tagHealth;
+
+  /// No description provided for @tagHobby.
+  ///
+  /// In ko, this message translates to:
+  /// **'취미'**
+  String get tagHobby;
+
+  /// No description provided for @tagMeditation.
+  ///
+  /// In ko, this message translates to:
+  /// **'명상'**
+  String get tagMeditation;
+
+  /// No description provided for @tagSleep.
+  ///
+  /// In ko, this message translates to:
+  /// **'수면'**
+  String get tagSleep;
+
+  /// No description provided for @saveFailed.
+  ///
+  /// In ko, this message translates to:
+  /// **'퀘스트 저장에 실패했습니다. 다시 시도해 주세요.'**
+  String get saveFailed;
+
+  /// No description provided for @titleRequired.
+  ///
+  /// In ko, this message translates to:
+  /// **'퀘스트 이름을 입력해 주세요.'**
+  String get titleRequired;
 }
 
 class _AppLocalizationsDelegate

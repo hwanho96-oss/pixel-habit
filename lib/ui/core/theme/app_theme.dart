@@ -21,6 +21,11 @@ abstract final class AppTheme {
       fontSize: 18,
     );
 
+    const squareBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.zero,
+      borderSide: BorderSide(color: AppColors.outline, width: 2),
+    );
+
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
@@ -56,6 +61,101 @@ abstract final class AppTheme {
         backgroundColor: AppColors.parchment,
         titleTextStyle: koreanTitle.copyWith(color: AppColors.ink),
         contentTextStyle: body,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.parchmentDark,
+        hintStyle: body.copyWith(
+          color: AppColors.ink.withValues(alpha: 0.45),
+          fontSize: 16,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 12,
+        ),
+        border: squareBorder,
+        enabledBorder: squareBorder,
+        focusedBorder: squareBorder.copyWith(
+          borderSide: const BorderSide(color: AppColors.antiqueGold, width: 3),
+        ),
+        errorBorder: squareBorder.copyWith(
+          borderSide: const BorderSide(color: AppColors.ruby, width: 2),
+        ),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: AppColors.parchmentDark,
+        selectedColor: AppColors.gold,
+        disabledColor: AppColors.parchmentFaded,
+        labelStyle: body.copyWith(fontSize: 14),
+        secondaryLabelStyle: body.copyWith(fontSize: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+          side: BorderSide(color: AppColors.outline, width: 2),
+        ),
+        side: const BorderSide(color: AppColors.outline, width: 2),
+      ),
+      datePickerTheme: DatePickerThemeData(
+        backgroundColor: AppColors.parchment,
+        headerBackgroundColor: AppColors.dungeon,
+        headerForegroundColor: AppColors.gold,
+        dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return AppColors.ink.withValues(alpha: 0.35);
+          }
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.ink;
+          }
+          return AppColors.ink;
+        }),
+        dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.gold;
+          }
+          return Colors.transparent;
+        }),
+        todayForegroundColor: const WidgetStatePropertyAll(AppColors.antiqueGold),
+        todayBackgroundColor: const WidgetStatePropertyAll(Colors.transparent),
+        todayBorder: const BorderSide(color: AppColors.antiqueGold, width: 2),
+        yearForegroundColor: const WidgetStatePropertyAll(AppColors.ink),
+        yearBackgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.gold;
+          }
+          return Colors.transparent;
+        }),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        dividerColor: AppColors.antiqueGold,
+      ),
+      timePickerTheme: TimePickerThemeData(
+        backgroundColor: AppColors.parchment,
+        hourMinuteColor: AppColors.parchmentDark,
+        hourMinuteTextColor: AppColors.ink,
+        dialHandColor: AppColors.gold,
+        dialBackgroundColor: AppColors.parchmentDark,
+        dialTextColor: AppColors.ink,
+        entryModeIconColor: AppColors.antiqueGold,
+        dayPeriodColor: AppColors.gold,
+        dayPeriodTextColor: AppColors.ink,
+        helpTextStyle: latinTitle.copyWith(color: AppColors.ink),
+        hourMinuteTextStyle: koreanTitle.copyWith(
+          color: AppColors.ink,
+          fontSize: 40,
+        ),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AppColors.antiqueGold,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: AppColors.gold,
+          foregroundColor: AppColors.ink,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.dungeon,

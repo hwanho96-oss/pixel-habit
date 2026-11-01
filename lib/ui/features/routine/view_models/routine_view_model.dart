@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:pixel_habit/data/repositories/routine_repository.dart';
 import 'package:pixel_habit/domain/models/player_progress.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
+import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
 import 'package:uuid/uuid.dart';
 
 class RoutineViewModel extends ChangeNotifier {
@@ -72,15 +73,21 @@ class RoutineViewModel extends ChangeNotifier {
     await _repository.saveProgress(_progress);
   }
 
-  Future<void> addRoutine({
+  Future<bool> addRoutine({
     required String title,
     String? note,
     int xpReward = 15,
     int avatarSeed = 0,
+    List<RoutineChecklistItem> checklist = const [],
+    DateTime? startDate,
+    int? reminderHour,
+    int? reminderMinute,
+    Set<int> repeatWeekdays = const {},
+    List<String> tags = const [],
   }) async {
     final trimmed = title.trim();
     if (trimmed.isEmpty) {
-      return;
+      return false;
     }
 
     final routine = Routine(
@@ -90,10 +97,28 @@ class RoutineViewModel extends ChangeNotifier {
       xpReward: xpReward,
       avatarSeed: avatarSeed,
       createdAt: DateTime.now(),
+      checklist: List<RoutineChecklistItem>.unmodifiable(checklist),
+      startDate: startDate,
+      reminderHour: reminderHour,
+      reminderMinute: reminderMinute,
+      repeatWeekdays: Set<int>.unmodifiable(repeatWeekdays),
+      tags: List<String>.unmodifiable(tags),
     );
+
+    final previous = _routines;
     _routines = [..._routines, routine];
+    _errorMessage = null;
     notifyListeners();
-    await _repository.saveRoutines(_routines);
+
+    try {
+      await _repository.saveRoutines(_routines);
+      return true;
+    } catch (error) {
+      _routines = previous;
+      _errorMessage = error.toString();
+      notifyListeners();
+      return false;
+    }
   }
 
   Future<void> deleteRoutine(String id) async {

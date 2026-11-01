@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pixel_habit/domain/models/player_progress.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
+import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 
 import '../../../support/in_memory_routine_repository.dart';
@@ -58,6 +59,32 @@ void main() {
       await viewModel.addRoutine(title: '마법 공부', note: '30분');
       expect(viewModel.routines, hasLength(2));
       expect(viewModel.routines.last.title, '마법 공부');
+    });
+
+    test('addRoutine은 체크리스트·요일·태그를 저장한다', () async {
+      await viewModel.load();
+      final saved = await viewModel.addRoutine(
+        title: '마트 가기',
+        checklist: const [
+          RoutineChecklistItem(id: 'c1', title: '당근 사기'),
+          RoutineChecklistItem(id: 'c2', title: '오이 사기'),
+        ],
+        startDate: DateTime(2026, 11, 2),
+        reminderHour: 7,
+        reminderMinute: 30,
+        repeatWeekdays: {DateTime.monday, DateTime.wednesday},
+        tags: const ['life', 'health'],
+      );
+
+      expect(saved, isTrue);
+      final routine = viewModel.routines.last;
+      expect(routine.checklist, hasLength(2));
+      expect(routine.checklist.first.title, '당근 사기');
+      expect(routine.startDate, DateTime(2026, 11, 2));
+      expect(routine.reminderHour, 7);
+      expect(routine.reminderMinute, 30);
+      expect(routine.repeatWeekdays, {DateTime.monday, DateTime.wednesday});
+      expect(routine.tags, ['life', 'health']);
     });
 
     test('deleteRoutine은 목록에서 제거한다', () async {
