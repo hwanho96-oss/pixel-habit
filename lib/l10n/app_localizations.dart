@@ -233,8 +233,20 @@ abstract class AppLocalizations {
   /// No description provided for @completedToast.
   ///
   /// In ko, this message translates to:
-  /// **'퀘스트 완료! +{xp} XP'**
-  String completedToast(int xp);
+  /// **'퀘스트 완료! +{xp} XP · +{gold} 골드'**
+  String completedToast(int xp, int gold);
+
+  /// No description provided for @goldAmount.
+  ///
+  /// In ko, this message translates to:
+  /// **'{gold} 골드'**
+  String goldAmount(int gold);
+
+  /// No description provided for @goldGain.
+  ///
+  /// In ko, this message translates to:
+  /// **'+{gold} 골드'**
+  String goldGain(int gold);
 
   /// No description provided for @sectionTitle.
   ///
