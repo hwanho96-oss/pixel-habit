@@ -82,8 +82,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get completedStamp => '완료';
 
   @override
-  String completedToast(int xp) {
-    return '퀘스트 완료! +$xp XP';
+  String completedToast(int xp, int gold) {
+    return '퀘스트 완료! +$xp XP · +$gold 골드';
+  }
+
+  @override
+  String goldAmount(int gold) {
+    return '$gold 골드';
+  }
+
+  @override
+  String goldGain(int gold) {
+    return '+$gold 골드';
   }
 
   @override

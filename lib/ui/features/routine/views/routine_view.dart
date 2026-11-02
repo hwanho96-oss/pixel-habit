@@ -7,8 +7,10 @@ import 'package:pixel_habit/ui/core/theme/app_theme.dart';
 import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_backdrop.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_coin.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_exp_bar.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_frame.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_nine_slice.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_sprite_button.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_title_banner.dart';
 import 'package:pixel_habit/ui/core/widgets/profile_avatar.dart';
@@ -98,10 +100,13 @@ class RoutineView extends StatelessWidget {
                                   return;
                                 }
                                 final xp = viewModel.lastGrantedXp;
-                                if (xp != null) {
+                                final gold = viewModel.lastGrantedGold;
+                                if (xp != null && gold != null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(l10n.completedToast(xp)),
+                                      content: Text(
+                                        l10n.completedToast(xp, gold),
+                                      ),
                                     ),
                                   );
                                 }
@@ -175,9 +180,19 @@ class _StatusBanner extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge
                       ?.copyWith(color: AppColors.ink),
                 ),
-                Text(
-                  l10n.levelLabel(progress.level),
-                  style: AppTheme.pixelLatin(color: AppColors.ink),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l10n.levelLabel(progress.level),
+                        style: AppTheme.pixelLatin(color: AppColors.ink),
+                      ),
+                    ),
+                    _GoldBadge(
+                      key: const Key('gold_badge'),
+                      amount: progress.gold,
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 PixelExpBar(
@@ -193,6 +208,103 @@ class _StatusBanner extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _GoldBadge extends StatefulWidget {
+  const _GoldBadge({super.key, required this.amount});
+
+  final int amount;
+
+  @override
+  State<_GoldBadge> createState() => _GoldBadgeState();
+}
+
+class _GoldBadgeState extends State<_GoldBadge>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _pulse;
+  late final CurvedAnimation _scaleCurve;
+  late final CurvedAnimation _fadeCurve;
+  late final Animation<double> _scale;
+  late final Animation<double> _gainOpacity;
+  int? _gain;
+
+  @override
+  void initState() {
+    super.initState();
+    _pulse = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+    _scaleCurve = CurvedAnimation(parent: _pulse, curve: Curves.easeOut);
+    _fadeCurve = CurvedAnimation(
+      parent: _pulse,
+      curve: const Interval(0.45, 1),
+    );
+    _scale = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween<double>(begin: 1, end: 1.12), weight: 35),
+      TweenSequenceItem(tween: Tween<double>(begin: 1.12, end: 1), weight: 65),
+    ]).animate(_scaleCurve);
+    _gainOpacity = Tween<double>(begin: 1, end: 0).animate(_fadeCurve);
+    _pulse.addStatusListener((status) {
+      if (status == AnimationStatus.completed && mounted && _gain != null) {
+        setState(() => _gain = null);
+      }
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant _GoldBadge oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final gained = widget.amount - oldWidget.amount;
+    if (gained > 0) {
+      _gain = gained;
+      _pulse.forward(from: 0);
+    } else if (gained < 0) {
+      _gain = null;
+      _pulse.value = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _scaleCurve.dispose();
+    _fadeCurve.dispose();
+    _pulse.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final amountStyle = Theme.of(context).textTheme.bodyMedium
+        ?.copyWith(color: AppColors.cream, fontSize: 14, height: 1);
+    final slice = RpgUiAssets.buttonSelected;
+
+    return ScaleTransition(
+      scale: _scale,
+      child: PixelNineSlice(
+        slice: slice,
+        child: Padding(
+          padding: slice.capInsets + const EdgeInsets.symmetric(horizontal: 4),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const PixelCoin(),
+              const SizedBox(width: 6),
+              Text(l10n.goldAmount(widget.amount), style: amountStyle),
+              if (_gain != null) ...[
+                const SizedBox(width: 6),
+                FadeTransition(
+                  opacity: _gainOpacity,
+                  child: Text(l10n.goldGain(_gain!), style: amountStyle),
+                ),
+              ],
+            ],
+          ),
+        ),
       ),
     );
   }

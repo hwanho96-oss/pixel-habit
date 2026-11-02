@@ -46,10 +46,29 @@
   "deleteRoutine": "루틴 삭제",
   "deleteRoutineConfirm": "이 퀘스트를 포기할까요?",
   "completedStamp": "완료",
-  "completedToast": "퀘스트 완료! +{xp} XP",
+  "completedToast": "퀘스트 완료! +{xp} XP · +{gold} 골드",
   "@completedToast": {
     "placeholders": {
       "xp": {
+        "type": "int"
+      },
+      "gold": {
+        "type": "int"
+      }
+    }
+  },
+  "goldAmount": "{gold} 골드",
+  "@goldAmount": {
+    "placeholders": {
+      "gold": {
+        "type": "int"
+      }
+    }
+  },
+  "goldGain": "+{gold} 골드",
+  "@goldGain": {
+    "placeholders": {
+      "gold": {
         "type": "int"
       }
     }

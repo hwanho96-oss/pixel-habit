@@ -19,12 +19,14 @@ class RoutineViewModel extends ChangeNotifier {
   bool _isLoading = false;
   String? _errorMessage;
   int? _lastGrantedXp;
+  int? _lastGrantedGold;
 
   List<Routine> get routines => List.unmodifiable(_routines);
   PlayerProgress get progress => _progress;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   int? get lastGrantedXp => _lastGrantedXp;
+  int? get lastGrantedGold => _lastGrantedGold;
 
   Future<void> load() async {
     _isLoading = true;
@@ -59,13 +61,13 @@ class RoutineViewModel extends ChangeNotifier {
 
     _routines = [..._routines]..[index] = updated;
     if (willComplete) {
-      _progress = _progress.copyWith(xp: _progress.xp + routine.xpReward);
+      _progress = _progress.grantCompletionReward(xpReward: routine.xpReward);
       _lastGrantedXp = routine.xpReward;
+      _lastGrantedGold = PlayerProgress.goldPerCompletion;
     } else {
-      _progress = _progress.copyWith(
-        xp: (_progress.xp - routine.xpReward).clamp(0, 1 << 30),
-      );
+      _progress = _progress.revokeCompletionReward(xpReward: routine.xpReward);
       _lastGrantedXp = null;
+      _lastGrantedGold = null;
     }
 
     notifyListeners();

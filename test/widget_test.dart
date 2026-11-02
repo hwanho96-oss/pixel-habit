@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pixel_habit/app.dart';
@@ -15,6 +16,8 @@ void main() {
   GoogleFonts.config.allowRuntimeFetching = false;
 
   testWidgets('루틴 탭에서 체크하면 완료 토스트가 보인다', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(390, 844));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
     SharedPreferences.setMockInitialValues({});
     final preferences = await SharedPreferences.getInstance();
     final repository = InMemoryRoutineRepository(
@@ -38,6 +41,8 @@ void main() {
     expect(find.text('루틴'), findsWidgets);
     expect(find.text('EXP'), findsOneWidget);
     expect(find.text('0/100'), findsOneWidget);
+    expect(find.text('0 골드'), findsOneWidget);
+    expect(find.byKey(const Key('gold_badge')), findsOneWidget);
     expect(find.byType(ProfileAvatar), findsOneWidget);
     expect(find.byType(PixelExpBar), findsOneWidget);
     expect(find.byType(PixelAvatar), findsNothing);
@@ -46,11 +51,13 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.textContaining('퀘스트 완료'), findsOneWidget);
+    expect(find.textContaining('+10 골드'), findsWidgets);
+    expect(find.text('10 골드'), findsOneWidget);
     expect(find.text('15/100'), findsOneWidget);
     expect(find.text('완료'), findsOneWidget);
   });
 
-  testWidgets('루틴 카드 전체를 탭해도 완료된다', (tester) async {
+  testWidgets('루틴 카드를 탭하면 완료되고 다시 탭하면 골드가 돌아온다', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final preferences = await SharedPreferences.getInstance();
     final repository = InMemoryRoutineRepository(
@@ -74,7 +81,15 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.textContaining('퀘스트 완료'), findsOneWidget);
+    expect(find.text('10 골드'), findsOneWidget);
     expect(find.text('완료'), findsOneWidget);
+
+    await tester.tap(find.text('아침 수련'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('0 골드'), findsOneWidget);
+    expect(find.text('0/100'), findsOneWidget);
+    expect(find.text('완료'), findsNothing);
   });
 
   testWidgets('하단 탭이 5개다', (tester) async {
