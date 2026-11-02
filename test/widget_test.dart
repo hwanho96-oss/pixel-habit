@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pixel_habit/app.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_avatar.dart';
@@ -13,7 +12,6 @@ import 'support/in_memory_routine_repository.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  GoogleFonts.config.allowRuntimeFetching = false;
 
   testWidgets('루틴 탭에서 체크하면 완료 토스트가 보인다', (tester) async {
     await tester.binding.setSurfaceSize(const Size(390, 844));

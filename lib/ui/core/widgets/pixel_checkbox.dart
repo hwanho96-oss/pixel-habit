@@ -24,8 +24,8 @@ class PixelCheckbox extends StatelessWidget {
           padding: const EdgeInsets.all(4),
           child: PixelAssetImage(
             path: value ? RpgUiAssets.checkboxOn : RpgUiAssets.checkboxOff,
-            width: RpgUiAssets.checkboxWidth,
-            height: RpgUiAssets.checkboxHeight,
+            width: 32,
+            height: 32,
           ),
         ),
       ),

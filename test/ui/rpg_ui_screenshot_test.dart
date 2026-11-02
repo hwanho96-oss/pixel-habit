@@ -3,9 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pixel_habit/app.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
@@ -22,8 +20,6 @@ void main() {
     test('스크린샷 생성은 PIXEL_HABIT_SCREENSHOTS=1 일 때만 실행된다', () {});
     return;
   }
-
-  GoogleFonts.config.allowRuntimeFetching = false;
 
   testWidgets('루틴 목록', (tester) async {
     await _boot(tester);
@@ -72,7 +68,6 @@ void main() {
 }
 
 Future<void> _boot(WidgetTester tester, {List<Routine>? routines}) async {
-  await tester.runAsync(_loadKoreanFont);
   final view = tester.view;
   view.physicalSize = const Size(390, 844);
   view.devicePixelRatio = 1;
@@ -139,17 +134,4 @@ Future<void> _capture(WidgetTester tester, String name) async {
   });
   debugPrint('wrote $name ${bytes?.lengthInBytes}');
   await tester.pumpWidget(const SizedBox.shrink());
-}
-
-Future<void> _loadKoreanFont() async {
-  final file = File('/tmp/Jua-Regular.ttf');
-  if (!file.existsSync()) {
-    return;
-  }
-  final bytes = ByteData.sublistView(file.readAsBytesSync());
-  for (final family in ['Jua_regular', 'Jua']) {
-    final loader = FontLoader(family);
-    loader.addFont(Future<ByteData>.value(bytes));
-    await loader.load();
-  }
 }

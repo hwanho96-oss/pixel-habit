@@ -11,22 +11,20 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final muted = AppColors.text.withValues(alpha: 0.45);
 
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: DecoratedBox(
         decoration: const BoxDecoration(
-          color: AppColors.dungeon,
-          border: Border(top: BorderSide(color: AppColors.gold, width: 2)),
-          boxShadow: [
-            BoxShadow(color: AppColors.outline, offset: Offset(0, -3)),
-          ],
+          color: AppColors.textOnDark,
+          border: Border(top: BorderSide(color: AppColors.border)),
         ),
         child: NavigationBar(
-          height: 72,
-          backgroundColor: AppColors.dungeon,
-          surfaceTintColor: AppColors.dungeon,
-          indicatorColor: AppColors.gold.withValues(alpha: 0.28),
+          height: 64,
+          backgroundColor: AppColors.textOnDark,
+          surfaceTintColor: AppColors.textOnDark,
+          indicatorColor: AppColors.accent.withValues(alpha: 0.16),
           selectedIndex: navigationShell.currentIndex,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           onDestinationSelected: (index) {
@@ -37,46 +35,40 @@ class AppShell extends StatelessWidget {
           },
           destinations: [
             NavigationDestination(
-              icon: const Icon(
-                Icons.auto_awesome_outlined,
-                color: AppColors.parchmentDark,
-              ),
+              icon: Icon(Icons.auto_awesome_outlined, color: muted),
               selectedIcon: const Icon(
                 Icons.auto_awesome,
-                color: AppColors.gold,
+                color: AppColors.accent,
               ),
               label: l10n.tabRoutine,
             ),
             NavigationDestination(
-              icon: const Icon(
-                Icons.checklist_outlined,
-                color: AppColors.parchmentDark,
+              icon: Icon(Icons.checklist_outlined, color: muted),
+              selectedIcon: const Icon(
+                Icons.checklist,
+                color: AppColors.accent,
               ),
-              selectedIcon: const Icon(Icons.checklist, color: AppColors.gold),
               label: l10n.tabTodo,
             ),
             NavigationDestination(
-              icon: const Icon(
-                Icons.calendar_month_outlined,
-                color: AppColors.parchmentDark,
-              ),
+              icon: Icon(Icons.calendar_month_outlined, color: muted),
               selectedIcon: const Icon(
                 Icons.calendar_month,
-                color: AppColors.gold,
+                color: AppColors.accent,
               ),
               label: l10n.tabCalendar,
             ),
             NavigationDestination(
-              icon: const Icon(
-                Icons.person_outline,
-                color: AppColors.parchmentDark,
-              ),
-              selectedIcon: const Icon(Icons.person, color: AppColors.gold),
+              icon: Icon(Icons.person_outline, color: muted),
+              selectedIcon: const Icon(Icons.person, color: AppColors.accent),
               label: l10n.tabCharacter,
             ),
             NavigationDestination(
-              icon: const Icon(Icons.menu, color: AppColors.parchmentDark),
-              selectedIcon: const Icon(Icons.grid_view, color: AppColors.gold),
+              icon: Icon(Icons.grid_view_outlined, color: muted),
+              selectedIcon: const Icon(
+                Icons.grid_view,
+                color: AppColors.accent,
+              ),
               label: l10n.tabSummary,
             ),
           ],

@@ -61,7 +61,7 @@ class _PixelHabitAppState extends State<PixelHabitApp> {
       ],
       child: MaterialApp.router(
         title: 'Pixel Habit',
-        theme: AppTheme.dark(),
+        theme: AppTheme.light(),
         locale: const Locale('ko'),
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: const [
@@ -73,9 +73,8 @@ class _PixelHabitAppState extends State<PixelHabitApp> {
         debugShowCheckedModeBanner: widget.showDebugBanner,
         routerConfig: _router,
         builder: kIsWeb
-            ? (context, child) => WebPhoneFrame(
-                child: child ?? const SizedBox.shrink(),
-              )
+            ? (context, child) =>
+                  WebPhoneFrame(child: child ?? const SizedBox.shrink())
             : null,
       ),
     );
