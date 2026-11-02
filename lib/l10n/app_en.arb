@@ -110,5 +110,31 @@
       }
     }
   },
-  "todoSaveFailed": "Failed to save the to-do. Please try again."
+  "todoSaveFailed": "Failed to save the to-do. Please try again.",
+  "tabHome": "Home",
+  "tabAvatar": "Avatar",
+  "tabRecords": "Log",
+  "tabSettings": "Settings",
+  "segmentTodo": "To-do",
+  "traineeLabel": "Lv.{level} Trainee",
+  "@traineeLabel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "emptyRoutineInvite": "Want to pick a first routine to grow together?",
+  "starterWater": "Drink water",
+  "starterStretch": "Stretch for 5 min",
+  "starterRead": "Read for 10 min",
+  "starterSleep": "Sleep early",
+  "emptyTodoGentle": "Today is a quiet day. Tap + when a to-do comes up.",
+  "allQuestsDone": "All quests for today are done! Rest well, adventurer",
+  "restedYesterday": "Yesterday was a rest day. Want to try just one today?",
+  "recordsPlaceholder": "A calendar will land here next.",
+  "sectionTodoTime": "Time",
+  "pickTodoTime": "Pick a time",
+  "soundCredit": "Coin sound - Kenney (CC0)",
+  "soundCreditUrl": "https://kenney.nl/assets/rpg-audio"
 }

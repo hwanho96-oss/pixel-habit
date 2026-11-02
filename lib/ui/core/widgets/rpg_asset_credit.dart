@@ -24,6 +24,18 @@ class RpgAssetCredit extends StatelessWidget {
           textAlign: TextAlign.center,
           style: textTheme.bodyMedium?.copyWith(color: AppColors.accent),
         ),
+        const SizedBox(height: 14),
+        Text(
+          l10n.soundCredit,
+          textAlign: TextAlign.center,
+          style: textTheme.bodyMedium,
+        ),
+        const SizedBox(height: 6),
+        SelectableText(
+          l10n.soundCreditUrl,
+          textAlign: TextAlign.center,
+          style: textTheme.bodyMedium?.copyWith(color: AppColors.accent),
+        ),
       ],
     );
   }

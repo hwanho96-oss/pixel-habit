@@ -300,4 +300,67 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get todoSaveFailed => 'Failed to save the to-do. Please try again.';
+
+  @override
+  String get tabHome => 'Home';
+
+  @override
+  String get tabAvatar => 'Avatar';
+
+  @override
+  String get tabRecords => 'Log';
+
+  @override
+  String get tabSettings => 'Settings';
+
+  @override
+  String get segmentTodo => 'To-do';
+
+  @override
+  String traineeLabel(int level) {
+    return 'Lv.$level Trainee';
+  }
+
+  @override
+  String get emptyRoutineInvite =>
+      'Want to pick a first routine to grow together?';
+
+  @override
+  String get starterWater => 'Drink water';
+
+  @override
+  String get starterStretch => 'Stretch for 5 min';
+
+  @override
+  String get starterRead => 'Read for 10 min';
+
+  @override
+  String get starterSleep => 'Sleep early';
+
+  @override
+  String get emptyTodoGentle =>
+      'Today is a quiet day. Tap + when a to-do comes up.';
+
+  @override
+  String get allQuestsDone =>
+      'All quests for today are done! Rest well, adventurer';
+
+  @override
+  String get restedYesterday =>
+      'Yesterday was a rest day. Want to try just one today?';
+
+  @override
+  String get recordsPlaceholder => 'A calendar will land here next.';
+
+  @override
+  String get sectionTodoTime => 'Time';
+
+  @override
+  String get pickTodoTime => 'Pick a time';
+
+  @override
+  String get soundCredit => 'Coin sound - Kenney (CC0)';
+
+  @override
+  String get soundCreditUrl => 'https://kenney.nl/assets/rpg-audio';
 }

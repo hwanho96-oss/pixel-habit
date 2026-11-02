@@ -7,6 +7,7 @@ import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/l10n/habit_stat_l10n.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_icon.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_chip.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_save_button.dart';
@@ -231,7 +232,11 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                       IconButton(
                         tooltip: l10n.cancel,
                         onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(Icons.close, color: AppColors.text),
+                        icon: const PixelIcon(
+                          asset: PixelIcons.close,
+                          size: 24,
+                          color: AppColors.text,
+                        ),
                       ),
                     ],
                   ),

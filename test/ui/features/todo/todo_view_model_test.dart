@@ -35,6 +35,16 @@ void main() {
       await viewModel.load();
     });
 
+    test('시간은 선택이며 시와 분이 같이 있을 때만 저장한다', () async {
+      await viewModel.addTodo(title: '기상', timeHour: 7, timeMinute: 5);
+      expect(viewModel.todos.single.hasTime, isTrue);
+      expect(viewModel.todos.single.timeHour, 7);
+      expect(viewModel.todos.single.timeMinute, 5);
+
+      await viewModel.addTodo(title: '깨진 시간', timeHour: 99, timeMinute: 0);
+      expect(viewModel.todos.last.hasTime, isFalse);
+    });
+
     test('이름이 없으면 추가하지 않는다', () async {
       final saved = await viewModel.addTodo(title: '   ');
 

@@ -6,7 +6,10 @@ import 'package:pixel_habit/data/repositories/routine_repository.dart';
 import 'package:pixel_habit/data/repositories/todo_repository.dart';
 import 'package:pixel_habit/data/services/local_storage_service.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
+import 'package:pixel_habit/ui/core/sound/coin_sound.dart';
 import 'package:pixel_habit/ui/core/theme/app_theme.dart';
+import 'package:pixel_habit/ui/core/theme/home_assets.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_icon.dart';
 import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/web_phone_frame.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
@@ -45,6 +48,8 @@ class _PixelHabitAppState extends State<PixelHabitApp> {
     }
     _spritesWarmed = true;
     RpgUiAssets.warmUp(context);
+    HomeAssets.warmUp(context);
+    PixelIcons.warmUp(context);
   }
 
   @override
@@ -72,6 +77,12 @@ class _PixelHabitAppState extends State<PixelHabitApp> {
             repository: context.read<TodoRepository>(),
             rewards: context.read<RoutineViewModel>(),
           )..load(),
+        ),
+        Provider(
+          create: (_) => CoinSound(),
+          dispose: (_, sound) {
+            sound.dispose();
+          },
         ),
       ],
       child: MaterialApp.router(

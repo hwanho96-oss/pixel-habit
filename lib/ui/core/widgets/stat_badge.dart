@@ -3,6 +3,7 @@ import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/l10n/habit_stat_l10n.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_icon.dart';
 
 /// 힘·지능·지혜를 작은 색 배지로 보여 준다.
 class StatBadge extends StatelessWidget {
@@ -30,11 +31,18 @@ class StatBadge extends StatelessWidget {
         border: Border.all(color: color),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        child: Text(
-          l10n.habitStatLabel(stat),
-          style: Theme.of(context).textTheme.labelSmall
-              ?.copyWith(color: color, fontWeight: FontWeight.w600),
+        padding: const EdgeInsets.fromLTRB(4, 2, 8, 2),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            PixelIcon(asset: PixelIcons.stat(stat), size: 16, color: color),
+            const SizedBox(width: 4),
+            Text(
+              l10n.habitStatLabel(stat),
+              style: Theme.of(context).textTheme.labelSmall
+                  ?.copyWith(color: color, fontWeight: FontWeight.w600),
+            ),
+          ],
         ),
       ),
     );

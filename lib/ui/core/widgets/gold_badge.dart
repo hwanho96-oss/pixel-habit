@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
-import 'package:pixel_habit/ui/core/theme/app_colors.dart';
 import 'package:pixel_habit/ui/core/theme/app_theme.dart';
 import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_coin.dart';
@@ -23,6 +22,7 @@ class _GoldBadgeState extends State<GoldBadge>
   late final CurvedAnimation _fadeCurve;
   late final Animation<double> _scale;
   late final Animation<double> _gainOpacity;
+  late final Animation<Offset> _gainRise;
   int? _gain;
 
   @override
@@ -42,6 +42,10 @@ class _GoldBadgeState extends State<GoldBadge>
       TweenSequenceItem(tween: Tween<double>(begin: 1.08, end: 1), weight: 65),
     ]).animate(_scaleCurve);
     _gainOpacity = Tween<double>(begin: 1, end: 0).animate(_fadeCurve);
+    _gainRise = Tween<Offset>(
+      begin: const Offset(0, 0.2),
+      end: const Offset(0, -1.15),
+    ).animate(_scaleCurve);
     _pulse.addStatusListener((status) {
       if (status == AnimationStatus.completed && mounted && _gain != null) {
         setState(() => _gain = null);
@@ -83,11 +87,14 @@ class _GoldBadgeState extends State<GoldBadge>
         mainAxisSize: MainAxisSize.min,
         children: [
           if (_gain != null)
-            FadeTransition(
-              opacity: _gainOpacity,
-              child: Text(
-                l10n.goldGain(_gain!),
-                style: AppTheme.pixel(fontSize: 16, color: AppColors.accent),
+            SlideTransition(
+              position: _gainRise,
+              child: FadeTransition(
+                opacity: _gainOpacity,
+                child: Text(
+                  l10n.goldGain(_gain!),
+                  style: AppTheme.pixel(fontSize: 16),
+                ),
               ),
             ),
           PixelNineSlice(
@@ -99,7 +106,7 @@ class _GoldBadgeState extends State<GoldBadge>
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const PixelCoin(),
+                  const PixelCoin(size: 20),
                   const SizedBox(width: 4),
                   Text(l10n.goldAmount(widget.amount), style: amountStyle),
                 ],

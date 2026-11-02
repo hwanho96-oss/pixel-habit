@@ -192,16 +192,14 @@ abstract final class AppTheme {
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: AppColors.textOnDark,
-        indicatorColor: AppColors.accent.withValues(alpha: 0.16),
-        surfaceTintColor: AppColors.textOnDark,
-        height: 64,
+        backgroundColor: AppColors.panel,
+        indicatorColor: AppColors.gold.withValues(alpha: 0.18),
+        surfaceTintColor: AppColors.panel,
+        height: 72,
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return IconThemeData(
-            color: selected
-                ? AppColors.accent
-                : AppColors.text.withValues(alpha: 0.45),
+            color: selected ? AppColors.gold : AppColors.panelMuted,
             size: 24,
           );
         }),
@@ -211,9 +209,7 @@ abstract final class AppTheme {
             fontSize: 11,
             height: 1.2,
             fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-            color: selected
-                ? AppColors.accent
-                : AppColors.text.withValues(alpha: 0.62),
+            color: selected ? AppColors.gold : AppColors.panelMuted,
           );
         }),
       ),

@@ -3,6 +3,7 @@ import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/l10n/habit_stat_l10n.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_icon.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_chip.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_save_button.dart';
 import 'package:pixel_habit/ui/core/widgets/soft_card.dart';
@@ -21,6 +22,7 @@ class AddTodoSheet extends StatefulWidget {
 class _AddTodoSheetState extends State<AddTodoSheet> {
   final _titleController = TextEditingController();
   DateTime? _date;
+  TimeOfDay? _time;
   HabitStat? _stat;
   bool _saving = false;
 
@@ -43,6 +45,17 @@ class _AddTodoSheetState extends State<AddTodoSheet> {
     return DateTime(now.year, now.month, now.day);
   }
 
+  Future<void> _pickTime() async {
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: _time ?? TimeOfDay.now(),
+    );
+    if (picked == null || !mounted) {
+      return;
+    }
+    setState(() => _time = picked);
+  }
+
   Future<void> _submit() async {
     if (!_canSave) {
       return;
@@ -53,6 +66,8 @@ class _AddTodoSheetState extends State<AddTodoSheet> {
     final saved = await widget.viewModel.addTodo(
       title: _titleController.text,
       date: _date,
+      timeHour: _time?.hour,
+      timeMinute: _time?.minute,
       stat: _stat,
     );
 
@@ -77,6 +92,10 @@ class _AddTodoSheetState extends State<AddTodoSheet> {
     final today = _today();
     final tomorrow = today.add(const Duration(days: 1));
     final maxHeight = MediaQuery.sizeOf(context).height * 0.92;
+    final timeLabel = _time == null
+        ? l10n.pickTodoTime
+        : MaterialLocalizations.of(context)
+              .formatTimeOfDay(_time!, alwaysUse24HourFormat: false);
 
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
@@ -102,7 +121,11 @@ class _AddTodoSheetState extends State<AddTodoSheet> {
                       IconButton(
                         tooltip: l10n.cancel,
                         onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(Icons.close, color: AppColors.text),
+                        icon: const PixelIcon(
+                          asset: PixelIcons.close,
+                          size: 24,
+                          color: AppColors.text,
+                        ),
                       ),
                     ],
                   ),
@@ -152,6 +175,27 @@ class _AddTodoSheetState extends State<AddTodoSheet> {
                                   selected: _date == tomorrow,
                                   onSelected: (_) =>
                                       setState(() => _date = tomorrow),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          _SectionFrame(
+                            title: l10n.sectionTodoTime,
+                            child: Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: [
+                                PixelChip(
+                                  label: l10n.choiceNone,
+                                  selected: _time == null,
+                                  onSelected: (_) =>
+                                      setState(() => _time = null),
+                                ),
+                                PixelChip(
+                                  label: timeLabel,
+                                  selected: _time != null,
+                                  onSelected: (_) => _pickTime(),
                                 ),
                               ],
                             ),

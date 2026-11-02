@@ -6,11 +6,8 @@ import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.d
 import 'package:uuid/uuid.dart';
 
 class TodoViewModel extends ChangeNotifier {
-  TodoViewModel({
-    required this._repository,
-    required this._rewards,
-    Uuid? uuid,
-  }) : _uuid = uuid ?? const Uuid();
+  TodoViewModel({required this._repository, required this._rewards, Uuid? uuid})
+    : _uuid = uuid ?? const Uuid();
 
   final TodoRepository _repository;
   final RoutineViewModel _rewards;
@@ -56,6 +53,8 @@ class TodoViewModel extends ChangeNotifier {
   Future<bool> addTodo({
     required String title,
     DateTime? date,
+    int? timeHour,
+    int? timeMinute,
     HabitStat? stat,
   }) async {
     final trimmed = title.trim();
@@ -63,11 +62,20 @@ class TodoViewModel extends ChangeNotifier {
       return false;
     }
 
+    final hasTime =
+        timeHour != null &&
+        timeMinute != null &&
+        timeHour >= 0 &&
+        timeHour <= 23 &&
+        timeMinute >= 0 &&
+        timeMinute <= 59;
     final todo = Todo(
       id: _uuid.v4(),
       title: trimmed,
       createdAt: DateTime.now(),
       date: Todo.dateOnly(date),
+      timeHour: hasTime ? timeHour : null,
+      timeMinute: hasTime ? timeMinute : null,
       stat: stat,
     );
 

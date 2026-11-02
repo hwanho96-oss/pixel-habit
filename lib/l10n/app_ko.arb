@@ -168,5 +168,31 @@
       }
     }
   },
-  "todoSaveFailed": "할 일 저장에 실패했습니다. 다시 시도해 주세요."
+  "todoSaveFailed": "할 일 저장에 실패했습니다. 다시 시도해 주세요.",
+  "tabHome": "홈",
+  "tabAvatar": "아바타",
+  "tabRecords": "기록",
+  "tabSettings": "설정",
+  "segmentTodo": "투두",
+  "traineeLabel": "Lv.{level} 훈련생",
+  "@traineeLabel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
+  "emptyRoutineInvite": "함께 키워갈 첫 루틴을 골라볼까?",
+  "starterWater": "물 마시기",
+  "starterStretch": "스트레칭 5분",
+  "starterRead": "10분 독서",
+  "starterSleep": "일찍 자기",
+  "emptyTodoGentle": "오늘은 여유로운 하루네. 할 일이 생기면 + 를 눌러줘",
+  "allQuestsDone": "오늘 퀘스트 완료! 푹 쉬어, 모험가",
+  "restedYesterday": "어제는 쉬어갔구나. 오늘은 하나만 해볼까?",
+  "recordsPlaceholder": "캘린더는 다음에 이 자리에 들어올 거야.",
+  "sectionTodoTime": "시간",
+  "pickTodoTime": "시간 선택",
+  "soundCredit": "동전 효과음 - Kenney (CC0)",
+  "soundCreditUrl": "https://kenney.nl/assets/rpg-audio"
 }

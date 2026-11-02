@@ -643,6 +643,120 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'할 일 저장에 실패했습니다. 다시 시도해 주세요.'**
   String get todoSaveFailed;
+
+  /// No description provided for @tabHome.
+  ///
+  /// In ko, this message translates to:
+  /// **'홈'**
+  String get tabHome;
+
+  /// No description provided for @tabAvatar.
+  ///
+  /// In ko, this message translates to:
+  /// **'아바타'**
+  String get tabAvatar;
+
+  /// No description provided for @tabRecords.
+  ///
+  /// In ko, this message translates to:
+  /// **'기록'**
+  String get tabRecords;
+
+  /// No description provided for @tabSettings.
+  ///
+  /// In ko, this message translates to:
+  /// **'설정'**
+  String get tabSettings;
+
+  /// No description provided for @segmentTodo.
+  ///
+  /// In ko, this message translates to:
+  /// **'투두'**
+  String get segmentTodo;
+
+  /// No description provided for @traineeLabel.
+  ///
+  /// In ko, this message translates to:
+  /// **'Lv.{level} 훈련생'**
+  String traineeLabel(int level);
+
+  /// No description provided for @emptyRoutineInvite.
+  ///
+  /// In ko, this message translates to:
+  /// **'함께 키워갈 첫 루틴을 골라볼까?'**
+  String get emptyRoutineInvite;
+
+  /// No description provided for @starterWater.
+  ///
+  /// In ko, this message translates to:
+  /// **'물 마시기'**
+  String get starterWater;
+
+  /// No description provided for @starterStretch.
+  ///
+  /// In ko, this message translates to:
+  /// **'스트레칭 5분'**
+  String get starterStretch;
+
+  /// No description provided for @starterRead.
+  ///
+  /// In ko, this message translates to:
+  /// **'10분 독서'**
+  String get starterRead;
+
+  /// No description provided for @starterSleep.
+  ///
+  /// In ko, this message translates to:
+  /// **'일찍 자기'**
+  String get starterSleep;
+
+  /// No description provided for @emptyTodoGentle.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘은 여유로운 하루네. 할 일이 생기면 + 를 눌러줘'**
+  String get emptyTodoGentle;
+
+  /// No description provided for @allQuestsDone.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘 퀘스트 완료! 푹 쉬어, 모험가'**
+  String get allQuestsDone;
+
+  /// No description provided for @restedYesterday.
+  ///
+  /// In ko, this message translates to:
+  /// **'어제는 쉬어갔구나. 오늘은 하나만 해볼까?'**
+  String get restedYesterday;
+
+  /// No description provided for @recordsPlaceholder.
+  ///
+  /// In ko, this message translates to:
+  /// **'캘린더는 다음에 이 자리에 들어올 거야.'**
+  String get recordsPlaceholder;
+
+  /// No description provided for @sectionTodoTime.
+  ///
+  /// In ko, this message translates to:
+  /// **'시간'**
+  String get sectionTodoTime;
+
+  /// No description provided for @pickTodoTime.
+  ///
+  /// In ko, this message translates to:
+  /// **'시간 선택'**
+  String get pickTodoTime;
+
+  /// No description provided for @soundCredit.
+  ///
+  /// In ko, this message translates to:
+  /// **'동전 효과음 - Kenney (CC0)'**
+  String get soundCredit;
+
+  /// No description provided for @soundCreditUrl.
+  ///
+  /// In ko, this message translates to:
+  /// **'https://kenney.nl/assets/rpg-audio'**
+  String get soundCreditUrl;
 }
 
 class _AppLocalizationsDelegate
