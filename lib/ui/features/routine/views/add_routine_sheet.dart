@@ -5,14 +5,11 @@ import 'package:pixel_habit/domain/data/routine_tags.dart';
 import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
-import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_chip.dart';
-import 'package:pixel_habit/ui/core/widgets/pixel_frame.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_save_button.dart';
-import 'package:pixel_habit/ui/core/widgets/pixel_sprite_button.dart';
-import 'package:pixel_habit/ui/core/widgets/pixel_title_banner.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_weekday_button.dart';
+import 'package:pixel_habit/ui/core/widgets/soft_card.dart';
 import 'package:pixel_habit/ui/features/routine/l10n/routine_form_l10n.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:uuid/uuid.dart';
@@ -114,15 +111,17 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
     return Theme(
       data: base.copyWith(
         colorScheme: base.colorScheme.copyWith(
-          primary: AppColors.gold,
-          onPrimary: AppColors.ink,
-          surface: AppColors.parchment,
-          onSurface: AppColors.ink,
-          secondary: AppColors.antiqueGold,
+          primary: AppColors.accent,
+          onPrimary: AppColors.textOnDark,
+          surface: AppColors.textOnDark,
+          onSurface: AppColors.text,
+          secondary: AppColors.gold,
         ),
         dialogTheme: const DialogThemeData(
-          backgroundColor: AppColors.parchment,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          backgroundColor: AppColors.textOnDark,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
         ),
       ),
       child: child ?? const SizedBox.shrink(),
@@ -209,40 +208,27 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
         alignment: Alignment.bottomCenter,
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: maxHeight),
-          child: PixelFrame(
-            style: PixelPanelStyle.warm,
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 10),
-            child: SafeArea(
-              top: false,
+          child: SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: PixelTitleBanner(
-                              title: l10n.addRoutineTitle,
-                              slice: RpgUiAssets.bannerLight,
-                              height: 40,
-                              textStyle: textTheme.titleLarge?.copyWith(
-                                color: AppColors.ink,
-                                fontSize: 16,
-                                height: 1,
-                              ),
-                            ),
-                          ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          l10n.addRoutineTitle,
+                          style: textTheme.titleLarge,
                         ),
-                        IconButton(
-                          tooltip: l10n.cancel,
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: const Icon(Icons.close, color: AppColors.ink),
-                        ),
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                        tooltip: l10n.cancel,
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: const Icon(Icons.close, color: AppColors.text),
+                      ),
+                    ],
                   ),
                   Flexible(
                     child: SingleChildScrollView(
@@ -330,19 +316,9 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                       ),
                                     ),
                                     const SizedBox(width: 8),
-                                    PixelSpriteButton(
-                                      height: 48,
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                      ),
+                                    TextButton(
                                       onPressed: _addChecklistItem,
-                                      child: Text(
-                                        l10n.addChecklistItem,
-                                        style: textTheme.bodyMedium?.copyWith(
-                                          color: AppColors.cream,
-                                          height: 1,
-                                        ),
-                                      ),
+                                      child: Text(l10n.addChecklistItem),
                                     ),
                                   ],
                                 ),
@@ -380,9 +356,11 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                             tooltip: l10n.deleteChecklistItem,
                                             onPressed: () =>
                                                 _removeChecklistItem(i),
-                                            icon: const Icon(
-                                              Icons.close,
-                                              color: AppColors.waxSeal,
+                                            icon: Icon(
+                                              Icons.remove_circle_outline,
+                                              color: AppColors.text.withValues(
+                                                alpha: 0.45,
+                                              ),
                                               size: 20,
                                             ),
                                           ),
@@ -408,19 +386,22 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                   spacing: 8,
                                   runSpacing: 8,
                                   children: [
-                                    _ActionChipButton(
+                                    PixelChip(
                                       label: l10n.pickStartDate,
-                                      onTap: _pickDate,
+                                      selected: false,
+                                      onSelected: (_) => _pickDate(),
                                     ),
-                                    _ActionChipButton(
+                                    PixelChip(
                                       label: l10n.pickReminderTime,
-                                      onTap: _pickTime,
+                                      selected: false,
+                                      onSelected: (_) => _pickTime(),
                                     ),
                                     if (_startDate != null ||
                                         _reminderTime != null)
-                                      _ActionChipButton(
+                                      PixelChip(
                                         label: l10n.clearDateTime,
-                                        onTap: _clearDateTime,
+                                        selected: false,
+                                        onSelected: (_) => _clearDateTime(),
                                       ),
                                   ],
                                 ),
@@ -447,10 +428,7 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                 const SizedBox(height: 8),
                                 Text(
                                   l10n.repeatEverydayHint,
-                                  style: textTheme.labelSmall?.copyWith(
-                                    color: AppColors.ink,
-                                    letterSpacing: 0.4,
-                                  ),
+                                  style: textTheme.labelSmall,
                                 ),
                               ],
                             ),
@@ -479,15 +457,15 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 16),
-                          PixelSaveButton(
-                            label: l10n.save,
-                            enabled: _canSave,
-                            onPressed: _canSave ? _submit : null,
-                          ),
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(height: 12),
+                  PixelSaveButton(
+                    label: l10n.save,
+                    enabled: _canSave,
+                    onPressed: _canSave ? _submit : null,
                   ),
                 ],
               ),
@@ -509,49 +487,14 @@ class _SectionFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return PixelFrame(
+    return SoftCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          PixelTitleBanner(
-            title: title,
-            slice: RpgUiAssets.bannerDark,
-            expandWidth: true,
-            height: 34,
-            textStyle: textTheme.bodyMedium?.copyWith(
-              color: AppColors.cream,
-              fontSize: 14,
-              height: 1,
-            ),
-          ),
+          Text(title, style: textTheme.titleMedium),
           const SizedBox(height: 10),
           child,
         ],
-      ),
-    );
-  }
-}
-
-class _ActionChipButton extends StatelessWidget {
-  const _ActionChipButton({required this.label, required this.onTap});
-
-  final String label;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return PixelSpriteButton(
-      onPressed: onTap,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      child: Text(
-        label,
-        style: textTheme.bodyMedium?.copyWith(
-          color: AppColors.cream,
-          fontSize: 14,
-          height: 1,
-        ),
       ),
     );
   }

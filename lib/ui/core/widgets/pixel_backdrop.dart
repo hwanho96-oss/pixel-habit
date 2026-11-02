@@ -8,15 +8,6 @@ class PixelBackdrop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [AppColors.night, AppColors.dungeon, AppColors.night],
-        ),
-      ),
-      child: child,
-    );
+    return ColoredBox(color: AppColors.background, child: child);
   }
 }

@@ -42,20 +42,17 @@ class _PixelCoinPainter extends CustomPainter {
           continue;
         }
         paint.color = color;
-        canvas.drawRect(
-          Rect.fromLTWH(x * unit, y * unit, unit, unit),
-          paint,
-        );
+        canvas.drawRect(Rect.fromLTWH(x * unit, y * unit, unit, unit), paint);
       }
     }
   }
 
   Color? _colorFor(String pixel) {
     return switch (pixel) {
-      '#' => AppColors.outline,
+      '#' => AppColors.dark,
       'o' => AppColors.gold,
-      's' => AppColors.goldHighlight,
-      'a' => AppColors.antiqueGold,
+      's' => AppColors.textOnDark,
+      'a' => AppColors.text,
       _ => null,
     };
   }

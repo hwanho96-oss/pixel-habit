@@ -5,7 +5,7 @@
 ## 현재 구현
 
 - 하단 5개 탭: 루틴, To do, 캘린더, 캐릭터, 종합
-- **루틴 탭**: 퀘스트형 루틴 목록, 오늘 완료 체크, XP/레벨, 추가·삭제
+- **루틴 탭**: 오늘 할 일 목록, 완료 체크, XP/레벨, 골드, 추가·삭제. 긴 글은 Pretendard, 레벨·골드·숫자는 Galmuri.
 - 나머지 탭은 이후 해금 예정인 플레이스홀더입니다.
 
 ## 실행
@@ -32,4 +32,6 @@ flutter run -d chrome
 
 ## 크레딧
 
-버튼, 패널, 배너, 체크박스, 경험치 바 스프라이트와 영문·숫자용 픽셀 폰트는 Franuka의 [RPG UI pack (demo)](https://franuka.itch.io/rpg-ui-pack-demo)를 편집해 사용합니다. 상업적 사용과 편집은 허용되며, 팩을 그대로 다시 배포할 수는 없습니다. 라이선스 원문은 `assets/rpg_ui/LICENSE.txt`에 있습니다. 앱 안에서는 종합 탭에서도 같은 크레딧을 볼 수 있습니다.
+체크박스, 골드 배지, 등록 버튼에 쓰는 픽셀 그림은 Franuka의 [RPG UI pack (demo)](https://franuka.itch.io/rpg-ui-pack-demo)를 편집해 사용합니다. 상업적 사용과 편집은 허용되며, 팩을 그대로 다시 배포할 수는 없습니다. 라이선스 원문은 `assets/rpg_ui/LICENSE.txt`에 있습니다. 앱 안에서는 종합 탭에서도 같은 크레딧을 볼 수 있습니다.
+
+본문 글자는 [Pretendard](https://github.com/orioncactus/pretendard) (SIL Open Font License 1.1), 레벨·골드·숫자 같은 짧은 글자는 [Galmuri](https://github.com/quiple/galmuri) (SIL Open Font License 1.1)를 씁니다. 라이선스 원문은 `assets/fonts/pretendard/OFL.txt`, `assets/fonts/galmuri/OFL.txt`에 있습니다.

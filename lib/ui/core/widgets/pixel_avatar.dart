@@ -3,11 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
 
 class PixelAvatar extends StatelessWidget {
-  const PixelAvatar({
-    super.key,
-    required this.seed,
-    this.size = 44,
-  });
+  const PixelAvatar({super.key, required this.seed, this.size = 44});
 
   final int seed;
   final double size;
@@ -19,12 +15,10 @@ class PixelAvatar extends StatelessWidget {
       height: size,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: AppColors.dungeon,
-          border: Border.all(color: AppColors.outline, width: 3),
+          color: AppColors.dark,
+          border: Border.all(color: AppColors.border, width: 3),
         ),
-        child: CustomPaint(
-          painter: _PixelHeroPainter(seed: seed),
-        ),
+        child: CustomPaint(painter: _PixelHeroPainter(seed: seed)),
       ),
     );
   }
@@ -36,11 +30,11 @@ class _PixelHeroPainter extends CustomPainter {
   final int seed;
 
   static const _palettes = [
-    [AppColors.sky, AppColors.gold, AppColors.moss],
-    [AppColors.ruby, AppColors.parchment, AppColors.gold],
-    [AppColors.moss, AppColors.sky, AppColors.parchment],
-    [AppColors.gold, AppColors.ruby, AppColors.sky],
-    [AppColors.parchmentDark, AppColors.moss, AppColors.ruby],
+    [AppColors.statIntelligence, AppColors.gold, AppColors.statWisdom],
+    [AppColors.statStrength, AppColors.textOnDark, AppColors.gold],
+    [AppColors.statWisdom, AppColors.accent, AppColors.textOnDark],
+    [AppColors.gold, AppColors.accent, AppColors.statIntelligence],
+    [AppColors.border, AppColors.statWisdom, AppColors.statStrength],
   ];
 
   @override
@@ -53,10 +47,7 @@ class _PixelHeroPainter extends CustomPainter {
 
     void pixel(int x, int y, Color color) {
       paint.color = color;
-      canvas.drawRect(
-        Rect.fromLTWH(x * cell, y * cell, cell, cell),
-        paint,
-      );
+      canvas.drawRect(Rect.fromLTWH(x * cell, y * cell, cell, cell), paint);
     }
 
     // Helmet
@@ -73,8 +64,8 @@ class _PixelHeroPainter extends CustomPainter {
     pixel(2, 3, palette[0]);
     pixel(5, 3, palette[0]);
     // Eyes
-    pixel(3, 2, AppColors.ink);
-    pixel(4, 2, AppColors.ink);
+    pixel(3, 2, AppColors.text);
+    pixel(4, 2, AppColors.text);
     // Body
     for (var x = 2; x <= 5; x++) {
       pixel(x, 4, palette[2]);

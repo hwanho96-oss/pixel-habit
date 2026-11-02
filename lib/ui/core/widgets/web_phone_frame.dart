@@ -13,7 +13,7 @@ class WebPhoneFrame extends StatelessWidget {
   /// Logical width close to a typical phone.
   static const double phoneWidth = 400;
 
-  static const Color backdrop = Color(0xFF07040C);
+  static const Color backdrop = AppColors.dark;
 
   static bool shouldConstrain({
     required bool isWeb,
@@ -43,15 +43,15 @@ class WebPhoneFrame extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.symmetric(
                   vertical: BorderSide(
-                    color: AppColors.antiqueGold.withValues(alpha: 0.55),
+                    color: AppColors.gold.withValues(alpha: 0.7),
                     width: 2,
                   ),
                 ),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Color(0x99000000),
+                    color: AppColors.dark.withValues(alpha: 0.35),
                     blurRadius: 36,
-                    offset: Offset(0, 12),
+                    offset: const Offset(0, 12),
                   ),
                 ],
               ),
@@ -59,9 +59,7 @@ class WebPhoneFrame extends StatelessWidget {
                 width: phoneWidth,
                 height: framedHeight,
                 child: MediaQuery(
-                  data: media.copyWith(
-                    size: Size(phoneWidth, framedHeight),
-                  ),
+                  data: media.copyWith(size: Size(phoneWidth, framedHeight)),
                   child: child,
                 ),
               ),

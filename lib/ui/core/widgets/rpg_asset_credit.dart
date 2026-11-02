@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
-import 'package:pixel_habit/ui/core/theme/app_theme.dart';
 
 /// 종합 탭에 두는 Franuka 팩 크레딧.
 class RpgAssetCredit extends StatelessWidget {
@@ -17,13 +16,13 @@ class RpgAssetCredit extends StatelessWidget {
         Text(
           l10n.assetCredit,
           textAlign: TextAlign.center,
-          style: textTheme.bodyMedium?.copyWith(fontSize: 14),
+          style: textTheme.bodyMedium,
         ),
         const SizedBox(height: 6),
         SelectableText(
           l10n.assetCreditUrl,
           textAlign: TextAlign.center,
-          style: AppTheme.pixelLatin(color: AppColors.antiqueGold),
+          style: textTheme.bodyMedium?.copyWith(color: AppColors.accent),
         ),
       ],
     );

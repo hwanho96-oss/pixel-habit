@@ -1,188 +1,229 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
 
 abstract final class AppTheme {
-  static const pixelFontFamily = 'FantasyRPG';
+  static const bodyFontFamily = 'Pretendard';
+  static const pixelFontFamily = 'Galmuri';
 
-  /// 숫자와 영문 전용. 글자 크기는 8의 배수로 둔다.
-  static TextStyle pixelLatin({
-    double fontSize = 16,
-    Color color = AppColors.ink,
-  }) {
+  /// Galmuri는 이 정수 크기에서만 쓴다. 본문에는 쓰지 않는다.
+  static const pixelSizes = <double>[16, 24, 32];
+
+  static TextStyle pixel({double fontSize = 16, Color color = AppColors.text}) {
+    assert(
+      pixelSizes.contains(fontSize),
+      'Galmuri fontSize must be 16, 24, or 32.',
+    );
     return TextStyle(
       fontFamily: pixelFontFamily,
       fontSize: fontSize,
-      height: 1,
+      height: 1.15,
       color: color,
     );
   }
 
-  static ThemeData dark() {
-    final koreanTitle = GoogleFonts.jua(
-      color: AppColors.gold,
+  static ThemeData light() {
+    const body = TextStyle(
+      fontFamily: bodyFontFamily,
+      fontWeight: FontWeight.w400,
+      color: AppColors.text,
+      fontSize: 16,
+      height: 1.45,
+    );
+    final title = body.copyWith(
+      fontWeight: FontWeight.w600,
       fontSize: 22,
       height: 1.3,
     );
-    final body = GoogleFonts.jua(color: AppColors.ink, fontSize: 18);
-    final pixel = pixelLatin();
-
-    const squareBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.zero,
-      borderSide: BorderSide(color: AppColors.outline, width: 2),
+    const radius = BorderRadius.all(Radius.circular(12));
+    const border = OutlineInputBorder(
+      borderRadius: radius,
+      borderSide: BorderSide(color: AppColors.border),
     );
 
     return ThemeData(
       useMaterial3: true,
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: AppColors.night,
-      colorScheme: const ColorScheme.dark(
-        primary: AppColors.gold,
-        secondary: AppColors.arcane,
-        surface: AppColors.dungeon,
-        onPrimary: AppColors.ink,
-        onSurface: AppColors.parchment,
-        error: AppColors.ruby,
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: AppColors.background,
+      colorScheme: const ColorScheme.light(
+        primary: AppColors.accent,
+        onPrimary: AppColors.textOnDark,
+        secondary: AppColors.gold,
+        onSecondary: AppColors.text,
+        surface: AppColors.textOnDark,
+        onSurface: AppColors.text,
+        error: AppColors.statStrength,
+        onError: AppColors.textOnDark,
       ),
       textTheme: TextTheme(
-        titleLarge: koreanTitle,
-        titleMedium: pixel.copyWith(color: AppColors.gold),
+        titleLarge: title,
+        titleMedium: title.copyWith(fontSize: 16),
         bodyLarge: body,
-        bodyMedium: body.copyWith(fontSize: 16),
-        labelSmall: body.copyWith(fontSize: 12, height: 1.2),
-      ),
-      appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.dungeon,
-        foregroundColor: AppColors.gold,
-        elevation: 0,
-        titleTextStyle: koreanTitle,
-        shape: const Border(
-          bottom: BorderSide(color: AppColors.antiqueGold, width: 2),
+        bodyMedium: body.copyWith(fontSize: 15),
+        labelSmall: body.copyWith(
+          fontSize: 13,
+          height: 1.35,
+          color: AppColors.text.withValues(alpha: 0.68),
         ),
       ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: AppColors.background,
+        foregroundColor: AppColors.text,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        titleTextStyle: title,
+      ),
       dialogTheme: DialogThemeData(
-        backgroundColor: AppColors.parchment,
-        titleTextStyle: koreanTitle.copyWith(color: AppColors.ink),
+        backgroundColor: AppColors.textOnDark,
+        titleTextStyle: title.copyWith(fontSize: 18),
         contentTextStyle: body,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.parchmentDark,
+        fillColor: AppColors.textOnDark,
         hintStyle: body.copyWith(
-          color: AppColors.ink.withValues(alpha: 0.45),
+          color: AppColors.text.withValues(alpha: 0.42),
           fontSize: 16,
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 12,
+          horizontal: 14,
+          vertical: 14,
         ),
-        border: squareBorder,
-        enabledBorder: squareBorder,
-        focusedBorder: squareBorder.copyWith(
-          borderSide: const BorderSide(color: AppColors.antiqueGold, width: 3),
+        border: border,
+        enabledBorder: border,
+        focusedBorder: border.copyWith(
+          borderSide: const BorderSide(color: AppColors.accent, width: 1.5),
         ),
-        errorBorder: squareBorder.copyWith(
-          borderSide: const BorderSide(color: AppColors.ruby, width: 2),
+        errorBorder: border.copyWith(
+          borderSide: const BorderSide(color: AppColors.statStrength),
         ),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: AppColors.parchmentDark,
-        selectedColor: AppColors.gold,
-        disabledColor: AppColors.parchmentFaded,
+        backgroundColor: AppColors.textOnDark,
+        selectedColor: AppColors.accent,
+        disabledColor: AppColors.border,
         labelStyle: body.copyWith(fontSize: 14),
-        secondaryLabelStyle: body.copyWith(fontSize: 14),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-          side: BorderSide(color: AppColors.outline, width: 2),
+        secondaryLabelStyle: body.copyWith(
+          fontSize: 14,
+          color: AppColors.textOnDark,
         ),
-        side: const BorderSide(color: AppColors.outline, width: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        shape: const StadiumBorder(side: BorderSide(color: AppColors.border)),
+        side: const BorderSide(color: AppColors.border),
       ),
       datePickerTheme: DatePickerThemeData(
-        backgroundColor: AppColors.parchment,
-        headerBackgroundColor: AppColors.dungeon,
-        headerForegroundColor: AppColors.gold,
-        weekdayStyle: body.copyWith(fontSize: 14, color: AppColors.ink),
-        dayStyle: pixel,
-        yearStyle: pixel,
+        backgroundColor: AppColors.textOnDark,
+        headerBackgroundColor: AppColors.accent,
+        headerForegroundColor: AppColors.textOnDark,
+        weekdayStyle: body.copyWith(fontSize: 13),
+        dayStyle: pixel(),
+        yearStyle: pixel(),
         dayForegroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.disabled)) {
-            return AppColors.ink.withValues(alpha: 0.35);
+            return AppColors.text.withValues(alpha: 0.32);
           }
-          return AppColors.ink;
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.textOnDark;
+          }
+          return AppColors.text;
         }),
         dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return AppColors.gold;
+            return AppColors.accent;
           }
           return Colors.transparent;
         }),
-        todayForegroundColor: const WidgetStatePropertyAll(
-          AppColors.antiqueGold,
-        ),
+        todayForegroundColor: const WidgetStatePropertyAll(AppColors.accent),
         todayBackgroundColor: const WidgetStatePropertyAll(Colors.transparent),
-        todayBorder: const BorderSide(color: AppColors.antiqueGold, width: 2),
-        yearForegroundColor: const WidgetStatePropertyAll(AppColors.ink),
+        todayBorder: const BorderSide(color: AppColors.accent),
+        yearForegroundColor: const WidgetStatePropertyAll(AppColors.text),
         yearBackgroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return AppColors.gold;
+            return AppColors.accent;
           }
           return Colors.transparent;
         }),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-        dividerColor: AppColors.antiqueGold,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        dividerColor: AppColors.border,
       ),
       timePickerTheme: TimePickerThemeData(
-        backgroundColor: AppColors.parchment,
-        hourMinuteColor: AppColors.parchmentDark,
-        hourMinuteTextColor: AppColors.ink,
-        dialHandColor: AppColors.gold,
-        dialBackgroundColor: AppColors.parchmentDark,
-        dialTextColor: AppColors.ink,
-        entryModeIconColor: AppColors.antiqueGold,
-        dayPeriodColor: AppColors.gold,
-        dayPeriodTextColor: AppColors.ink,
-        helpTextStyle: body.copyWith(color: AppColors.ink, fontSize: 14),
-        hourMinuteTextStyle: pixel.copyWith(fontSize: 32),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        backgroundColor: AppColors.textOnDark,
+        hourMinuteColor: AppColors.background,
+        hourMinuteTextColor: AppColors.text,
+        dialHandColor: AppColors.accent,
+        dialBackgroundColor: AppColors.background,
+        dialTextColor: AppColors.text,
+        entryModeIconColor: AppColors.accent,
+        dayPeriodColor: AppColors.accent,
+        dayPeriodTextColor: AppColors.text,
+        helpTextStyle: body.copyWith(fontSize: 14),
+        hourMinuteTextStyle: pixel(fontSize: 32),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: AppColors.antiqueGold,
-          textStyle: body.copyWith(fontSize: 16),
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          foregroundColor: AppColors.accent,
+          textStyle: body.copyWith(fontWeight: FontWeight.w600),
+          shape: const StadiumBorder(),
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.gold,
-          foregroundColor: AppColors.ink,
-          textStyle: body.copyWith(fontSize: 16),
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          backgroundColor: AppColors.accent,
+          foregroundColor: AppColors.textOnDark,
+          textStyle: body.copyWith(fontWeight: FontWeight.w600, fontSize: 16),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+        ),
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.accent,
+        foregroundColor: AppColors.textOnDark,
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(18)),
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: AppColors.dungeon,
-        indicatorColor: AppColors.gold.withValues(alpha: 0.28),
-        surfaceTintColor: AppColors.dungeon,
+        backgroundColor: AppColors.textOnDark,
+        indicatorColor: AppColors.accent.withValues(alpha: 0.16),
+        surfaceTintColor: AppColors.textOnDark,
+        height: 64,
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return IconThemeData(
-            color: selected ? AppColors.gold : AppColors.parchment,
+            color: selected
+                ? AppColors.accent
+                : AppColors.text.withValues(alpha: 0.45),
             size: 24,
           );
         }),
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
-          return koreanTitle.copyWith(
-            fontSize: 12,
-            color: selected ? AppColors.gold : AppColors.parchment,
+          return body.copyWith(
+            fontSize: 11,
+            height: 1.2,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+            color: selected
+                ? AppColors.accent
+                : AppColors.text.withValues(alpha: 0.62),
           );
         }),
       ),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: AppColors.arcane,
-        contentTextStyle: body.copyWith(color: AppColors.parchment),
+        backgroundColor: AppColors.dark,
+        contentTextStyle: body.copyWith(color: AppColors.textOnDark),
+        behavior: SnackBarBehavior.floating,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
       ),
     );
   }

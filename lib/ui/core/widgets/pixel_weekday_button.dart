@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
-import 'package:pixel_habit/ui/core/widgets/pixel_sprite_button.dart';
+import 'package:pixel_habit/ui/core/theme/app_theme.dart';
 
 class PixelWeekdayButton extends StatelessWidget {
   const PixelWeekdayButton({
@@ -16,21 +16,24 @@ class PixelWeekdayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return Expanded(
-      child: PixelSpriteButton(
-        expandWidth: true,
-        height: 40,
-        padding: EdgeInsets.zero,
-        selected: selected,
-        onPressed: () => onSelected(!selected),
-        child: Text(
-          label,
-          style: textTheme.bodyMedium?.copyWith(
-            color: AppColors.cream,
-            fontSize: 14,
-            height: 1,
+      child: Material(
+        color: selected ? AppColors.accent : AppColors.textOnDark,
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        child: InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          onTap: () => onSelected(!selected),
+          child: SizedBox(
+            height: 40,
+            child: Center(
+              child: Text(
+                label,
+                style: AppTheme.pixel(
+                  fontSize: 16,
+                  color: selected ? AppColors.textOnDark : AppColors.text,
+                ),
+              ),
+            ),
           ),
         ),
       ),
