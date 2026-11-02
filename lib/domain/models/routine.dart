@@ -1,3 +1,4 @@
+import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
 
 class Routine {
@@ -16,6 +17,7 @@ class Routine {
     this.reminderMinute,
     this.repeatWeekdays = const {},
     this.tags = const [],
+    this.stat,
   });
 
   final String id;
@@ -32,6 +34,7 @@ class Routine {
   final int? reminderMinute;
   final Set<int> repeatWeekdays;
   final List<String> tags;
+  final HabitStat? stat;
 
   Routine copyWith({
     String? title,
@@ -46,8 +49,10 @@ class Routine {
     int? reminderMinute,
     Set<int>? repeatWeekdays,
     List<String>? tags,
+    HabitStat? stat,
     bool clearStartDate = false,
     bool clearReminder = false,
+    bool clearStat = false,
   }) {
     return Routine(
       id: id,
@@ -61,10 +66,12 @@ class Routine {
       checklist: checklist ?? this.checklist,
       startDate: clearStartDate ? null : (startDate ?? this.startDate),
       reminderHour: clearReminder ? null : (reminderHour ?? this.reminderHour),
-      reminderMinute:
-          clearReminder ? null : (reminderMinute ?? this.reminderMinute),
+      reminderMinute: clearReminder
+          ? null
+          : (reminderMinute ?? this.reminderMinute),
       repeatWeekdays: repeatWeekdays ?? this.repeatWeekdays,
       tags: tags ?? this.tags,
+      stat: clearStat ? null : (stat ?? this.stat),
     );
   }
 
@@ -84,6 +91,7 @@ class Routine {
       'reminderMinute': reminderMinute,
       'repeatWeekdays': repeatWeekdays.toList()..sort(),
       'tags': tags,
+      'stat': stat?.name,
     };
   }
 
@@ -123,6 +131,7 @@ class Routine {
       tags: tagsRaw == null
           ? const []
           : tagsRaw.map((tag) => tag as String).toList(),
+      stat: HabitStat.tryParse(json['stat']),
     );
   }
 }

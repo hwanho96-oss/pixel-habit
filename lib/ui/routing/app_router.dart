@@ -5,6 +5,8 @@ import 'package:pixel_habit/ui/core/widgets/placeholder_tab.dart';
 import 'package:pixel_habit/ui/core/widgets/rpg_asset_credit.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:pixel_habit/ui/features/routine/views/routine_view.dart';
+import 'package:pixel_habit/ui/features/todo/view_models/todo_view_model.dart';
+import 'package:pixel_habit/ui/features/todo/views/todo_view.dart';
 import 'package:pixel_habit/ui/routing/app_shell.dart';
 import 'package:provider/provider.dart';
 
@@ -34,10 +36,7 @@ GoRouter createRouter() {
               GoRoute(
                 path: '/todo',
                 builder: (context, state) {
-                  return PlaceholderTab(
-                    title: 'To do',
-                    message: _sealed(context),
-                  );
+                  return TodoView(viewModel: context.read<TodoViewModel>());
                 },
               ),
             ],

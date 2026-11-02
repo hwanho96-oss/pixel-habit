@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/domain/models/player_progress.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
 import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
@@ -85,6 +86,18 @@ void main() {
       expect(routine.reminderMinute, 30);
       expect(routine.repeatWeekdays, {DateTime.monday, DateTime.wednesday});
       expect(routine.tags, ['life', 'health']);
+      expect(routine.stat, isNull);
+    });
+
+    test('addRoutine은 스탯 태그를 저장하고 없으면 null이다', () async {
+      await viewModel.load();
+      final saved = await viewModel.addRoutine(
+        title: '마법 공부',
+        stat: HabitStat.intelligence,
+      );
+
+      expect(saved, isTrue);
+      expect(viewModel.routines.last.stat, HabitStat.intelligence);
     });
 
     test('deleteRoutine은 목록에서 제거한다', () async {
