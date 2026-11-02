@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
-import 'package:pixel_habit/ui/core/widgets/pixel_pressable.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_sprite_button.dart';
 
 class PixelChip extends StatelessWidget {
   const PixelChip({
@@ -18,32 +18,16 @@ class PixelChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return PixelPressable(
-      onTap: () => onSelected(!selected),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: selected ? AppColors.gold : AppColors.parchmentDark,
-          border: Border.all(
-            color: selected ? AppColors.antiqueGold : AppColors.outline,
-            width: 3,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: (selected ? AppColors.gold : AppColors.outline)
-                  .withValues(alpha: 0.35),
-              offset: const Offset(2, 2),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Text(
-            label,
-            style: textTheme.bodyMedium?.copyWith(
-              color: AppColors.ink,
-              fontSize: 14,
-            ),
-          ),
+    return PixelSpriteButton(
+      selected: selected,
+      onPressed: () => onSelected(!selected),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      child: Text(
+        label,
+        style: textTheme.bodyMedium?.copyWith(
+          color: AppColors.cream,
+          fontSize: 14,
+          height: 1,
         ),
       ),
     );

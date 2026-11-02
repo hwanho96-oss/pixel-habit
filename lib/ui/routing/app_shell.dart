@@ -17,21 +17,16 @@ class AppShell extends StatelessWidget {
       bottomNavigationBar: DecoratedBox(
         decoration: const BoxDecoration(
           color: AppColors.dungeon,
-          border: Border(
-            top: BorderSide(color: AppColors.gold, width: 2),
-          ),
+          border: Border(top: BorderSide(color: AppColors.gold, width: 2)),
           boxShadow: [
-            BoxShadow(
-              color: AppColors.outline,
-              offset: Offset(0, -3),
-            ),
+            BoxShadow(color: AppColors.outline, offset: Offset(0, -3)),
           ],
         ),
         child: NavigationBar(
           height: 72,
           backgroundColor: AppColors.dungeon,
           surfaceTintColor: AppColors.dungeon,
-          indicatorColor: AppColors.arcane.withValues(alpha: 0.35),
+          indicatorColor: AppColors.gold.withValues(alpha: 0.28),
           selectedIndex: navigationShell.currentIndex,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           onDestinationSelected: (index) {
@@ -57,10 +52,7 @@ class AppShell extends StatelessWidget {
                 Icons.checklist_outlined,
                 color: AppColors.parchmentDark,
               ),
-              selectedIcon: const Icon(
-                Icons.checklist,
-                color: AppColors.gold,
-              ),
+              selectedIcon: const Icon(Icons.checklist, color: AppColors.gold),
               label: l10n.tabTodo,
             ),
             NavigationDestination(
@@ -79,18 +71,12 @@ class AppShell extends StatelessWidget {
                 Icons.person_outline,
                 color: AppColors.parchmentDark,
               ),
-              selectedIcon: const Icon(
-                Icons.person,
-                color: AppColors.gold,
-              ),
+              selectedIcon: const Icon(Icons.person, color: AppColors.gold),
               label: l10n.tabCharacter,
             ),
             NavigationDestination(
               icon: const Icon(Icons.menu, color: AppColors.parchmentDark),
-              selectedIcon: const Icon(
-                Icons.grid_view,
-                color: AppColors.gold,
-              ),
+              selectedIcon: const Icon(Icons.grid_view, color: AppColors.gold),
               label: l10n.tabSummary,
             ),
           ],

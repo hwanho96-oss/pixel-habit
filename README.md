@@ -29,3 +29,7 @@ flutter run -d chrome
 넓은 창에서는 가운데에 휴대폰 너비로 맞춰 보여 줍니다. 릴리스 정적 파일은 `flutter build web --release`로 `build/web`에 만들어집니다.
 
 `main`에 푸시하면 GitHub Actions가 웹 빌드를 만들어 GitHub Pages로 올리도록 설정되어 있습니다. 주소는 `https://hwanho96-oss.github.io/pixel-habit/` 입니다. 비공개 저장소에서 Pages를 쓰려면 GitHub Pro 이상이 필요하고, 저장소 Settings → Pages에서 Source를 GitHub Actions로 한 번 켜야 합니다.
+
+## 크레딧
+
+버튼, 패널, 배너, 체크박스, 경험치 바 스프라이트와 영문·숫자용 픽셀 폰트는 Franuka의 [RPG UI pack (demo)](https://franuka.itch.io/rpg-ui-pack-demo)를 편집해 사용합니다. 상업적 사용과 편집은 허용되며, 팩을 그대로 다시 배포할 수는 없습니다. 라이선스 원문은 `assets/rpg_ui/LICENSE.txt`에 있습니다. 앱 안에서는 종합 탭에서도 같은 크레딧을 볼 수 있습니다.

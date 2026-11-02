@@ -3,10 +3,16 @@ import 'package:pixel_habit/domain/models/player_progress.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/theme/app_theme.dart';
+import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_backdrop.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_coin.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_exp_bar.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_frame.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_nine_slice.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_sprite_button.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_title_banner.dart';
 import 'package:pixel_habit/ui/core/widgets/profile_avatar.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:pixel_habit/ui/features/routine/views/add_routine_sheet.dart';
@@ -31,29 +37,30 @@ class RoutineView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.tabRoutine),
         centerTitle: true,
+        toolbarHeight: 64,
+        title: PixelTitleBanner(
+          title: l10n.tabRoutine,
+          slice: RpgUiAssets.bannerLight,
+          height: 40,
+          textStyle: Theme.of(context).textTheme.titleLarge
+              ?.copyWith(fontSize: 16, height: 1, color: AppColors.ink),
+        ),
         actions: [
-          IconButton(
-            key: const Key('add_routine_button'),
-            tooltip: l10n.addRoutine,
-            onPressed: () => _openAddSheet(context),
-            icon: const Icon(Icons.add, color: AppColors.gold, size: 28),
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: PixelSpriteButton(
+              key: const Key('add_routine_button'),
+              tooltip: l10n.addRoutine,
+              height: 40,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              onPressed: () => _openAddSheet(context),
+              child: const Icon(Icons.add, color: AppColors.cream, size: 18),
+            ),
           ),
         ],
       ),
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.night,
-              AppColors.dungeon,
-              AppColors.night,
-            ],
-          ),
-        ),
+      body: PixelBackdrop(
         child: ListenableBuilder(
           listenable: viewModel,
           builder: (context, _) {
@@ -159,8 +166,7 @@ class _StatusBanner extends StatelessWidget {
     final progress = viewModel.progress;
 
     return PixelFrame(
-      color: AppColors.dungeon,
-      borderColor: AppColors.antiqueGold,
+      style: PixelPanelStyle.ornate,
       child: Row(
         children: [
           const ProfileAvatar(size: 56),
@@ -172,15 +178,14 @@ class _StatusBanner extends StatelessWidget {
                 Text(
                   l10n.myProfile,
                   style: Theme.of(context).textTheme.bodyLarge
-                      ?.copyWith(color: AppColors.parchment),
+                      ?.copyWith(color: AppColors.ink),
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: Text(
                         l10n.levelLabel(progress.level),
-                        style: Theme.of(context).textTheme.labelSmall
-                            ?.copyWith(color: AppColors.gold),
+                        style: AppTheme.pixelLatin(color: AppColors.ink),
                       ),
                     ),
                     _GoldBadge(
@@ -275,22 +280,15 @@ class _GoldBadgeState extends State<_GoldBadge>
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final amountStyle = Theme.of(context).textTheme.bodyMedium
-        ?.copyWith(color: AppColors.ink);
+        ?.copyWith(color: AppColors.cream, fontSize: 14, height: 1);
+    final slice = RpgUiAssets.buttonSelected;
 
     return ScaleTransition(
       scale: _scale,
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-          color: AppColors.gold,
-          border: Border.fromBorderSide(
-            BorderSide(color: AppColors.outline, width: 2),
-          ),
-          boxShadow: [
-            BoxShadow(color: AppColors.outline, offset: Offset(2, 2)),
-          ],
-        ),
+      child: PixelNineSlice(
+        slice: slice,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: slice.capInsets + const EdgeInsets.symmetric(horizontal: 4),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -376,8 +374,6 @@ class _RoutineCardState extends State<_RoutineCard> {
             onTapCancel: () => _setPressed(false),
             onTap: widget.onToggle,
             child: PixelFrame(
-              color: completed ? AppColors.parchmentFaded : AppColors.parchment,
-              borderColor: completed ? AppColors.antiqueGold : AppColors.gold,
               child: Stack(
                 children: [
                   Row(
@@ -396,9 +392,7 @@ class _RoutineCardState extends State<_RoutineCard> {
                               Text(routine.note!, style: textTheme.bodyMedium),
                             Text(
                               l10n.xpLabel(routine.xpReward),
-                              style: textTheme.labelSmall?.copyWith(
-                                color: AppColors.ink,
-                              ),
+                              style: AppTheme.pixelLatin(color: AppColors.ruby),
                             ),
                           ],
                         ),
@@ -446,8 +440,11 @@ class _WaxStamp extends StatelessWidget {
             child: Center(
               child: Text(
                 label,
-                style: Theme.of(context).textTheme.labelSmall
-                    ?.copyWith(color: AppColors.waxSeal, fontSize: 9),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: AppColors.waxSeal,
+                  fontSize: 12,
+                  height: 1,
+                ),
               ),
             ),
           ),

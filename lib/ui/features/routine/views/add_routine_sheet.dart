@@ -5,11 +5,13 @@ import 'package:pixel_habit/domain/data/routine_tags.dart';
 import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_chip.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_frame.dart';
-import 'package:pixel_habit/ui/core/widgets/pixel_pressable.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_save_button.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_sprite_button.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_title_banner.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_weekday_button.dart';
 import 'package:pixel_habit/ui/features/routine/l10n/routine_form_l10n.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
@@ -63,9 +65,7 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
       return;
     }
     setState(() {
-      _checklist.add(
-        RoutineChecklistItem(id: _uuid.v4(), title: title),
-      );
+      _checklist.add(RoutineChecklistItem(id: _uuid.v4(), title: title));
       _checklistController.clear();
     });
   }
@@ -92,7 +92,9 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
     if (picked == null || !mounted) {
       return;
     }
-    setState(() => _startDate = DateTime(picked.year, picked.month, picked.day));
+    setState(
+      () => _startDate = DateTime(picked.year, picked.month, picked.day),
+    );
   }
 
   Future<void> _pickTime() async {
@@ -147,14 +149,13 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
       return l10n.dateTimeUnset;
     }
 
-    final dateText =
-        _startDate == null ? null : _formatStartDate(_startDate!, locale);
+    final dateText = _startDate == null
+        ? null
+        : _formatStartDate(_startDate!, locale);
     final timeText = _reminderTime == null
         ? null
-        : MaterialLocalizations.of(context).formatTimeOfDay(
-            _reminderTime!,
-            alwaysUse24HourFormat: false,
-          );
+        : MaterialLocalizations.of(context)
+              .formatTimeOfDay(_reminderTime!, alwaysUse24HourFormat: false);
 
     if (dateText != null && timeText != null) {
       return l10n.dateTimeCombined(dateText, timeText);
@@ -189,9 +190,8 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
     }
 
     setState(() => _saving = false);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(l10n.saveFailed)),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(l10n.saveFailed)));
   }
 
   @override
@@ -204,56 +204,49 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
     final maxHeight = MediaQuery.sizeOf(context).height * 0.92;
 
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.viewInsetsOf(context).bottom,
-      ),
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       child: Align(
         alignment: Alignment.bottomCenter,
         child: ConstrainedBox(
           constraints: BoxConstraints(maxHeight: maxHeight),
-          child: DecoratedBox(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColors.dungeon,
-                  AppColors.night,
-                ],
-              ),
-              border: Border(
-                top: BorderSide(color: AppColors.gold, width: 3),
-              ),
-            ),
+          child: PixelFrame(
+            style: PixelPanelStyle.warm,
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 10),
             child: SafeArea(
               top: false,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 14, 8, 8),
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: Row(
                       children: [
                         Expanded(
-                          child: Text(
-                            l10n.addRoutineTitle,
-                            style: textTheme.titleLarge,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: PixelTitleBanner(
+                              title: l10n.addRoutineTitle,
+                              slice: RpgUiAssets.bannerLight,
+                              height: 40,
+                              textStyle: textTheme.titleLarge?.copyWith(
+                                color: AppColors.ink,
+                                fontSize: 16,
+                                height: 1,
+                              ),
+                            ),
                           ),
                         ),
                         IconButton(
                           tooltip: l10n.cancel,
                           onPressed: () => Navigator.of(context).pop(),
-                          icon: const Icon(
-                            Icons.close,
-                            color: AppColors.gold,
-                          ),
+                          icon: const Icon(Icons.close, color: AppColors.ink),
                         ),
                       ],
                     ),
                   ),
                   Flexible(
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      padding: const EdgeInsets.only(bottom: 4),
                       keyboardDismissBehavior:
                           ScrollViewKeyboardDismissBehavior.onDrag,
                       child: Column(
@@ -288,8 +281,8 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                             _suggestionCategory == category,
                                         onSelected: (_) {
                                           setState(
-                                            () => _suggestionCategory =
-                                                category,
+                                            () =>
+                                                _suggestionCategory = category,
                                           );
                                         },
                                       ),
@@ -333,33 +326,21 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                         decoration: InputDecoration(
                                           hintText: l10n.checklistItemHint,
                                         ),
-                                        onSubmitted: (_) =>
-                                            _addChecklistItem(),
+                                        onSubmitted: (_) => _addChecklistItem(),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
-                                    PixelPressable(
-                                      onTap: _addChecklistItem,
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          color: AppColors.gold,
-                                          border: Border.all(
-                                            color: AppColors.antiqueGold,
-                                            width: 3,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                            vertical: 12,
-                                          ),
-                                          child: Text(
-                                            l10n.addChecklistItem,
-                                            style: textTheme.bodyMedium
-                                                ?.copyWith(
-                                              color: AppColors.ink,
-                                            ),
-                                          ),
+                                    PixelSpriteButton(
+                                      height: 48,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                      ),
+                                      onPressed: _addChecklistItem,
+                                      child: Text(
+                                        l10n.addChecklistItem,
+                                        style: textTheme.bodyMedium?.copyWith(
+                                          color: AppColors.cream,
+                                          height: 1,
                                         ),
                                       ),
                                     ),
@@ -370,8 +351,9 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                   for (var i = 0; i < _checklist.length; i++)
                                     Padding(
                                       padding: EdgeInsets.only(
-                                        bottom:
-                                            i == _checklist.length - 1 ? 0 : 8,
+                                        bottom: i == _checklist.length - 1
+                                            ? 0
+                                            : 8,
                                       ),
                                       child: Row(
                                         children: [
@@ -386,12 +368,12 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                               _checklist[i].title,
                                               style: textTheme.bodyMedium
                                                   ?.copyWith(
-                                                decoration:
-                                                    _checklist[i].isDone
+                                                    decoration:
+                                                        _checklist[i].isDone
                                                         ? TextDecoration
-                                                            .lineThrough
+                                                              .lineThrough
                                                         : TextDecoration.none,
-                                              ),
+                                                  ),
                                             ),
                                           ),
                                           IconButton(
@@ -518,10 +500,7 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
 }
 
 class _SectionFrame extends StatelessWidget {
-  const _SectionFrame({
-    required this.title,
-    required this.child,
-  });
+  const _SectionFrame({required this.title, required this.child});
 
   final String title;
   final Widget child;
@@ -534,11 +513,15 @@ class _SectionFrame extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            title,
-            style: textTheme.labelSmall?.copyWith(
-              color: AppColors.ink,
-              letterSpacing: 0.8,
+          PixelTitleBanner(
+            title: title,
+            slice: RpgUiAssets.bannerDark,
+            expandWidth: true,
+            height: 34,
+            textStyle: textTheme.bodyMedium?.copyWith(
+              color: AppColors.cream,
+              fontSize: 14,
+              height: 1,
             ),
           ),
           const SizedBox(height: 10),
@@ -550,10 +533,7 @@ class _SectionFrame extends StatelessWidget {
 }
 
 class _ActionChipButton extends StatelessWidget {
-  const _ActionChipButton({
-    required this.label,
-    required this.onTap,
-  });
+  const _ActionChipButton({required this.label, required this.onTap});
 
   final String label;
   final VoidCallback onTap;
@@ -562,25 +542,15 @@ class _ActionChipButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return PixelPressable(
-      onTap: onTap,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: AppColors.parchmentDark,
-          border: Border.all(color: AppColors.outline, width: 3),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.outline.withValues(alpha: 0.35),
-              offset: const Offset(2, 2),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          child: Text(
-            label,
-            style: textTheme.bodyMedium?.copyWith(fontSize: 14),
-          ),
+    return PixelSpriteButton(
+      onPressed: onTap,
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      child: Text(
+        label,
+        style: textTheme.bodyMedium?.copyWith(
+          color: AppColors.cream,
+          fontSize: 14,
+          height: 1,
         ),
       ),
     );

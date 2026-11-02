@@ -3,23 +3,29 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
 
 abstract final class AppTheme {
-  static ThemeData dark() {
-    final latinTitle = GoogleFonts.cinzel(
-      color: AppColors.gold,
-      fontSize: 14,
-      fontWeight: FontWeight.w700,
-      letterSpacing: 1.4,
-      height: 1.4,
+  static const pixelFontFamily = 'FantasyRPG';
+
+  /// 숫자와 영문 전용. 글자 크기는 8의 배수로 둔다.
+  static TextStyle pixelLatin({
+    double fontSize = 16,
+    Color color = AppColors.ink,
+  }) {
+    return TextStyle(
+      fontFamily: pixelFontFamily,
+      fontSize: fontSize,
+      height: 1,
+      color: color,
     );
+  }
+
+  static ThemeData dark() {
     final koreanTitle = GoogleFonts.jua(
       color: AppColors.gold,
       fontSize: 22,
       height: 1.3,
     );
-    final body = GoogleFonts.jua(
-      color: AppColors.ink,
-      fontSize: 18,
-    );
+    final body = GoogleFonts.jua(color: AppColors.ink, fontSize: 18);
+    final pixel = pixelLatin();
 
     const squareBorder = OutlineInputBorder(
       borderRadius: BorderRadius.zero,
@@ -40,13 +46,10 @@ abstract final class AppTheme {
       ),
       textTheme: TextTheme(
         titleLarge: koreanTitle,
-        titleMedium: latinTitle,
+        titleMedium: pixel.copyWith(color: AppColors.gold),
         bodyLarge: body,
         bodyMedium: body.copyWith(fontSize: 16),
-        labelSmall: latinTitle.copyWith(
-          fontSize: 10,
-          color: AppColors.antiqueGold,
-        ),
+        labelSmall: body.copyWith(fontSize: 12, height: 1.2),
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.dungeon,
@@ -54,7 +57,7 @@ abstract final class AppTheme {
         elevation: 0,
         titleTextStyle: koreanTitle,
         shape: const Border(
-          bottom: BorderSide(color: AppColors.gold, width: 2),
+          bottom: BorderSide(color: AppColors.antiqueGold, width: 2),
         ),
       ),
       dialogTheme: DialogThemeData(
@@ -99,12 +102,12 @@ abstract final class AppTheme {
         backgroundColor: AppColors.parchment,
         headerBackgroundColor: AppColors.dungeon,
         headerForegroundColor: AppColors.gold,
+        weekdayStyle: body.copyWith(fontSize: 14, color: AppColors.ink),
+        dayStyle: pixel,
+        yearStyle: pixel,
         dayForegroundColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.disabled)) {
             return AppColors.ink.withValues(alpha: 0.35);
-          }
-          if (states.contains(WidgetState.selected)) {
-            return AppColors.ink;
           }
           return AppColors.ink;
         }),
@@ -114,7 +117,9 @@ abstract final class AppTheme {
           }
           return Colors.transparent;
         }),
-        todayForegroundColor: const WidgetStatePropertyAll(AppColors.antiqueGold),
+        todayForegroundColor: const WidgetStatePropertyAll(
+          AppColors.antiqueGold,
+        ),
         todayBackgroundColor: const WidgetStatePropertyAll(Colors.transparent),
         todayBorder: const BorderSide(color: AppColors.antiqueGold, width: 2),
         yearForegroundColor: const WidgetStatePropertyAll(AppColors.ink),
@@ -137,16 +142,14 @@ abstract final class AppTheme {
         entryModeIconColor: AppColors.antiqueGold,
         dayPeriodColor: AppColors.gold,
         dayPeriodTextColor: AppColors.ink,
-        helpTextStyle: latinTitle.copyWith(color: AppColors.ink),
-        hourMinuteTextStyle: koreanTitle.copyWith(
-          color: AppColors.ink,
-          fontSize: 40,
-        ),
+        helpTextStyle: body.copyWith(color: AppColors.ink, fontSize: 14),
+        hourMinuteTextStyle: pixel.copyWith(fontSize: 32),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppColors.antiqueGold,
+          textStyle: body.copyWith(fontSize: 16),
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         ),
       ),
@@ -154,17 +157,18 @@ abstract final class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: AppColors.gold,
           foregroundColor: AppColors.ink,
+          textStyle: body.copyWith(fontSize: 16),
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: AppColors.dungeon,
-        indicatorColor: AppColors.arcane.withValues(alpha: 0.35),
+        indicatorColor: AppColors.gold.withValues(alpha: 0.28),
         surfaceTintColor: AppColors.dungeon,
         iconTheme: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return IconThemeData(
-            color: selected ? AppColors.gold : AppColors.parchmentDark,
+            color: selected ? AppColors.gold : AppColors.parchment,
             size: 24,
           );
         }),
@@ -172,7 +176,7 @@ abstract final class AppTheme {
           final selected = states.contains(WidgetState.selected);
           return koreanTitle.copyWith(
             fontSize: 12,
-            color: selected ? AppColors.gold : AppColors.parchmentDark,
+            color: selected ? AppColors.gold : AppColors.parchment,
           );
         }),
       ),

@@ -6,6 +6,7 @@ import 'package:pixel_habit/data/repositories/routine_repository.dart';
 import 'package:pixel_habit/data/services/local_storage_service.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_theme.dart';
+import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/web_phone_frame.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:pixel_habit/ui/routing/app_router.dart';
@@ -17,10 +18,12 @@ class PixelHabitApp extends StatefulWidget {
     super.key,
     required this.preferences,
     this.repository,
+    this.showDebugBanner = true,
   });
 
   final SharedPreferences preferences;
   final RoutineRepository? repository;
+  final bool showDebugBanner;
 
   @override
   State<PixelHabitApp> createState() => _PixelHabitAppState();
@@ -28,23 +31,32 @@ class PixelHabitApp extends StatefulWidget {
 
 class _PixelHabitAppState extends State<PixelHabitApp> {
   late final GoRouter _router = createRouter();
+  var _spritesWarmed = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_spritesWarmed) {
+      return;
+    }
+    _spritesWarmed = true;
+    RpgUiAssets.warmUp(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(
-          create: (_) => LocalStorageService(widget.preferences),
-        ),
+        Provider(create: (_) => LocalStorageService(widget.preferences)),
         Provider<RoutineRepository>(
           create: (context) =>
               widget.repository ??
               LocalRoutineRepository(context.read<LocalStorageService>()),
         ),
         ChangeNotifierProvider(
-          create: (context) => RoutineViewModel(
-            repository: context.read<RoutineRepository>(),
-          )..load(),
+          create: (context) =>
+              RoutineViewModel(repository: context.read<RoutineRepository>())
+                ..load(),
         ),
       ],
       child: MaterialApp.router(
@@ -58,6 +70,7 @@ class _PixelHabitAppState extends State<PixelHabitApp> {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
+        debugShowCheckedModeBanner: widget.showDebugBanner,
         routerConfig: _router,
         builder: kIsWeb
             ? (context, child) => WebPhoneFrame(
