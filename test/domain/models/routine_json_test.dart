@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
 import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
 
@@ -21,6 +22,29 @@ void main() {
     expect(routine.reminderMinute, isNull);
     expect(routine.repeatWeekdays, isEmpty);
     expect(routine.tags, isEmpty);
+    expect(routine.stat, isNull);
+  });
+
+  test('스탯 값이 없거나 모르면 태그 없음으로 읽는다', () {
+    final missing = Routine.fromJson({
+      'id': 'legacy',
+      'title': '아침 수련',
+      'xpReward': 15,
+      'avatarSeed': 0,
+      'createdAt': '2026-01-01T00:00:00.000',
+      'stat': null,
+    });
+    final unknown = Routine.fromJson({
+      'id': 'legacy',
+      'title': '아침 수련',
+      'xpReward': 15,
+      'avatarSeed': 0,
+      'createdAt': '2026-01-01T00:00:00.000',
+      'stat': 'luck',
+    });
+
+    expect(missing.stat, isNull);
+    expect(unknown.stat, isNull);
   });
 
   test('새 필드는 toJson/fromJson 왕복이 된다', () {
@@ -38,6 +62,7 @@ void main() {
       reminderMinute: 30,
       repeatWeekdays: {DateTime.monday, DateTime.sunday},
       tags: const ['life'],
+      stat: HabitStat.wisdom,
     );
 
     final restored = Routine.fromJson(original.toJson());
@@ -48,5 +73,6 @@ void main() {
     expect(restored.reminderMinute, 30);
     expect(restored.repeatWeekdays, {DateTime.monday, DateTime.sunday});
     expect(restored.tags, ['life']);
+    expect(restored.stat, HabitStat.wisdom);
   });
 }

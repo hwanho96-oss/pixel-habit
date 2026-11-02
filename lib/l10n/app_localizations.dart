@@ -113,7 +113,7 @@ abstract class AppLocalizations {
   /// No description provided for @tabTodo.
   ///
   /// In ko, this message translates to:
-  /// **'To do'**
+  /// **'할 일'**
   String get tabTodo;
 
   /// No description provided for @tabCalendar.
@@ -535,6 +535,114 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'https://franuka.itch.io/rpg-ui-pack-demo'**
   String get assetCreditUrl;
+
+  /// No description provided for @addTodo.
+  ///
+  /// In ko, this message translates to:
+  /// **'새로운 할 일을 추가할 수 있는 버튼'**
+  String get addTodo;
+
+  /// No description provided for @emptyTodos.
+  ///
+  /// In ko, this message translates to:
+  /// **'아직 할 일이 없습니다.\n+ 버튼으로 첫 할 일을 추가하세요.'**
+  String get emptyTodos;
+
+  /// No description provided for @addTodoTitle.
+  ///
+  /// In ko, this message translates to:
+  /// **'할 일 추가'**
+  String get addTodoTitle;
+
+  /// No description provided for @sectionTodoName.
+  ///
+  /// In ko, this message translates to:
+  /// **'할 일 이름'**
+  String get sectionTodoName;
+
+  /// No description provided for @todoNameHint.
+  ///
+  /// In ko, this message translates to:
+  /// **'할 일 이름 (예: 장보기)'**
+  String get todoNameHint;
+
+  /// No description provided for @sectionTodoDate.
+  ///
+  /// In ko, this message translates to:
+  /// **'날짜'**
+  String get sectionTodoDate;
+
+  /// No description provided for @choiceNone.
+  ///
+  /// In ko, this message translates to:
+  /// **'없음'**
+  String get choiceNone;
+
+  /// No description provided for @dateToday.
+  ///
+  /// In ko, this message translates to:
+  /// **'오늘'**
+  String get dateToday;
+
+  /// No description provided for @dateTomorrow.
+  ///
+  /// In ko, this message translates to:
+  /// **'내일'**
+  String get dateTomorrow;
+
+  /// No description provided for @todoDate.
+  ///
+  /// In ko, this message translates to:
+  /// **'{month}월 {day}일'**
+  String todoDate(int month, int day);
+
+  /// No description provided for @sectionStat.
+  ///
+  /// In ko, this message translates to:
+  /// **'스탯'**
+  String get sectionStat;
+
+  /// No description provided for @statStrength.
+  ///
+  /// In ko, this message translates to:
+  /// **'힘'**
+  String get statStrength;
+
+  /// No description provided for @statIntelligence.
+  ///
+  /// In ko, this message translates to:
+  /// **'지능'**
+  String get statIntelligence;
+
+  /// No description provided for @statWisdom.
+  ///
+  /// In ko, this message translates to:
+  /// **'지혜'**
+  String get statWisdom;
+
+  /// No description provided for @deleteTodo.
+  ///
+  /// In ko, this message translates to:
+  /// **'할 일 삭제'**
+  String get deleteTodo;
+
+  /// No description provided for @deleteTodoConfirm.
+  ///
+  /// In ko, this message translates to:
+  /// **'이 할 일을 지울까요?'**
+  String get deleteTodoConfirm;
+
+  /// No description provided for @todoCompletedToast.
+  ///
+  /// In ko, this message translates to:
+  /// **'할 일 완료! +{xp} XP · +{gold} 골드'**
+  String todoCompletedToast(int xp, int gold);
+
+  /// No description provided for @todoSaveFailed.
+  ///
+  /// In ko, this message translates to:
+  /// **'할 일 저장에 실패했습니다. 다시 시도해 주세요.'**
+  String get todoSaveFailed;
 }
 
 class _AppLocalizationsDelegate

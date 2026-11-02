@@ -3,13 +3,17 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pixel_habit/app.dart';
+import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
+import 'package:pixel_habit/domain/models/todo.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../support/in_memory_routine_repository.dart';
+import '../support/in_memory_todo_repository.dart';
 
 /// `PIXEL_HABIT_SCREENSHOTS=1 flutter test test/ui/rpg_ui_screenshot_test.dart`
 /// 화면을 래스터라이즈한 뒤 프로세스가 바로 끝나지 않을 수 있어, 기본 `flutter test`에서는 건너뛴다.
@@ -35,7 +39,7 @@ void main() {
 
   testWidgets('루틴 추가 시트', (tester) async {
     await _boot(tester);
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.tap(find.byKey(const Key('add_routine_button')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
     await _settle(tester);
@@ -45,7 +49,7 @@ void main() {
 
   testWidgets('루틴 추가 시트 아래쪽', (tester) async {
     await _boot(tester);
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.tap(find.byKey(const Key('add_routine_button')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
     await _settle(tester);
@@ -53,6 +57,38 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
     await _settle(tester);
     await _capture(tester, 'add_routine_sheet_scrolled');
+  });
+
+  testWidgets('할 일 탭', (tester) async {
+    final today = DateTime.now();
+    await _boot(
+      tester,
+      todos: [
+        Todo(
+          id: 'open',
+          title: '장보기',
+          createdAt: DateTime(2026, 11, 2),
+          date: DateTime(today.year, today.month, today.day),
+          stat: HabitStat.strength,
+        ),
+        Todo(
+          id: 'study',
+          title: '보고서 읽기',
+          createdAt: DateTime(2026, 11, 2, 1),
+          stat: HabitStat.intelligence,
+        ),
+        Todo(
+          id: 'done',
+          title: '화분에 물 주기',
+          createdAt: DateTime(2026, 11, 1),
+          completed: true,
+          stat: HabitStat.wisdom,
+        ),
+      ],
+    );
+    await tester.tap(find.text('할 일'));
+    await _settle(tester);
+    await _capture(tester, 'todo_tab');
   });
 
   testWidgets('종합 탭 크레딧', (tester) async {
@@ -67,7 +103,13 @@ void main() {
   });
 }
 
-Future<void> _boot(WidgetTester tester, {List<Routine>? routines}) async {
+Future<void> _boot(
+  WidgetTester tester, {
+  List<Routine>? routines,
+  List<Todo>? todos,
+}) async {
+  await tester.runAsync(_loadFonts);
+
   final view = tester.view;
   view.physicalSize = const Size(390, 844);
   view.devicePixelRatio = 1;
@@ -104,11 +146,25 @@ Future<void> _boot(WidgetTester tester, {List<Routine>? routines}) async {
       child: PixelHabitApp(
         preferences: preferences,
         repository: repository,
+        todoRepository: InMemoryTodoRepository(todos: todos),
         showDebugBanner: false,
       ),
     ),
   );
   await _settle(tester);
+}
+
+Future<void> _loadFonts() async {
+  final pretendard = FontLoader('Pretendard')
+    ..addFont(
+      rootBundle.load('assets/fonts/pretendard/Pretendard-Regular.otf'),
+    )
+    ..addFont(
+      rootBundle.load('assets/fonts/pretendard/Pretendard-SemiBold.otf'),
+    );
+  final galmuri = FontLoader('Galmuri')
+    ..addFont(rootBundle.load('assets/fonts/galmuri/Galmuri11.ttf'));
+  await Future.wait([pretendard.load(), galmuri.load()]);
 }
 
 Future<void> _settle(WidgetTester tester) async {
@@ -133,5 +189,4 @@ Future<void> _capture(WidgetTester tester, String name) async {
         .writeAsBytes(bytes!.buffer.asUint8List());
   });
   debugPrint('wrote $name ${bytes?.lengthInBytes}');
-  await tester.pumpWidget(const SizedBox.shrink());
 }

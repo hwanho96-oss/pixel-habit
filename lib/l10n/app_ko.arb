@@ -2,7 +2,7 @@
   "@@locale": "ko",
   "appTitle": "Pixel Habit",
   "tabRoutine": "루틴",
-  "tabTodo": "To do",
+  "tabTodo": "할 일",
   "tabCalendar": "캘린더",
   "tabCharacter": "캐릭터",
   "tabSummary": "종합",
@@ -130,5 +130,43 @@
   "saveFailed": "퀘스트 저장에 실패했습니다. 다시 시도해 주세요.",
   "titleRequired": "퀘스트 이름을 입력해 주세요.",
   "assetCredit": "UI 에셋 - Franuka",
-  "assetCreditUrl": "https://franuka.itch.io/rpg-ui-pack-demo"
+  "assetCreditUrl": "https://franuka.itch.io/rpg-ui-pack-demo",
+  "addTodo": "새로운 할 일을 추가할 수 있는 버튼",
+  "emptyTodos": "아직 할 일이 없습니다.\n+ 버튼으로 첫 할 일을 추가하세요.",
+  "addTodoTitle": "할 일 추가",
+  "sectionTodoName": "할 일 이름",
+  "todoNameHint": "할 일 이름 (예: 장보기)",
+  "sectionTodoDate": "날짜",
+  "choiceNone": "없음",
+  "dateToday": "오늘",
+  "dateTomorrow": "내일",
+  "todoDate": "{month}월 {day}일",
+  "@todoDate": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "sectionStat": "스탯",
+  "statStrength": "힘",
+  "statIntelligence": "지능",
+  "statWisdom": "지혜",
+  "deleteTodo": "할 일 삭제",
+  "deleteTodoConfirm": "이 할 일을 지울까요?",
+  "todoCompletedToast": "할 일 완료! +{xp} XP · +{gold} 골드",
+  "@todoCompletedToast": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      },
+      "gold": {
+        "type": "int"
+      }
+    }
+  },
+  "todoSaveFailed": "할 일 저장에 실패했습니다. 다시 시도해 주세요."
 }

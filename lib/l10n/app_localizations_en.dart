@@ -242,4 +242,62 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get assetCreditUrl => 'https://franuka.itch.io/rpg-ui-pack-demo';
+
+  @override
+  String get addTodo => 'Add a new to-do';
+
+  @override
+  String get emptyTodos => 'No to-dos yet.\nTap + to add the first one.';
+
+  @override
+  String get addTodoTitle => 'Add to-do';
+
+  @override
+  String get sectionTodoName => 'To-do name';
+
+  @override
+  String get todoNameHint => 'To-do name (e.g. Buy groceries)';
+
+  @override
+  String get sectionTodoDate => 'Date';
+
+  @override
+  String get choiceNone => 'None';
+
+  @override
+  String get dateToday => 'Today';
+
+  @override
+  String get dateTomorrow => 'Tomorrow';
+
+  @override
+  String todoDate(int month, int day) {
+    return '$month/$day';
+  }
+
+  @override
+  String get sectionStat => 'Stat';
+
+  @override
+  String get statStrength => 'Strength';
+
+  @override
+  String get statIntelligence => 'Intelligence';
+
+  @override
+  String get statWisdom => 'Wisdom';
+
+  @override
+  String get deleteTodo => 'Delete to-do';
+
+  @override
+  String get deleteTodoConfirm => 'Delete this to-do?';
+
+  @override
+  String todoCompletedToast(int xp, int gold) {
+    return 'To-do complete! +$xp XP · +$gold gold';
+  }
+
+  @override
+  String get todoSaveFailed => 'Failed to save the to-do. Please try again.';
 }

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pixel_habit/data/repositories/routine_repository.dart';
+import 'package:pixel_habit/data/repositories/todo_repository.dart';
 import 'package:pixel_habit/data/services/local_storage_service.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_theme.dart';
 import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/web_phone_frame.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
+import 'package:pixel_habit/ui/features/todo/view_models/todo_view_model.dart';
 import 'package:pixel_habit/ui/routing/app_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,11 +20,13 @@ class PixelHabitApp extends StatefulWidget {
     super.key,
     required this.preferences,
     this.repository,
+    this.todoRepository,
     this.showDebugBanner = true,
   });
 
   final SharedPreferences preferences;
   final RoutineRepository? repository;
+  final TodoRepository? todoRepository;
   final bool showDebugBanner;
 
   @override
@@ -57,6 +61,17 @@ class _PixelHabitAppState extends State<PixelHabitApp> {
           create: (context) =>
               RoutineViewModel(repository: context.read<RoutineRepository>())
                 ..load(),
+        ),
+        Provider<TodoRepository>(
+          create: (context) =>
+              widget.todoRepository ??
+              LocalTodoRepository(context.read<LocalStorageService>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TodoViewModel(
+            repository: context.read<TodoRepository>(),
+            rewards: context.read<RoutineViewModel>(),
+          )..load(),
         ),
       ],
       child: MaterialApp.router(

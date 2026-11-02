@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pixel_habit/domain/data/routine_suggestions.dart';
 import 'package:pixel_habit/domain/data/routine_tags.dart';
+import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/domain/models/routine_checklist_item.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
+import 'package:pixel_habit/ui/core/l10n/habit_stat_l10n.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_chip.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_save_button.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_weekday_button.dart';
 import 'package:pixel_habit/ui/core/widgets/soft_card.dart';
+import 'package:pixel_habit/ui/core/widgets/stat_chip_selector.dart';
 import 'package:pixel_habit/ui/features/routine/l10n/routine_form_l10n.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:uuid/uuid.dart';
@@ -34,6 +37,7 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
   TimeOfDay? _reminderTime;
   final Set<int> _repeatWeekdays = {};
   final Set<String> _tags = {};
+  HabitStat? _stat;
   bool _saving = false;
 
   bool get _canSave => _titleController.text.trim().isNotEmpty && !_saving;
@@ -177,6 +181,7 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
       reminderMinute: _reminderTime?.minute,
       repeatWeekdays: Set<int>.from(_repeatWeekdays),
       tags: _tags.toList(),
+      stat: _stat,
     );
 
     if (!mounted) {
@@ -431,6 +436,16 @@ class _AddRoutineSheetState extends State<AddRoutineSheet> {
                                   style: textTheme.labelSmall,
                                 ),
                               ],
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          _SectionFrame(
+                            title: l10n.sectionStat,
+                            child: StatChipSelector(
+                              value: _stat,
+                              noneLabel: l10n.choiceNone,
+                              labelOf: l10n.habitStatLabel,
+                              onChanged: (stat) => setState(() => _stat = stat),
                             ),
                           ),
                           const SizedBox(height: 12),

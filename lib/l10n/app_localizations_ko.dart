@@ -16,7 +16,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tabRoutine => '루틴';
 
   @override
-  String get tabTodo => 'To do';
+  String get tabTodo => '할 일';
 
   @override
   String get tabCalendar => '캘린더';
@@ -241,4 +241,62 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get assetCreditUrl => 'https://franuka.itch.io/rpg-ui-pack-demo';
+
+  @override
+  String get addTodo => '새로운 할 일을 추가할 수 있는 버튼';
+
+  @override
+  String get emptyTodos => '아직 할 일이 없습니다.\n+ 버튼으로 첫 할 일을 추가하세요.';
+
+  @override
+  String get addTodoTitle => '할 일 추가';
+
+  @override
+  String get sectionTodoName => '할 일 이름';
+
+  @override
+  String get todoNameHint => '할 일 이름 (예: 장보기)';
+
+  @override
+  String get sectionTodoDate => '날짜';
+
+  @override
+  String get choiceNone => '없음';
+
+  @override
+  String get dateToday => '오늘';
+
+  @override
+  String get dateTomorrow => '내일';
+
+  @override
+  String todoDate(int month, int day) {
+    return '$month월 $day일';
+  }
+
+  @override
+  String get sectionStat => '스탯';
+
+  @override
+  String get statStrength => '힘';
+
+  @override
+  String get statIntelligence => '지능';
+
+  @override
+  String get statWisdom => '지혜';
+
+  @override
+  String get deleteTodo => '할 일 삭제';
+
+  @override
+  String get deleteTodoConfirm => '이 할 일을 지울까요?';
+
+  @override
+  String todoCompletedToast(int xp, int gold) {
+    return '할 일 완료! +$xp XP · +$gold 골드';
+  }
+
+  @override
+  String get todoSaveFailed => '할 일 저장에 실패했습니다. 다시 시도해 주세요.';
 }

@@ -102,7 +102,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('To do'), findsOneWidget);
+    expect(find.text('할 일'), findsOneWidget);
     expect(find.text('캘린더'), findsOneWidget);
     expect(find.text('캐릭터'), findsOneWidget);
     expect(find.text('종합'), findsOneWidget);

@@ -6,6 +6,7 @@ import 'package:pixel_habit/ui/core/theme/app_theme.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_pressable.dart';
 import 'package:pixel_habit/ui/core/widgets/soft_card.dart';
+import 'package:pixel_habit/ui/core/widgets/stat_badge.dart';
 
 class RoutineCard extends StatelessWidget {
   const RoutineCard({
@@ -67,12 +68,21 @@ class RoutineCard extends StatelessWidget {
                       ),
                     ],
                     const SizedBox(height: 4),
-                    Text(
-                      l10n.xpLabel(routine.xpReward),
-                      style: AppTheme.pixel(
-                        fontSize: 16,
-                        color: AppColors.gold,
-                      ),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        if (routine.stat != null)
+                          StatBadge(stat: routine.stat!),
+                        Text(
+                          l10n.xpLabel(routine.xpReward),
+                          style: AppTheme.pixel(
+                            fontSize: 16,
+                            color: AppColors.gold,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

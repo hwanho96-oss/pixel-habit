@@ -72,5 +72,43 @@
   "saveFailed": "Failed to save the quest. Please try again.",
   "titleRequired": "Please enter a quest name.",
   "assetCredit": "UI assets - Franuka",
-  "assetCreditUrl": "https://franuka.itch.io/rpg-ui-pack-demo"
+  "assetCreditUrl": "https://franuka.itch.io/rpg-ui-pack-demo",
+  "addTodo": "Add a new to-do",
+  "emptyTodos": "No to-dos yet.\nTap + to add the first one.",
+  "addTodoTitle": "Add to-do",
+  "sectionTodoName": "To-do name",
+  "todoNameHint": "To-do name (e.g. Buy groceries)",
+  "sectionTodoDate": "Date",
+  "choiceNone": "None",
+  "dateToday": "Today",
+  "dateTomorrow": "Tomorrow",
+  "todoDate": "{month}/{day}",
+  "@todoDate": {
+    "placeholders": {
+      "month": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "sectionStat": "Stat",
+  "statStrength": "Strength",
+  "statIntelligence": "Intelligence",
+  "statWisdom": "Wisdom",
+  "deleteTodo": "Delete to-do",
+  "deleteTodoConfirm": "Delete this to-do?",
+  "todoCompletedToast": "To-do complete! +{xp} XP · +{gold} gold",
+  "@todoCompletedToast": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      },
+      "gold": {
+        "type": "int"
+      }
+    }
+  },
+  "todoSaveFailed": "Failed to save the to-do. Please try again."
 }

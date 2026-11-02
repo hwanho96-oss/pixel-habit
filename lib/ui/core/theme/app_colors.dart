@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 /// 화면에서 쓰는 색. 위젯에 색 값을 직접 적지 않고 이 상수만 쓴다.
 ///
-/// [statStrength], [statIntelligence], [statWisdom]는 이후 힘·지능·지혜
-/// 스탯에 쓰려고 미리 둔 색이다. 지금은 화면에 그리지 않는다.
+/// [statStrength], [statIntelligence], [statWisdom]는 힘·지능·지혜 배지에 쓴다.
 abstract final class AppColors {
   static const background = Color(0xFFF5EDE3);
   static const dark = Color(0xFF1E1A2E);
