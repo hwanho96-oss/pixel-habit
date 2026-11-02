@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_icon.dart';
 import 'package:pixel_habit/ui/core/widgets/soft_card.dart';
 
 class PlaceholderTab extends StatelessWidget {
@@ -25,10 +26,10 @@ class PlaceholderTab extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.auto_awesome,
-                  color: AppColors.accent,
-                  size: 36,
+                const PixelIcon(
+                  asset: PixelIcons.scroll,
+                  size: 32,
+                  color: AppColors.gold,
                 ),
                 const SizedBox(height: 12),
                 Text(

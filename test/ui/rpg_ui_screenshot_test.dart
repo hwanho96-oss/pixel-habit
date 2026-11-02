@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pixel_habit/app.dart';
 import 'package:pixel_habit/domain/models/habit_stat.dart';
+import 'package:pixel_habit/domain/models/player_progress.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
 import 'package:pixel_habit/domain/models/todo.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
@@ -24,6 +25,60 @@ void main() {
     test('스크린샷 생성은 PIXEL_HABIT_SCREENSHOTS=1 일 때만 실행된다', () {});
     return;
   }
+
+  testWidgets('홈', (tester) async {
+    final now = DateTime.now();
+    Routine quest(String id, String title, HabitStat stat) {
+      return Routine(
+        id: id,
+        title: title,
+        xpReward: 10,
+        avatarSeed: 0,
+        createdAt: now,
+        completedToday: true,
+        lastCompletedAt: now,
+        stat: stat,
+      );
+    }
+
+    await _boot(
+      tester,
+      progress: const PlayerProgress(gold: 40, xp: 30),
+      routines: [
+        quest('study', '30분 공부', HabitStat.intelligence),
+        quest('stretch', '스트레칭 10분', HabitStat.strength),
+        quest('water', '물 2L 마시기', HabitStat.wisdom),
+        quest('sleep', '일찍 자기', HabitStat.wisdom),
+      ],
+    );
+    await _capture(tester, 'home');
+    expect(find.text('Lv.1 훈련생'), findsOneWidget);
+    expect(find.text('40 골드'), findsOneWidget);
+    expect(find.text('오늘 퀘스트 완료! 푹 쉬어, 모험가'), findsOneWidget);
+  });
+
+  testWidgets('홈 보상', (tester) async {
+    final now = DateTime.now();
+    await _boot(
+      tester,
+      progress: const PlayerProgress(gold: 30),
+      routines: [
+        Routine(
+          id: 'water',
+          title: '물 마시기',
+          xpReward: 10,
+          avatarSeed: 0,
+          createdAt: now,
+          stat: HabitStat.wisdom,
+        ),
+      ],
+    );
+    await tester.tap(find.byType(PixelCheckbox));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 120));
+    await _capture(tester, 'home_reward');
+    expect(find.textContaining('+10 골드'), findsWidgets);
+  });
 
   testWidgets('루틴 목록', (tester) async {
     await _boot(tester);
@@ -86,20 +141,21 @@ void main() {
         ),
       ],
     );
-    await tester.tap(find.text('할 일'));
+    await tester.tap(find.text('투두'));
     await _settle(tester);
     await _capture(tester, 'todo_tab');
   });
 
-  testWidgets('종합 탭 크레딧', (tester) async {
+  testWidgets('설정 탭 크레딧', (tester) async {
     await _boot(tester, routines: const []);
-    await tester.tap(find.text('종합'));
+    await tester.tap(find.text('설정'));
     await _settle(tester);
-    await _capture(tester, 'summary_credit');
+    await _capture(tester, 'settings_credit');
     expect(
       find.text('https://franuka.itch.io/rpg-ui-pack-demo'),
       findsOneWidget,
     );
+    expect(find.text('https://kenney.nl/assets/rpg-audio'), findsOneWidget);
   });
 }
 
@@ -107,6 +163,7 @@ Future<void> _boot(
   WidgetTester tester, {
   List<Routine>? routines,
   List<Todo>? todos,
+  PlayerProgress? progress,
 }) async {
   await tester.runAsync(_loadFonts);
 
@@ -119,6 +176,7 @@ Future<void> _boot(
   SharedPreferences.setMockInitialValues({});
   final preferences = await SharedPreferences.getInstance();
   final repository = InMemoryRoutineRepository(
+    progress: progress,
     routines:
         routines ??
         [
@@ -154,17 +212,47 @@ Future<void> _boot(
   await _settle(tester);
 }
 
+var _fontsLoaded = false;
+
 Future<void> _loadFonts() async {
+  if (_fontsLoaded) {
+    return;
+  }
   final pretendard = FontLoader('Pretendard')
-    ..addFont(
-      rootBundle.load('assets/fonts/pretendard/Pretendard-Regular.otf'),
-    )
+    ..addFont(rootBundle.load('assets/fonts/pretendard/Pretendard-Regular.otf'))
     ..addFont(
       rootBundle.load('assets/fonts/pretendard/Pretendard-SemiBold.otf'),
     );
   final galmuri = FontLoader('Galmuri')
     ..addFont(rootBundle.load('assets/fonts/galmuri/Galmuri11.ttf'));
-  await Future.wait([pretendard.load(), galmuri.load()]);
+  final materialFile = _materialIconsFile();
+  if (materialFile == null) {
+    throw StateError('MaterialIcons-Regular.otf 를 찾지 못했습니다.');
+  }
+  final materialBytes = await materialFile.readAsBytes();
+  final material = FontLoader('MaterialIcons')
+    ..addFont(Future.value(ByteData.sublistView(materialBytes)));
+  await Future.wait([pretendard.load(), galmuri.load(), material.load()]);
+  _fontsLoaded = true;
+}
+
+File? _materialIconsFile() {
+  final executable = File(Platform.resolvedExecutable);
+  final candidates = [
+    File(
+      '${executable.parent.parent.parent.path}/artifacts/material_fonts/MaterialIcons-Regular.otf',
+    ),
+    if (Platform.environment['FLUTTER_ROOT'] != null)
+      File(
+        '${Platform.environment['FLUTTER_ROOT']}/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf',
+      ),
+  ];
+  for (final file in candidates) {
+    if (file.existsSync()) {
+      return file;
+    }
+  }
+  return null;
 }
 
 Future<void> _settle(WidgetTester tester) async {
@@ -179,14 +267,19 @@ Future<void> _capture(WidgetTester tester, String name) async {
   final boundary = tester.renderObject<RenderRepaintBoundary>(
     find.byKey(const Key('shot')),
   );
-  final image = boundary.toImageSync(pixelRatio: 2);
-  final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-  image.dispose();
   await tester.runAsync(() async {
+    final image = boundary.toImageSync(pixelRatio: 2);
+    final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    image.dispose();
+    final png = bytes!.buffer.asUint8List();
     final directory = Directory('/tmp/pixel_habit_shots');
     await directory.create(recursive: true);
-    await File('${directory.path}/$name.png')
-        .writeAsBytes(bytes!.buffer.asUint8List());
+    await File('${directory.path}/$name.png').writeAsBytes(png);
+    if (name == 'home' || name == 'home_reward') {
+      final artifacts = Directory('/opt/cursor/artifacts');
+      await artifacts.create(recursive: true);
+      await File('${artifacts.path}/$name.png').writeAsBytes(png);
+    }
+    debugPrint('wrote $name ${png.length}');
   });
-  debugPrint('wrote $name ${bytes?.lengthInBytes}');
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_icon.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.navigationShell});
@@ -11,20 +12,20 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final muted = AppColors.text.withValues(alpha: 0.45);
 
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: DecoratedBox(
         decoration: const BoxDecoration(
-          color: AppColors.textOnDark,
-          border: Border(top: BorderSide(color: AppColors.border)),
+          color: AppColors.panel,
+          border: Border(top: BorderSide(color: AppColors.panelBorder)),
         ),
         child: NavigationBar(
-          height: 64,
-          backgroundColor: AppColors.textOnDark,
-          surfaceTintColor: AppColors.textOnDark,
-          indicatorColor: AppColors.accent.withValues(alpha: 0.16),
+          height: 72,
+          backgroundColor: AppColors.panel,
+          surfaceTintColor: AppColors.panel,
+          shadowColor: AppColors.panel,
+          indicatorColor: AppColors.gold.withValues(alpha: 0.18),
           selectedIndex: navigationShell.currentIndex,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           onDestinationSelected: (index) {
@@ -35,41 +36,56 @@ class AppShell extends StatelessWidget {
           },
           destinations: [
             NavigationDestination(
-              icon: Icon(Icons.auto_awesome_outlined, color: muted),
-              selectedIcon: const Icon(
-                Icons.auto_awesome,
-                color: AppColors.accent,
+              icon: const PixelIcon(
+                asset: PixelIcons.home,
+                size: 32,
+                color: AppColors.panelMuted,
               ),
-              label: l10n.tabRoutine,
+              selectedIcon: const PixelIcon(
+                asset: PixelIcons.home,
+                size: 32,
+                color: AppColors.gold,
+              ),
+              label: l10n.tabHome,
             ),
             NavigationDestination(
-              icon: Icon(Icons.checklist_outlined, color: muted),
-              selectedIcon: const Icon(
-                Icons.checklist,
-                color: AppColors.accent,
+              icon: const PixelIcon(
+                asset: PixelIcons.avatar,
+                size: 32,
+                color: AppColors.panelMuted,
               ),
-              label: l10n.tabTodo,
+              selectedIcon: const PixelIcon(
+                asset: PixelIcons.avatar,
+                size: 32,
+                color: AppColors.gold,
+              ),
+              label: l10n.tabAvatar,
             ),
             NavigationDestination(
-              icon: Icon(Icons.calendar_month_outlined, color: muted),
-              selectedIcon: const Icon(
-                Icons.calendar_month,
-                color: AppColors.accent,
+              icon: const PixelIcon(
+                asset: PixelIcons.records,
+                size: 32,
+                color: AppColors.panelMuted,
               ),
-              label: l10n.tabCalendar,
+              selectedIcon: const PixelIcon(
+                asset: PixelIcons.records,
+                size: 32,
+                color: AppColors.gold,
+              ),
+              label: l10n.tabRecords,
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outline, color: muted),
-              selectedIcon: const Icon(Icons.person, color: AppColors.accent),
-              label: l10n.tabCharacter,
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.grid_view_outlined, color: muted),
-              selectedIcon: const Icon(
-                Icons.grid_view,
-                color: AppColors.accent,
+              icon: const PixelIcon(
+                asset: PixelIcons.settings,
+                size: 32,
+                color: AppColors.panelMuted,
               ),
-              label: l10n.tabSummary,
+              selectedIcon: const PixelIcon(
+                asset: PixelIcons.settings,
+                size: 32,
+                color: AppColors.gold,
+              ),
+              label: l10n.tabSettings,
             ),
           ],
         ),

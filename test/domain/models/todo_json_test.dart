@@ -11,6 +11,7 @@ void main() {
     });
 
     expect(todo.date, isNull);
+    expect(todo.hasTime, isFalse);
     expect(todo.stat, isNull);
     expect(todo.completed, isFalse);
     expect(todo.xpReward, Todo.defaultXpReward);
@@ -48,5 +49,32 @@ void main() {
     expect(restored.completed, isTrue);
     expect(restored.xpReward, 10);
     expect(restored.toJson()['date'], '2026-11-03');
+    expect(restored.hasTime, isFalse);
+  });
+
+  test('시간은 선택 값이라 없거나 깨져 있으면 무시한다', () {
+    final withTime = Todo(
+      id: 't1',
+      title: '기상',
+      createdAt: DateTime(2026, 11, 2, 9),
+      timeHour: 7,
+      timeMinute: 5,
+    );
+
+    final restored = Todo.fromJson(withTime.toJson());
+    expect(restored.timeHour, 7);
+    expect(restored.timeMinute, 5);
+    expect(restored.hasTime, isTrue);
+    expect(restored.toJson()['time'], '07:05');
+
+    for (final raw in <Object>['25:00', 'ab:cd', '', '07', 700]) {
+      final todo = Todo.fromJson(<String, Object?>{
+        'id': 't1',
+        'title': '기상',
+        'createdAt': '2026-11-02T09:00:00.000',
+        'time': raw,
+      });
+      expect(todo.hasTime, isFalse, reason: '$raw');
+    }
   });
 }

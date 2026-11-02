@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/theme/home_assets.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_asset_image.dart';
 
 class PixelCoin extends StatelessWidget {
   const PixelCoin({super.key, this.size = 16});
@@ -9,54 +9,6 @@ class PixelCoin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size.square(size),
-      painter: const _PixelCoinPainter(),
-    );
+    return PixelAssetImage(path: HomeAssets.coin, width: size, height: size);
   }
-}
-
-class _PixelCoinPainter extends CustomPainter {
-  const _PixelCoinPainter();
-
-  static const _rows = <String>[
-    '..####..',
-    '.##ss##.',
-    '#ssooo##',
-    '#sooooo#',
-    '#oooooo#',
-    '#oooaa##',
-    '.##aa##.',
-    '..####..',
-  ];
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final unit = size.shortestSide / _rows.length;
-    final paint = Paint()..isAntiAlias = !kIsWeb;
-    for (var y = 0; y < _rows.length; y++) {
-      final row = _rows[y];
-      for (var x = 0; x < row.length; x++) {
-        final color = _colorFor(row[x]);
-        if (color == null) {
-          continue;
-        }
-        paint.color = color;
-        canvas.drawRect(Rect.fromLTWH(x * unit, y * unit, unit, unit), paint);
-      }
-    }
-  }
-
-  Color? _colorFor(String pixel) {
-    return switch (pixel) {
-      '#' => AppColors.dark,
-      'o' => AppColors.gold,
-      's' => AppColors.textOnDark,
-      'a' => AppColors.text,
-      _ => null,
-    };
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

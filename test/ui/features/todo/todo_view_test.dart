@@ -4,6 +4,8 @@ import 'package:pixel_habit/app.dart';
 import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
 import 'package:pixel_habit/domain/models/todo.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_chip.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../support/in_memory_routine_repository.dart';
@@ -28,10 +30,10 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('할 일'));
+    await tester.tap(find.text('투두'));
     await tester.pumpAndSettle();
 
-    expect(find.text('아직 할 일이 없습니다.\n+ 버튼으로 첫 할 일을 추가하세요.'), findsOneWidget);
+    expect(find.text('오늘은 여유로운 하루네. 할 일이 생기면 + 를 눌러줘'), findsOneWidget);
 
     await tester.tap(find.byKey(const Key('add_todo_button')));
     await tester.pumpAndSettle();
@@ -39,27 +41,30 @@ void main() {
     await tester.enterText(find.byKey(const Key('todo_name_field')), '장보기');
     await tester.pump();
     await tester.tap(find.text('오늘'));
-    await tester.tap(find.text('힘'));
+    final strengthChip = find.widgetWithText(PixelChip, '힘');
+    await tester.ensureVisible(strengthChip);
+    await tester.pumpAndSettle();
+    await tester.tap(strengthChip);
     await tester.pump();
     await tester.tap(find.text('등록'));
     await tester.pumpAndSettle();
 
     expect(find.text('장보기'), findsOneWidget);
     expect(find.text('오늘'), findsOneWidget);
-    expect(find.text('힘'), findsOneWidget);
+    expect(find.text('힘'), findsNWidgets(2));
 
     await tester.tap(find.text('장보기'));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
 
-    expect(find.textContaining('할 일 완료'), findsOneWidget);
     expect(find.textContaining('+10 골드'), findsWidgets);
-    expect(find.text('완료'), findsOneWidget);
-
-    await tester.tap(find.text('루틴'));
     await tester.pumpAndSettle();
 
     expect(find.text('10 골드'), findsOneWidget);
-    expect(find.text('10/100'), findsOneWidget);
+    expect(
+      tester.widget<PixelCheckbox>(find.byType(PixelCheckbox)).value,
+      isTrue,
+    );
   });
 
   testWidgets('완료된 할 일은 아직 남은 할 일 아래에 있다', (tester) async {
@@ -93,12 +98,12 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('할 일'));
+    await tester.tap(find.text('투두'));
     await tester.pumpAndSettle();
 
     expect(find.text('내일'), findsOneWidget);
-    expect(find.text('지능'), findsOneWidget);
-    expect(find.text('지혜'), findsOneWidget);
+    expect(find.text('지능'), findsNWidgets(2));
+    expect(find.text('지혜'), findsNWidgets(2));
 
     final openTop = tester.getTopLeft(find.text('남은 일')).dy;
     final doneTop = tester.getTopLeft(find.text('끝난 일')).dy;
@@ -131,6 +136,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('마법 공부'), findsOneWidget);
-    expect(find.text('지능'), findsOneWidget);
+    expect(find.text('지능'), findsNWidgets(2));
   });
 }

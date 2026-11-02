@@ -299,4 +299,63 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get todoSaveFailed => '할 일 저장에 실패했습니다. 다시 시도해 주세요.';
+
+  @override
+  String get tabHome => '홈';
+
+  @override
+  String get tabAvatar => '아바타';
+
+  @override
+  String get tabRecords => '기록';
+
+  @override
+  String get tabSettings => '설정';
+
+  @override
+  String get segmentTodo => '투두';
+
+  @override
+  String traineeLabel(int level) {
+    return 'Lv.$level 훈련생';
+  }
+
+  @override
+  String get emptyRoutineInvite => '함께 키워갈 첫 루틴을 골라볼까?';
+
+  @override
+  String get starterWater => '물 마시기';
+
+  @override
+  String get starterStretch => '스트레칭 5분';
+
+  @override
+  String get starterRead => '10분 독서';
+
+  @override
+  String get starterSleep => '일찍 자기';
+
+  @override
+  String get emptyTodoGentle => '오늘은 여유로운 하루네. 할 일이 생기면 + 를 눌러줘';
+
+  @override
+  String get allQuestsDone => '오늘 퀘스트 완료! 푹 쉬어, 모험가';
+
+  @override
+  String get restedYesterday => '어제는 쉬어갔구나. 오늘은 하나만 해볼까?';
+
+  @override
+  String get recordsPlaceholder => '캘린더는 다음에 이 자리에 들어올 거야.';
+
+  @override
+  String get sectionTodoTime => '시간';
+
+  @override
+  String get pickTodoTime => '시간 선택';
+
+  @override
+  String get soundCredit => '동전 효과음 - Kenney (CC0)';
+
+  @override
+  String get soundCreditUrl => 'https://kenney.nl/assets/rpg-audio';
 }

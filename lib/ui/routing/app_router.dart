@@ -1,18 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/widgets/placeholder_tab.dart';
 import 'package:pixel_habit/ui/core/widgets/rpg_asset_credit.dart';
+import 'package:pixel_habit/ui/features/home/views/home_view.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
-import 'package:pixel_habit/ui/features/routine/views/routine_view.dart';
 import 'package:pixel_habit/ui/features/todo/view_models/todo_view_model.dart';
-import 'package:pixel_habit/ui/features/todo/views/todo_view.dart';
 import 'package:pixel_habit/ui/routing/app_shell.dart';
 import 'package:provider/provider.dart';
 
 GoRouter createRouter() {
   return GoRouter(
-    initialLocation: '/routine',
+    initialLocation: '/home',
     routes: [
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -22,10 +20,11 @@ GoRouter createRouter() {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/routine',
+                path: '/home',
                 builder: (context, state) {
-                  return RoutineView(
-                    viewModel: context.read<RoutineViewModel>(),
+                  return HomeView(
+                    routines: context.read<RoutineViewModel>(),
+                    todos: context.read<TodoViewModel>(),
                   );
                 },
               ),
@@ -34,21 +33,12 @@ GoRouter createRouter() {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/todo',
+                path: '/avatar',
                 builder: (context, state) {
-                  return TodoView(viewModel: context.read<TodoViewModel>());
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/calendar',
-                builder: (context, state) {
+                  final l10n = AppLocalizations.of(context)!;
                   return PlaceholderTab(
-                    title: '캘린더',
-                    message: _sealed(context),
+                    title: l10n.tabAvatar,
+                    message: l10n.comingSoon,
                   );
                 },
               ),
@@ -57,11 +47,12 @@ GoRouter createRouter() {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/character',
+                path: '/records',
                 builder: (context, state) {
+                  final l10n = AppLocalizations.of(context)!;
                   return PlaceholderTab(
-                    title: '캐릭터',
-                    message: _sealed(context),
+                    title: l10n.tabRecords,
+                    message: l10n.recordsPlaceholder,
                   );
                 },
               ),
@@ -70,11 +61,12 @@ GoRouter createRouter() {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/summary',
+                path: '/settings',
                 builder: (context, state) {
+                  final l10n = AppLocalizations.of(context)!;
                   return PlaceholderTab(
-                    title: '종합',
-                    message: _sealed(context),
+                    title: l10n.tabSettings,
+                    message: l10n.comingSoon,
                     footer: const RpgAssetCredit(),
                   );
                 },
@@ -85,8 +77,4 @@ GoRouter createRouter() {
       ),
     ],
   );
-}
-
-String _sealed(BuildContext context) {
-  return AppLocalizations.of(context)!.comingSoon;
 }

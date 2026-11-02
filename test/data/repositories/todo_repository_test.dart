@@ -34,6 +34,23 @@ void main() {
     expect(preferences.getKeys(), isNot(contains('routines_v1')));
   });
 
+  test('시간 필드가 없는 예전 저장값도 읽는다', () async {
+    SharedPreferences.setMockInitialValues({
+      LocalTodoRepository.todosKey:
+          '[{"id":"old","title":"장보기","createdAt":"2026-11-02T09:00:00.000"}]',
+    });
+    final preferences = await SharedPreferences.getInstance();
+    final repository = LocalTodoRepository(LocalStorageService(preferences));
+
+    final todos = await repository.loadTodos();
+
+    expect(todos, hasLength(1));
+    expect(todos.single.title, '장보기');
+    expect(todos.single.date, isNull);
+    expect(todos.single.hasTime, isFalse);
+    expect(todos.single.completed, isFalse);
+  });
+
   test('저장된 할 일이 없으면 빈 목록이다', () async {
     SharedPreferences.setMockInitialValues({});
     final preferences = await SharedPreferences.getInstance();

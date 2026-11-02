@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/domain/models/routine.dart';
-import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
-import 'package:pixel_habit/ui/core/theme/app_theme.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_checkbox.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_pressable.dart';
-import 'package:pixel_habit/ui/core/widgets/soft_card.dart';
 import 'package:pixel_habit/ui/core/widgets/stat_badge.dart';
 
 class RoutineCard extends StatelessWidget {
@@ -22,7 +19,6 @@ class RoutineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final completed = routine.completedToday;
 
@@ -34,7 +30,7 @@ class RoutineCard extends StatelessWidget {
         return false;
       },
       background: const ColoredBox(
-        color: AppColors.dark,
+        color: AppColors.statStrength,
         child: Align(
           alignment: Alignment.centerRight,
           child: Padding(
@@ -46,76 +42,51 @@ class RoutineCard extends StatelessWidget {
       child: PixelPressable(
         onTap: onToggle,
         pressedScale: 0.98,
-        child: SoftCard(
-          highlighted: completed,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              PixelCheckbox(value: completed, onChanged: (_) => onToggle()),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(routine.title, style: textTheme.bodyLarge),
-                    if (routine.note != null) ...[
-                      const SizedBox(height: 2),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: AppColors.panelRaised,
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            border: Border.all(
+              color: completed ? AppColors.gold : AppColors.panelBorder,
+              width: completed ? 1.5 : 1,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                PixelCheckbox(value: completed, onChanged: (_) => onToggle()),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        routine.note!,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: AppColors.text.withValues(alpha: 0.68),
+                        routine.title,
+                        style: textTheme.bodyLarge?.copyWith(
+                          color: AppColors.textOnDark,
                         ),
                       ),
-                    ],
-                    const SizedBox(height: 4),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 4,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        if (routine.stat != null)
-                          StatBadge(stat: routine.stat!),
+                      if (routine.note != null) ...[
+                        const SizedBox(height: 2),
                         Text(
-                          l10n.xpLabel(routine.xpReward),
-                          style: AppTheme.pixel(
-                            fontSize: 16,
-                            color: AppColors.gold,
+                          routine.note!,
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: AppColors.panelMuted,
                           ),
                         ),
                       ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              if (completed) ...[
-                const SizedBox(width: 8),
-                _DonePill(label: l10n.completedStamp),
+                if (routine.stat != null) ...[
+                  const SizedBox(width: 8),
+                  StatBadge(stat: routine.stat!),
+                ],
               ],
-            ],
+            ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _DonePill extends StatelessWidget {
-  const _DonePill({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-        color: AppColors.accent,
-        borderRadius: BorderRadius.all(Radius.circular(999)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        child: Text(
-          label,
-          style: AppTheme.pixel(fontSize: 16, color: AppColors.textOnDark),
         ),
       ),
     );

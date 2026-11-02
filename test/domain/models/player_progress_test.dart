@@ -65,6 +65,32 @@ void main() {
       expect(decoded.gold, 0);
       expect(decoded.level, 2);
       expect(decoded.xpIntoLevel, 20);
+      expect(decoded.lastCompletionDate, isNull);
+    });
+
+    test('완료한 날을 저장하고 어제를 쉬었는지 구분한다', () {
+      const progress = PlayerProgress(xp: 10, gold: 10);
+      final done = progress.grantCompletionReward(
+        xpReward: 10,
+        completedOn: DateTime(2026, 10, 30, 22),
+      );
+
+      expect(done.lastCompletionDate, DateTime(2026, 10, 30));
+      expect(done.skippedYesterday(now: DateTime(2026, 10, 31)), isFalse);
+      expect(done.skippedYesterday(now: DateTime(2026, 11, 2)), isTrue);
+      expect(const PlayerProgress().skippedYesterday(), isFalse);
+
+      final revoked = done.revokeCompletionReward(xpReward: 10);
+      expect(revoked.gold, 10);
+      expect(revoked.lastCompletionDate, DateTime(2026, 10, 30));
+
+      final restored = PlayerProgress.fromJson(done.toJson());
+      expect(restored.lastCompletionDate, DateTime(2026, 10, 30));
+      expect(
+        PlayerProgress.fromJson({'xp': 1, 'lastCompletionDate': 'not-a-day'})
+            .lastCompletionDate,
+        isNull,
+      );
     });
 
     test('음수 골드는 0으로 읽는다', () {

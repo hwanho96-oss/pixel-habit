@@ -4,10 +4,12 @@
 
 ## 현재 구현
 
-- 하단 5개 탭: 루틴, 할 일, 캘린더, 캐릭터, 종합
-- **루틴 탭**: 반복 퀘스트 목록, 완료 체크, XP/레벨, 골드, 추가·삭제. 힘·지능·지혜 태그를 붙일 수 있다. 긴 글은 Pretendard, 레벨·골드·숫자는 Galmuri.
-- **할 일 탭**: 한 번만 하는 일. 이름, 오늘/내일 날짜, 힘·지능·지혜 태그. 완료하면 루틴과 같은 골드와 경험치가 오르고, 체크를 해제하면 그만큼 돌아온다.
-- 캘린더, 캐릭터, 종합 탭은 이후 해금 예정인 플레이스홀더입니다.
+- 하단 4개 탭: 홈, 아바타, 기록, 설정
+- **홈**: 위에는 배경과 아바타, 골드, 힘·지능·지혜 범례, 레벨. 아래 어두운 패널에서 루틴과 할 일(투두)을 바꾼다. 체크하면 골드 10이 오르고, 짧게 반짝인 뒤 동전 소리가 난다.
+- **할 일**: 이름, 날짜, 시간(선택). 예전에 저장한 할 일에 시간이 없어도 그대로 열린다.
+- **아바타**, **기록**: 아직 비어 있다. 기록에는 다음에 캘린더가 들어온다.
+- **설정**: 그림과 효과음 크레딧.
+- 긴 글은 Pretendard, 레벨·골드·숫자는 Galmuri.
 
 ## 실행
 
@@ -33,6 +35,10 @@ flutter run -d chrome
 
 ## 크레딧
 
-체크박스, 골드 배지, 등록 버튼에 쓰는 픽셀 그림은 Franuka의 [RPG UI pack (demo)](https://franuka.itch.io/rpg-ui-pack-demo)를 편집해 사용합니다. 상업적 사용과 편집은 허용되며, 팩을 그대로 다시 배포할 수는 없습니다. 라이선스 원문은 `assets/rpg_ui/LICENSE.txt`에 있습니다. 앱 안에서는 종합 탭에서도 같은 크레딧을 볼 수 있습니다.
+체크박스, 골드 배지, 등록 버튼에 쓰는 픽셀 그림은 Franuka의 [RPG UI pack (demo)](https://franuka.itch.io/rpg-ui-pack-demo)를 편집해 사용합니다. 상업적 사용과 편집은 허용되며, 팩을 그대로 다시 배포할 수는 없습니다. 라이선스 원문은 `assets/rpg_ui/LICENSE.txt`에 있습니다.
+
+홈 배경, 빨간 마법사 아바타, 코인 그림의 출처는 아직 확인 전입니다. 메모는 `assets/SOURCES.md`에 있습니다.
+
+동전 효과음은 Kenney의 [RPG Audio](https://kenney.nl/assets/rpg-audio) `handleCoins2`이며 CC0입니다. 앱 안에서는 설정 탭에서 크레딧을 볼 수 있습니다.
 
 본문 글자는 [Pretendard](https://github.com/orioncactus/pretendard) (SIL Open Font License 1.1), 레벨·골드·숫자 같은 짧은 글자는 [Galmuri](https://github.com/quiple/galmuri) (SIL Open Font License 1.1)를 씁니다. 라이선스 원문은 `assets/fonts/pretendard/OFL.txt`, `assets/fonts/galmuri/OFL.txt`에 있습니다.

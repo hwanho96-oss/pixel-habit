@@ -10,11 +10,13 @@ class PixelAssetImage extends StatefulWidget {
     required this.path,
     this.width,
     this.height,
+    this.fit = BoxFit.fill,
   });
 
   final String path;
   final double? width;
   final double? height;
+  final BoxFit fit;
 
   @override
   State<PixelAssetImage> createState() => _PixelAssetImageState();
@@ -80,23 +82,36 @@ class _PixelAssetImageState extends State<PixelAssetImage> {
       width: widget.width,
       height: widget.height,
       child: CustomPaint(
-        painter: _image == null ? null : _PixelImagePainter(image: _image!),
+        painter: _image == null
+            ? null
+            : _PixelImagePainter(image: _image!, fit: widget.fit),
       ),
     );
   }
 }
 
 class _PixelImagePainter extends CustomPainter {
-  const _PixelImagePainter({required this.image});
+  const _PixelImagePainter({required this.image, required this.fit});
 
   final ui.Image image;
+  final BoxFit fit;
 
   @override
   void paint(Canvas canvas, Size size) {
+    final input = Size(image.width.toDouble(), image.height.toDouble());
+    final fitted = applyBoxFit(fit, input, size);
+    final source = Alignment.center.inscribe(
+      fitted.source,
+      Offset.zero & input,
+    );
+    final destination = Alignment.center.inscribe(
+      fitted.destination,
+      Offset.zero & size,
+    );
     canvas.drawImageRect(
       image,
-      Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-      Offset.zero & size,
+      source,
+      destination,
       Paint()
         ..filterQuality = FilterQuality.none
         ..isAntiAlias = false,
@@ -105,6 +120,6 @@ class _PixelImagePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _PixelImagePainter oldDelegate) {
-    return oldDelegate.image != image;
+    return oldDelegate.image != image || oldDelegate.fit != fit;
   }
 }
