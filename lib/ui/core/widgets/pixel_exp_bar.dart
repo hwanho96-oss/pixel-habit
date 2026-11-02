@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/theme/app_theme.dart';
+import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_nine_slice.dart';
 
 class PixelExpBar extends StatelessWidget {
   const PixelExpBar({
@@ -15,66 +18,52 @@ class PixelExpBar extends StatelessWidget {
   final int max;
   final String label;
   final String progressLabel;
+
+  /// 트랙 안쪽 홈의 높이. 프레임 스프라이트 두께는 따로 더해진다.
   final double height;
 
   @override
   Widget build(BuildContext context) {
     final clampedMax = max <= 0 ? 1 : max;
     final progress = (current / clampedMax).clamp(0.0, 1.0);
-    final labelStyle = Theme.of(context).textTheme.labelSmall;
+    final pixel = AppTheme.pixelLatin(color: AppColors.ink);
+    final caps = RpgUiAssets.barTrack.capInsets;
+    final trackHeight = caps.vertical + height;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Text(
-              label,
-              style: labelStyle?.copyWith(color: AppColors.goldHighlight),
-            ),
+            Text(label, style: pixel),
             const Spacer(),
-            Text(
-              progressLabel,
-              style: labelStyle?.copyWith(color: AppColors.parchment),
-            ),
+            Text(progressLabel, style: pixel),
           ],
         ),
         const SizedBox(height: 6),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            color: AppColors.night,
-            border: Border.all(color: AppColors.antiqueGold, width: 2),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.arcane.withValues(alpha: 0.35),
-                blurRadius: 6,
+        SizedBox(
+          height: trackHeight,
+          width: double.infinity,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              const PixelNineSlice(
+                slice: RpgUiAssets.barTrack,
+                child: SizedBox.expand(),
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(2),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Align(
-                  alignment: Alignment.centerLeft,
-                  child: DecoratedBox(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          AppColors.goldHighlight,
-                          AppColors.gold,
-                          AppColors.antiqueGold,
-                        ],
-                      ),
-                    ),
-                    child: SizedBox(
-                      width: constraints.maxWidth * progress,
-                      height: height,
+              if (progress > 0)
+                Padding(
+                  padding: caps,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: FractionallySizedBox(
+                      widthFactor: progress,
+                      heightFactor: 1,
+                      child: const ColoredBox(color: AppColors.goldHighlight),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+            ],
           ),
         ),
       ],

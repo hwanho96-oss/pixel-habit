@@ -62,8 +62,16 @@ flutter:
   generate: true
   uses-material-design: true
 
+  # Franuka RPG UI pack (demo): https://franuka.itch.io/rpg-ui-pack-demo
+  # License: assets/rpg_ui/LICENSE.txt — do not redistribute the pack as-is.
   assets:
     - assets/images/profile_wizard.png
+    - assets/rpg_ui/ui/
+
+  fonts:
+    - family: FantasyRPG
+      fonts:
+        - asset: assets/rpg_ui/FantasyRPGtext.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

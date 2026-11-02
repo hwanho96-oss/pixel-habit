@@ -236,4 +236,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get titleRequired => 'Please enter a quest name.';
+
+  @override
+  String get assetCredit => 'UI assets - Franuka';
+
+  @override
+  String get assetCreditUrl => 'https://franuka.itch.io/rpg-ui-pack-demo';
 }

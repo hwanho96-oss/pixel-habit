@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_asset_image.dart';
 
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({super.key, this.size = 56});
@@ -16,20 +17,11 @@ class ProfileAvatar extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: AppColors.night,
-          border: Border.all(color: AppColors.antiqueGold, width: 3),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.arcane.withValues(alpha: 0.4),
-              blurRadius: 8,
-            ),
-          ],
+          border: Border.all(color: AppColors.outline, width: 2),
         ),
-        child: Image.asset(
-          assetPath,
-          fit: BoxFit.contain,
-          filterQuality: FilterQuality.none,
-          isAntiAlias: false,
-          semanticLabel: 'profile wizard',
+        child: Semantics(
+          label: 'profile wizard',
+          child: const PixelAssetImage(path: ProfileAvatar.assetPath),
         ),
       ),
     );
