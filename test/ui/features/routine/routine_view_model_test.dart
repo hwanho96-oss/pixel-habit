@@ -92,5 +92,115 @@ void main() {
       await viewModel.deleteRoutine('r1');
       expect(viewModel.routines, isEmpty);
     });
+
+    test('완료하면 고정 골드를 지급하고 같은 날 해제하면 회수한다', () async {
+      await viewModel.load();
+      await viewModel.toggleCompleted('r1');
+
+      expect(viewModel.progress.gold, PlayerProgress.goldPerCompletion);
+      expect(viewModel.lastGrantedGold, PlayerProgress.goldPerCompletion);
+      expect(viewModel.progress.xp, sample.xpReward);
+
+      await viewModel.toggleCompleted('r1');
+
+      expect(viewModel.routines.first.completedToday, isFalse);
+      expect(viewModel.progress.gold, 0);
+      expect(viewModel.progress.xp, 0);
+      expect(viewModel.lastGrantedGold, isNull);
+      expect(viewModel.lastGrantedXp, isNull);
+
+      final stored = await repository.loadProgress();
+      expect(stored.gold, 0);
+      expect(stored.xp, 0);
+    });
+
+    test('루틴마다 같은 골드를 받고 하나만 해제하면 그만큼만 돌아간다', () async {
+      await viewModel.load();
+      final added = await viewModel.addRoutine(title: '마법 공부', xpReward: 40);
+      expect(added, isTrue);
+      final secondId = viewModel.routines.last.id;
+
+      await viewModel.toggleCompleted('r1');
+      await viewModel.toggleCompleted(secondId);
+
+      expect(viewModel.progress.gold, PlayerProgress.goldPerCompletion * 2);
+      expect(viewModel.progress.xp, sample.xpReward + 40);
+      expect(viewModel.lastGrantedGold, PlayerProgress.goldPerCompletion);
+
+      await viewModel.toggleCompleted('r1');
+
+      expect(viewModel.progress.gold, PlayerProgress.goldPerCompletion);
+      expect(viewModel.progress.xp, 40);
+      expect(viewModel.lastGrantedGold, isNull);
+
+      final stored = await repository.loadProgress();
+      expect(stored.gold, PlayerProgress.goldPerCompletion);
+      expect(stored.xp, 40);
+    });
+
+    test('체크를 반복해도 골드를 늘릴 수 없다', () async {
+      await viewModel.load();
+      for (var i = 0; i < 3; i++) {
+        await viewModel.toggleCompleted('r1');
+        await viewModel.toggleCompleted('r1');
+      }
+
+      expect(viewModel.progress.gold, 0);
+      expect(viewModel.progress.xp, 0);
+    });
+
+    test('보유 골드보다 많이 회수해도 0 아래로 내려가지 않는다', () async {
+      final completed = Routine(
+        id: 'r1',
+        title: '아침 수련',
+        xpReward: 15,
+        avatarSeed: 0,
+        createdAt: DateTime(2026, 1, 1),
+        completedToday: true,
+        lastCompletedAt: DateTime.now(),
+      );
+      repository = InMemoryRoutineRepository(
+        routines: [completed],
+        progress: const PlayerProgress(xp: 4, gold: 3),
+      );
+      viewModel = RoutineViewModel(repository: repository);
+
+      await viewModel.load();
+      await viewModel.toggleCompleted('r1');
+
+      expect(viewModel.routines.first.completedToday, isFalse);
+      expect(viewModel.progress.gold, 0);
+      expect(viewModel.progress.xp, 0);
+      expect(viewModel.lastGrantedGold, isNull);
+    });
+
+    test('날짜가 바뀌어 완료 표시가 풀려도 이미 받은 골드는 유지된다', () async {
+      final yesterday = DateTime.now().subtract(const Duration(days: 1));
+      repository = InMemoryRoutineRepository(
+        routines: [
+          Routine(
+            id: 'r1',
+            title: '아침 수련',
+            xpReward: 15,
+            avatarSeed: 0,
+            createdAt: DateTime(2026, 1, 1),
+            completedToday: true,
+            lastCompletedAt: yesterday,
+          ),
+        ],
+        progress: const PlayerProgress(
+          xp: 15,
+          gold: PlayerProgress.goldPerCompletion,
+        ),
+      );
+      viewModel = RoutineViewModel(repository: repository);
+
+      await viewModel.load();
+
+      expect(viewModel.routines.first.completedToday, isFalse);
+      expect(viewModel.progress.gold, PlayerProgress.goldPerCompletion);
+      expect(viewModel.progress.xp, 15);
+      expect(viewModel.progress.level, 1);
+    });
   });
 }
