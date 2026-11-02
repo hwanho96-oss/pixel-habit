@@ -1,6 +1,6 @@
 # Pixel Habit
 
-판타지·픽셀 아트 세계관의 게이미피케이션 습관 트래커입니다. iOS와 Android를 동시에 지원합니다.
+판타지·픽셀 아트 세계관의 게이미피케이션 습관 트래커입니다. Android에서 쓰고, 브라우저에서 프로토타입을 볼 수 있습니다.
 
 ## 현재 구현
 
@@ -10,12 +10,25 @@
 
 ## 실행
 
+Android:
+
 ```bash
 flutter pub get
 flutter run
 ```
 
 Android Studio에서는 이 폴더를 연 뒤 기기 또는 에뮬레이터를 선택하고 Run을 누르면 됩니다.
+
+브라우저:
+
+```bash
+flutter pub get
+flutter run -d chrome
+```
+
+넓은 창에서는 가운데에 휴대폰 너비로 맞춰 보여 줍니다. 릴리스 정적 파일은 `flutter build web --release`로 `build/web`에 만들어집니다.
+
+`main`에 푸시하면 GitHub Actions가 웹 빌드를 만들어 GitHub Pages로 올리도록 설정되어 있습니다. 주소는 `https://hwanho96-oss.github.io/pixel-habit/` 입니다. 비공개 저장소에서 Pages를 쓰려면 GitHub Pro 이상이 필요하고, 저장소 Settings → Pages에서 Source를 GitHub Actions로 한 번 켜야 합니다.
 
 ## 크레딧
 

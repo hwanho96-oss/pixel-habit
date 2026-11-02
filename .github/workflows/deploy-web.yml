@@ -1,0 +1,61 @@
+# main에 push할 때마다 웹 릴리스 빌드를 GitHub Pages로 배포합니다.
+# 주소: https://hwanho96-oss.github.io/pixel-habit/
+#
+# 이 워크플로만으로는 사이트가 열리지 않습니다. 저장소 Settings → Pages에서
+# Source를 GitHub Actions로 한 번 켜야 합니다. 비공개 저장소는 GitHub Pro,
+# Team, Enterprise에서만 Pages를 쓸 수 있습니다.
+name: Deploy web
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.47.9"
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build web
+        run: flutter build web --release --base-href /pixel-habit/
+
+      - name: Add GitHub Pages SPA fallback
+        run: cp build/web/index.html build/web/404.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
