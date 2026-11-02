@@ -1,10 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pixel_habit/data/repositories/routine_repository.dart';
 import 'package:pixel_habit/data/services/local_storage_service.dart';
+import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/theme/app_theme.dart';
+import 'package:pixel_habit/ui/core/widgets/web_phone_frame.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:pixel_habit/ui/routing/app_router.dart';
 import 'package:provider/provider.dart';
@@ -57,6 +59,11 @@ class _PixelHabitAppState extends State<PixelHabitApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         routerConfig: _router,
+        builder: kIsWeb
+            ? (context, child) => WebPhoneFrame(
+                child: child ?? const SizedBox.shrink(),
+              )
+            : null,
       ),
     );
   }

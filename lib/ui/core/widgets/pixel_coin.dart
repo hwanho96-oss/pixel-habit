@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
 
@@ -32,6 +33,7 @@ class _PixelCoinPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final unit = size.shortestSide / _rows.length;
+    final paint = Paint()..isAntiAlias = !kIsWeb;
     for (var y = 0; y < _rows.length; y++) {
       final row = _rows[y];
       for (var x = 0; x < row.length; x++) {
@@ -39,9 +41,10 @@ class _PixelCoinPainter extends CustomPainter {
         if (color == null) {
           continue;
         }
+        paint.color = color;
         canvas.drawRect(
           Rect.fromLTWH(x * unit, y * unit, unit, unit),
-          Paint()..color = color,
+          paint,
         );
       }
     }

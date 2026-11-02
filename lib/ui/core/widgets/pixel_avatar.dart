@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
 
@@ -46,7 +47,9 @@ class _PixelHeroPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final palette = _palettes[seed.abs() % _palettes.length];
     final cell = size.width / 8;
-    final paint = Paint()..style = PaintingStyle.fill;
+    final paint = Paint()
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = !kIsWeb;
 
     void pixel(int x, int y, Color color) {
       paint.color = color;
