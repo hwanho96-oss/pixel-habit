@@ -511,6 +511,18 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'퀘스트 이름을 입력해 주세요.'**
   String get titleRequired;
+
+  /// No description provided for @assetCredit.
+  ///
+  /// In ko, this message translates to:
+  /// **'UI 에셋 - Franuka'**
+  String get assetCredit;
+
+  /// No description provided for @assetCreditUrl.
+  ///
+  /// In ko, this message translates to:
+  /// **'https://franuka.itch.io/rpg-ui-pack-demo'**
+  String get assetCreditUrl;
 }
 
 class _AppLocalizationsDelegate

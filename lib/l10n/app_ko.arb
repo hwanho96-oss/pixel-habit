@@ -109,5 +109,7 @@
   "tagMeditation": "명상",
   "tagSleep": "수면",
   "saveFailed": "퀘스트 저장에 실패했습니다. 다시 시도해 주세요.",
-  "titleRequired": "퀘스트 이름을 입력해 주세요."
+  "titleRequired": "퀘스트 이름을 입력해 주세요.",
+  "assetCredit": "UI 에셋 - Franuka",
+  "assetCreditUrl": "https://franuka.itch.io/rpg-ui-pack-demo"
 }

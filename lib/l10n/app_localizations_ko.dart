@@ -225,4 +225,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get titleRequired => '퀘스트 이름을 입력해 주세요.';
+
+  @override
+  String get assetCredit => 'UI 에셋 - Franuka';
+
+  @override
+  String get assetCreditUrl => 'https://franuka.itch.io/rpg-ui-pack-demo';
 }

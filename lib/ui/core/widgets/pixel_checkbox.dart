@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pixel_habit/ui/core/theme/app_colors.dart';
+import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
+import 'package:pixel_habit/ui/core/widgets/pixel_asset_image.dart';
 
 class PixelCheckbox extends StatelessWidget {
   const PixelCheckbox({
@@ -17,28 +18,15 @@ class PixelCheckbox extends StatelessWidget {
       checked: value,
       button: true,
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: () => onChanged(!value),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 120),
-          width: 28,
-          height: 28,
-          decoration: BoxDecoration(
-            color: value ? AppColors.gold : AppColors.parchment,
-            border: Border.all(
-              color: value ? AppColors.antiqueGold : AppColors.outline,
-              width: 3,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: (value ? AppColors.gold : AppColors.outline)
-                    .withValues(alpha: 0.35),
-                offset: const Offset(1, 1),
-              ),
-            ],
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: PixelAssetImage(
+            path: value ? RpgUiAssets.checkboxOn : RpgUiAssets.checkboxOff,
+            width: RpgUiAssets.checkboxWidth,
+            height: RpgUiAssets.checkboxHeight,
           ),
-          child: value
-              ? const Icon(Icons.check, size: 18, color: AppColors.ink)
-              : null,
         ),
       ),
     );

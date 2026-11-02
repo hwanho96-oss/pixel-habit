@@ -68,5 +68,7 @@
   "tagMeditation": "Meditation",
   "tagSleep": "Sleep",
   "saveFailed": "Failed to save the quest. Please try again.",
-  "titleRequired": "Please enter a quest name."
+  "titleRequired": "Please enter a quest name.",
+  "assetCredit": "UI assets - Franuka",
+  "assetCreditUrl": "https://franuka.itch.io/rpg-ui-pack-demo"
 }

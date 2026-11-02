@@ -5,12 +5,14 @@ class PixelPressable extends StatefulWidget {
   const PixelPressable({
     super.key,
     required this.child,
+    this.pressedChild,
     this.onTap,
     this.enabled = true,
     this.pressedScale = 0.95,
   });
 
   final Widget child;
+  final Widget? pressedChild;
   final VoidCallback? onTap;
   final bool enabled;
   final double pressedScale;
@@ -32,9 +34,11 @@ class _PixelPressableState extends State<PixelPressable> {
   @override
   Widget build(BuildContext context) {
     final canTap = widget.enabled && widget.onTap != null;
+    final showPressed = _pressed && canTap && widget.pressedChild != null;
+    final scaleDown = _pressed && canTap && widget.pressedChild == null;
 
     return AnimatedScale(
-      scale: _pressed && canTap ? widget.pressedScale : 1,
+      scale: scaleDown ? widget.pressedScale : 1,
       duration: const Duration(milliseconds: 120),
       curve: Curves.easeOut,
       child: GestureDetector(
@@ -43,7 +47,7 @@ class _PixelPressableState extends State<PixelPressable> {
         onTapUp: canTap ? (_) => _setPressed(false) : null,
         onTapCancel: canTap ? () => _setPressed(false) : null,
         onTap: canTap ? widget.onTap : null,
-        child: widget.child,
+        child: showPressed ? widget.pressedChild! : widget.child,
       ),
     );
   }

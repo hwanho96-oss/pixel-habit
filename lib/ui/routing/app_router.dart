@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pixel_habit/ui/core/widgets/placeholder_tab.dart';
+import 'package:pixel_habit/ui/core/widgets/rpg_asset_credit.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:pixel_habit/ui/features/routine/views/routine_view.dart';
 import 'package:pixel_habit/ui/routing/app_shell.dart';
@@ -21,7 +22,9 @@ GoRouter createRouter() {
               GoRoute(
                 path: '/routine',
                 builder: (context, state) {
-                  return RoutineView(viewModel: context.read<RoutineViewModel>());
+                  return RoutineView(
+                    viewModel: context.read<RoutineViewModel>(),
+                  );
                 },
               ),
             ],
@@ -73,6 +76,7 @@ GoRouter createRouter() {
                   return PlaceholderTab(
                     title: '종합',
                     message: _sealed(context),
+                    footer: const RpgAssetCredit(),
                   );
                 },
               ),
