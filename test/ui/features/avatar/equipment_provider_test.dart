@@ -8,20 +8,31 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('EquipmentProvider', () {
-    test('처음에는 가진 장비가 없고 기존 배경을 쓴다', () async {
+    test('새 사용자는 초록 셔츠와 갈색 바지를 공짜로 입고 시작한다', () async {
       SharedPreferences.setMockInitialValues({});
       final preferences = await SharedPreferences.getInstance();
       final provider = EquipmentProvider(LocalStorageService(preferences));
 
       await provider.load();
 
-      expect(provider.items, hasLength(25));
-      expect(provider.ownedIds, isEmpty);
+      expect(provider.items, hasLength(31));
+      expect(provider.ownedIds, {
+        EquipmentProvider.starterTopId,
+        EquipmentProvider.starterBottomId,
+      });
+      expect(
+        provider.equippedId(ItemCategory.top),
+        EquipmentProvider.starterTopId,
+      );
+      expect(
+        provider.equippedId(ItemCategory.bottom),
+        EquipmentProvider.starterBottomId,
+      );
       expect(
         provider.backgroundAsset,
         EquipmentProvider.defaultBackgroundAsset,
       );
-      expect(provider.layerAsset(ItemCategory.top), isNull);
+      expect(provider.layerAsset(ItemCategory.weapon), isNull);
       expect(provider.items.map((item) => item.category).toSet(), {
         ItemCategory.top,
         ItemCategory.bottom,
@@ -29,6 +40,13 @@ void main() {
         ItemCategory.pet,
         ItemCategory.background,
       });
+      expect(preferences.getKeys(), contains(EquipmentProvider.storageKey));
+
+      await provider.unequip(ItemCategory.top);
+      final again = EquipmentProvider(LocalStorageService(preferences));
+      await again.load();
+      expect(again.equippedId(ItemCategory.top), isNull);
+      expect(again.ownedIds, contains(EquipmentProvider.starterTopId));
     });
 
     test('가지지 않은 장비는 장착되지 않고, 가진 장비는 다시 열어도 남는다', () async {
@@ -44,7 +62,10 @@ void main() {
       );
 
       await provider.equip(top.id);
-      expect(provider.equippedId(ItemCategory.top), isNull);
+      expect(
+        provider.equippedId(ItemCategory.top),
+        EquipmentProvider.starterTopId,
+      );
 
       await provider.addOwned(top.id);
       await provider.addOwned(background.id);
@@ -54,7 +75,12 @@ void main() {
       final reloaded = EquipmentProvider(LocalStorageService(preferences));
       await reloaded.load();
 
-      expect(reloaded.ownedIds, {top.id, background.id});
+      expect(reloaded.ownedIds, {
+        top.id,
+        background.id,
+        EquipmentProvider.starterTopId,
+        EquipmentProvider.starterBottomId,
+      });
       expect(reloaded.equippedId(ItemCategory.top), top.id);
       expect(reloaded.layerAsset(ItemCategory.top), top.asset);
       expect(reloaded.backgroundAsset, background.asset);

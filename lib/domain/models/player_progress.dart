@@ -53,6 +53,17 @@ class PlayerProgress {
     return lastDay.isBefore(yesterday);
   }
 
+  /// 살 수 있으면 그만큼 뺀 진행. 음수이거나 가진 골드보다 크면 null.
+  PlayerProgress? trySpendGold(int amount) {
+    if (amount < 0 || amount > gold) {
+      return null;
+    }
+    if (amount == 0) {
+      return this;
+    }
+    return copyWith(gold: gold - amount);
+  }
+
   PlayerProgress revokeCompletionReward({required int xpReward}) {
     return copyWith(
       xp: _clampXp(xp - xpReward),

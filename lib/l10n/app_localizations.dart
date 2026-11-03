@@ -757,6 +757,72 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'https://kenney.nl/assets/rpg-audio'**
   String get soundCreditUrl;
+
+  /// No description provided for @shopTab.
+  ///
+  /// In ko, this message translates to:
+  /// **'상점'**
+  String get shopTab;
+
+  /// No description provided for @personalityTab.
+  ///
+  /// In ko, this message translates to:
+  /// **'성격'**
+  String get personalityTab;
+
+  /// No description provided for @personalityPlaceholder.
+  ///
+  /// In ko, this message translates to:
+  /// **'성격은 다음에 이 자리에 들어올 거야.'**
+  String get personalityPlaceholder;
+
+  /// No description provided for @shopCategoryTop.
+  ///
+  /// In ko, this message translates to:
+  /// **'상의'**
+  String get shopCategoryTop;
+
+  /// No description provided for @shopCategoryBottom.
+  ///
+  /// In ko, this message translates to:
+  /// **'하의'**
+  String get shopCategoryBottom;
+
+  /// No description provided for @shopCategoryWeapon.
+  ///
+  /// In ko, this message translates to:
+  /// **'무기'**
+  String get shopCategoryWeapon;
+
+  /// No description provided for @shopCategoryPet.
+  ///
+  /// In ko, this message translates to:
+  /// **'펫'**
+  String get shopCategoryPet;
+
+  /// No description provided for @shopCategoryBackground.
+  ///
+  /// In ko, this message translates to:
+  /// **'배경'**
+  String get shopCategoryBackground;
+
+  /// No description provided for @shopNeedGold.
+  ///
+  /// In ko, this message translates to:
+  /// **'골드가 조금 모자라. 퀘스트를 해 보면 어때?'**
+  String get shopNeedGold;
+
+  /// No description provided for @shopOwned.
+  ///
+  /// In ko, this message translates to:
+  /// **'보유'**
+  String get shopOwned;
+
+  /// No description provided for @shopEquipped.
+  ///
+  /// In ko, this message translates to:
+  /// **'착용 중'**
+  String get shopEquipped;
 }
 
 class _AppLocalizationsDelegate

@@ -194,5 +194,16 @@
   "sectionTodoTime": "시간",
   "pickTodoTime": "시간 선택",
   "soundCredit": "동전 효과음 - Kenney (CC0)",
-  "soundCreditUrl": "https://kenney.nl/assets/rpg-audio"
+  "soundCreditUrl": "https://kenney.nl/assets/rpg-audio",
+  "shopTab": "상점",
+  "personalityTab": "성격",
+  "personalityPlaceholder": "성격은 다음에 이 자리에 들어올 거야.",
+  "shopCategoryTop": "상의",
+  "shopCategoryBottom": "하의",
+  "shopCategoryWeapon": "무기",
+  "shopCategoryPet": "펫",
+  "shopCategoryBackground": "배경",
+  "shopNeedGold": "골드가 조금 모자라. 퀘스트를 해 보면 어때?",
+  "shopOwned": "보유",
+  "shopEquipped": "착용 중"
 }

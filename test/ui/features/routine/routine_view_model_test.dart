@@ -162,6 +162,24 @@ void main() {
       expect(viewModel.progress.xp, 0);
     });
 
+    test('상점 결제는 한 번만 빠지고 모자라면 거절한다', () async {
+      final wallet = InMemoryRoutineRepository(
+        routines: [sample],
+        progress: const PlayerProgress(gold: 40),
+      );
+      final buyer = RoutineViewModel(repository: wallet);
+      await buyer.load();
+
+      final first = buyer.spendGold(30);
+      final second = buyer.spendGold(30);
+
+      expect(await first, isTrue);
+      expect(await second, isFalse);
+      expect(buyer.progress.gold, 10);
+      expect(buyer.progress.xp, 0);
+      expect((await wallet.loadProgress()).gold, 10);
+    });
+
     test('보유 골드보다 많이 회수해도 0 아래로 내려가지 않는다', () async {
       final completed = Routine(
         id: 'r1',

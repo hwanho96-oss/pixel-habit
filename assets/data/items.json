@@ -1,14 +1,14 @@
 [
   {
     "id": "top_green_tunic",
-    "name": "초록 튜닉",
+    "name": "갈색 튜닉",
     "category": "top",
     "price": 40,
     "asset": "assets/items/tops/top_green_tunic_16.png"
   },
   {
     "id": "top_grey_plate",
-    "name": "회색 판금",
+    "name": "주황 판금",
     "category": "top",
     "price": 80,
     "asset": "assets/items/tops/top_grey_plate_16.png"
@@ -50,7 +50,7 @@
   },
   {
     "id": "top_white_shirt",
-    "name": "흰 셔츠",
+    "name": "초록 셔츠",
     "category": "top",
     "price": 30,
     "asset": "assets/items/tops/top_white_shirt_16.png"
@@ -85,7 +85,7 @@
   },
   {
     "id": "bottom_tan",
-    "name": "황토 바지",
+    "name": "베이지 바지",
     "category": "bottom",
     "price": 35,
     "asset": "assets/items/bottoms/bottom_tan_16.png"
@@ -168,10 +168,52 @@
     "asset": "assets/pets/pet_dog_spring_native.png"
   },
   {
+    "id": "pet_cat_bonzille",
+    "name": "회색 고양이",
+    "category": "pet",
+    "price": 70,
+    "asset": "assets/pets/pet_cat_bonzille.png"
+  },
+  {
+    "id": "pet_dog_bonzille",
+    "name": "갈색 강아지",
+    "category": "pet",
+    "price": 70,
+    "asset": "assets/pets/pet_dog_bonzille.png"
+  },
+  {
+    "id": "pet_dog_shepard",
+    "name": "작은 들개",
+    "category": "pet",
+    "price": 80,
+    "asset": "assets/pets/pet_dog_shepard_native.png"
+  },
+  {
     "id": "bg_fantasy_castle",
     "name": "판타지 성",
     "category": "background",
     "price": 100,
     "asset": "assets/backgrounds/shop_bg_fantasy_castle.png"
+  },
+  {
+    "id": "bg_fantasy_castle2",
+    "name": "보랏빛 산",
+    "category": "background",
+    "price": 110,
+    "asset": "assets/backgrounds/shop_bg_fantasy_castle2.png"
+  },
+  {
+    "id": "bg_mountain",
+    "name": "설산",
+    "category": "background",
+    "price": 120,
+    "asset": "assets/backgrounds/shop_bg_mountain.png"
+  },
+  {
+    "id": "bg_desert",
+    "name": "사막",
+    "category": "background",
+    "price": 90,
+    "asset": "assets/backgrounds/shop_bg_desert.png"
   }
 ]

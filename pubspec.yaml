@@ -70,6 +70,7 @@ flutter:
     - assets/images/avatar_wizard.png
     - assets/images/coin.png
     - assets/sounds/coin.wav
+    - assets/sounds/purchase.ogg
     - assets/icons/
     - assets/rpg_ui/ui/
     - assets/avatar/

@@ -57,6 +57,7 @@
 ### 장비 `items/tops|bottoms|weapons/`
 
 - 같은 Kenney 시트의 16×16 레이어. 상의 8, 하의 7, 무기 7.
+- 칸 원점은 `x = col * 17`, `y = row * 17`이다. 장비는 그 칸의 빈 왼쪽 1px를 빼고 잘랐다. 그래야 맨몸과 픽셀이 맞는다.
 - 라이선스: CC0 1.0
 
 ### 펫 `pets/`
@@ -65,13 +66,42 @@
 - 만든 사람: Spring Spring
 - 주소: https://opengameart.org/content/catto-and-doogydooge
 - 라이선스: CC0
+- `pet_cat_bonzille.png`, `pet_dog_bonzille.png`
+- 만든 사람: bonzille
+- 주소: https://opengameart.org/content/pixel-art-dog-and-cat
+- 라이선스: CC0
+- `pet_dog_shepard_native.png` (15×10, 앉은 첫 장면)
+- 만든 사람: Shepardskin
+- 주소: https://opengameart.org/content/dog-sprites
+- 라이선스: CC0
+- 같은 그림의 128 확대본은 상점에 또 올리지 않았다.
 
-### 배경 `backgrounds/shop_bg_fantasy_castle.png`
+### 배경 `backgrounds/`
 
+- `shop_bg_fantasy_castle.png`, `shop_bg_fantasy_castle2.png` (1024×576)
 - 만든 사람: titi_son
 - 주소: https://opengameart.org/content/fantasy-background
-- 1024×576. 라이선스: CC0
-- 기본 화면 배경은 이 파일이 아니다. 아직 배경을 사지 않으면 기존 `images/home_background.png`를 쓴다.
+- 라이선스: CC0
+- `shop_bg_desert.png` (1024×576)
+- 만든 사람: Cethiel
+- 주소: https://opengameart.org/content/desert-background-0
+- 라이선스: CC0
+- `shop_bg_mountain.png` (1024×576)
+- 만든 사람: GrumpyDiamond
+- 주소: https://opengameart.org/content/parallax-mountain-background
+- 프로필: http://opengameart.org/users/grumpydiamond
+- 라이선스: 묶음 안 라이선스 파일은 **CC-BY-3.0**. 크레딧을 남긴다.
+- 라이선스 원문: `Parallax Mountain Background Licence cc-BY-3.0: Please let me know when you use this background in your project and credit 'GrumpyDiamond' and a link back to my profile http://opengameart.org/users/grumpydiamond`
+- 기본 화면 배경은 이 파일들이 아니다. 아직 배경을 사지 않으면 기존 `images/home_background.png`를 쓴다.
+
+## 구매 효과음 `sounds/purchase.ogg`
+
+- 원본 파일: `handleCoins2.ogg` (0.338초로 자른 것)
+- 만든 사람: Kenney (https://kenney.nl)
+- 묶음: RPG Audio
+- 주소: https://kenney.nl/assets/rpg-audio
+- 라이선스: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+- 체크 때 나는 `sounds/coin.wav`와 같은 소리다. 구매는 ogg를 그대로 재생한다.
 
 ## 그 밖의 UI 그림과 글꼴
 

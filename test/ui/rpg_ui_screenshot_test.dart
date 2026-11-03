@@ -146,6 +146,53 @@ void main() {
     await _capture(tester, 'todo_tab');
   });
 
+  testWidgets('상점', (tester) async {
+    await _boot(
+      tester,
+      progress: const PlayerProgress(gold: 500, xp: 30),
+      routines: const [],
+      size: const Size(400, 860),
+    );
+    await tester.tap(find.text('아바타'));
+    await _paint(tester);
+    await _capture(tester, 'shop_top', pixelRatio: 1);
+    await tester.tap(find.text('배경'));
+    await _paint(tester);
+    await _capture(tester, 'shop_bg', pixelRatio: 1);
+    await tester.tap(find.text('설산'));
+    await _paint(tester);
+    await tester.tap(find.text('상의'));
+    await _paint(tester);
+    await tester.tap(find.text('갈색 튜닉'));
+    await _paint(tester);
+    await tester.tap(find.text('홈'));
+    await _paint(tester);
+    await _capture(tester, 'home_after', pixelRatio: 1);
+    expect(find.text('340 골드'), findsWidgets);
+  });
+
+  testWidgets('상점 맞춤', (tester) async {
+    await _boot(
+      tester,
+      progress: const PlayerProgress(gold: 500, xp: 30),
+      routines: const [],
+      size: const Size(400, 860),
+    );
+    await tester.tap(find.text('아바타'));
+    await _paint(tester);
+    await tester.tap(find.text('갈색 튜닉'));
+    await _paint(tester);
+    expect(find.text('착용 중'), findsOneWidget);
+    expect(find.text('보유'), findsOneWidget);
+    await _capture(tester, 'shop_fixed', pixelRatio: 1);
+    await tester.tap(find.text('무기'));
+    await _paint(tester);
+    await tester.tap(find.text('철 도끼'));
+    await _paint(tester);
+    await _capture(tester, 'fit_check', pixelRatio: 1);
+    expect(find.text('착용 중'), findsOneWidget);
+  });
+
   testWidgets('설정 탭 크레딧', (tester) async {
     await _boot(tester, routines: const []);
     await tester.tap(find.text('설정'));
@@ -164,11 +211,12 @@ Future<void> _boot(
   List<Routine>? routines,
   List<Todo>? todos,
   PlayerProgress? progress,
+  Size size = const Size(390, 844),
 }) async {
   await tester.runAsync(_loadFonts);
 
   final view = tester.view;
-  view.physicalSize = const Size(390, 844);
+  view.physicalSize = size;
   view.devicePixelRatio = 1;
   addTearDown(view.resetPhysicalSize);
   addTearDown(view.resetDevicePixelRatio);
@@ -255,6 +303,14 @@ File? _materialIconsFile() {
   return null;
 }
 
+Future<void> _paint(WidgetTester tester) async {
+  await tester.pumpAndSettle();
+  await tester.runAsync(
+    () => Future<void>.delayed(const Duration(milliseconds: 400)),
+  );
+  await tester.pump();
+}
+
 Future<void> _settle(WidgetTester tester) async {
   await tester.pump();
   await tester.runAsync(
@@ -263,19 +319,33 @@ Future<void> _settle(WidgetTester tester) async {
   await tester.pump();
 }
 
-Future<void> _capture(WidgetTester tester, String name) async {
+const _artifactShots = {
+  'home',
+  'home_reward',
+  'shop_top',
+  'shop_bg',
+  'home_after',
+  'shop_fixed',
+  'fit_check',
+};
+
+Future<void> _capture(
+  WidgetTester tester,
+  String name, {
+  double pixelRatio = 2,
+}) async {
   final boundary = tester.renderObject<RenderRepaintBoundary>(
     find.byKey(const Key('shot')),
   );
   await tester.runAsync(() async {
-    final image = boundary.toImageSync(pixelRatio: 2);
+    final image = boundary.toImageSync(pixelRatio: pixelRatio);
     final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     image.dispose();
     final png = bytes!.buffer.asUint8List();
     final directory = Directory('/tmp/pixel_habit_shots');
     await directory.create(recursive: true);
     await File('${directory.path}/$name.png').writeAsBytes(png);
-    if (name == 'home' || name == 'home_reward') {
+    if (_artifactShots.contains(name)) {
       final artifacts = Directory('/opt/cursor/artifacts');
       await artifacts.create(recursive: true);
       await File('${artifacts.path}/$name.png').writeAsBytes(png);
