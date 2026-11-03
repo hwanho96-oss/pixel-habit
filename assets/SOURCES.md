@@ -43,6 +43,36 @@
 - 코인은 이 팩 대신 `images/coin.png`(aseprite 변환본)를 쓴다.
 - 종 아이콘은 알림용이라 이번에는 넣지 않았다.
 
+## 레이어 아바타 `avatar/`, `items/`, `pets/`, `backgrounds/`
+
+홈의 빨간 마법사 대신 Kenney 맨몸 위에 장비 레이어를 쌓는다. 쓴 파일만 복사했다.
+
+### 맨몸 `avatar/base.png`
+
+- 원본 시트: Kenney Roguelike Characters `kenney_roguelikeChar_transparent.png`
+- 왼쪽 위 16×16 칸(맨몸)만 잘랐다. 장비 레이어와 같은 칸에 겹친다.
+- 만든 사람: Kenney (https://kenney.nl/assets/roguelike-characters)
+- 라이선스: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)
+
+### 장비 `items/tops|bottoms|weapons/`
+
+- 같은 Kenney 시트의 16×16 레이어. 상의 8, 하의 7, 무기 7.
+- 라이선스: CC0 1.0
+
+### 펫 `pets/`
+
+- `pet_cat_spring_native.png` (40×40), `pet_dog_spring_native.png` (32×32)
+- 만든 사람: Spring Spring
+- 주소: https://opengameart.org/content/catto-and-doogydooge
+- 라이선스: CC0
+
+### 배경 `backgrounds/shop_bg_fantasy_castle.png`
+
+- 만든 사람: titi_son
+- 주소: https://opengameart.org/content/fantasy-background
+- 1024×576. 라이선스: CC0
+- 기본 화면 배경은 이 파일이 아니다. 아직 배경을 사지 않으면 기존 `images/home_background.png`를 쓴다.
+
 ## 그 밖의 UI 그림과 글꼴
 
 - RPG UI 팩: `assets/rpg_ui/LICENSE.txt`

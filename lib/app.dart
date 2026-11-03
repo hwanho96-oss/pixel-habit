@@ -12,6 +12,7 @@ import 'package:pixel_habit/ui/core/theme/home_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_icon.dart';
 import 'package:pixel_habit/ui/core/theme/rpg_ui_assets.dart';
 import 'package:pixel_habit/ui/core/widgets/web_phone_frame.dart';
+import 'package:pixel_habit/ui/features/avatar/view_models/equipment_provider.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:pixel_habit/ui/features/todo/view_models/todo_view_model.dart';
 import 'package:pixel_habit/ui/routing/app_router.dart';
@@ -57,6 +58,10 @@ class _PixelHabitAppState extends State<PixelHabitApp> {
     return MultiProvider(
       providers: [
         Provider(create: (_) => LocalStorageService(widget.preferences)),
+        ChangeNotifierProvider(
+          create: (context) =>
+              EquipmentProvider(context.read<LocalStorageService>())..load(),
+        ),
         Provider<RoutineRepository>(
           create: (context) =>
               widget.repository ??

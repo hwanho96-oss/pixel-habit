@@ -72,6 +72,13 @@ flutter:
     - assets/sounds/coin.wav
     - assets/icons/
     - assets/rpg_ui/ui/
+    - assets/avatar/
+    - assets/items/tops/
+    - assets/items/bottoms/
+    - assets/items/weapons/
+    - assets/pets/
+    - assets/backgrounds/
+    - assets/data/items.json
 
   fonts:
     - family: Pretendard
