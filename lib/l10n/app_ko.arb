@@ -203,5 +203,7 @@
   "shopCategoryWeapon": "무기",
   "shopCategoryPet": "펫",
   "shopCategoryBackground": "배경",
-  "shopNeedGold": "골드가 조금 모자라. 퀘스트를 해 보면 어때?"
+  "shopNeedGold": "골드가 조금 모자라. 퀘스트를 해 보면 어때?",
+  "shopOwned": "보유",
+  "shopEquipped": "착용 중"
 }

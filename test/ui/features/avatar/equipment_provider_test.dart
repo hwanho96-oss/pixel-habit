@@ -8,7 +8,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('EquipmentProvider', () {
-    test('새 사용자는 흰 셔츠와 갈색 바지를 공짜로 입고 시작한다', () async {
+    test('새 사용자는 초록 셔츠와 갈색 바지를 공짜로 입고 시작한다', () async {
       SharedPreferences.setMockInitialValues({});
       final preferences = await SharedPreferences.getInstance();
       final provider = EquipmentProvider(LocalStorageService(preferences));

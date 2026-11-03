@@ -390,4 +390,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shopNeedGold => 'A little short on gold. A quest would help.';
+
+  @override
+  String get shopOwned => 'Owned';
+
+  @override
+  String get shopEquipped => 'Wearing';
 }

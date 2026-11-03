@@ -145,5 +145,7 @@
   "shopCategoryWeapon": "Weapon",
   "shopCategoryPet": "Pet",
   "shopCategoryBackground": "Background",
-  "shopNeedGold": "A little short on gold. A quest would help."
+  "shopNeedGold": "A little short on gold. A quest would help.",
+  "shopOwned": "Owned",
+  "shopEquipped": "Wearing"
 }

@@ -163,12 +163,34 @@ void main() {
     await _paint(tester);
     await tester.tap(find.text('상의'));
     await _paint(tester);
-    await tester.tap(find.text('초록 튜닉'));
+    await tester.tap(find.text('갈색 튜닉'));
     await _paint(tester);
     await tester.tap(find.text('홈'));
     await _paint(tester);
     await _capture(tester, 'home_after', pixelRatio: 1);
     expect(find.text('340 골드'), findsWidgets);
+  });
+
+  testWidgets('상점 맞춤', (tester) async {
+    await _boot(
+      tester,
+      progress: const PlayerProgress(gold: 500, xp: 30),
+      routines: const [],
+      size: const Size(400, 860),
+    );
+    await tester.tap(find.text('아바타'));
+    await _paint(tester);
+    await tester.tap(find.text('갈색 튜닉'));
+    await _paint(tester);
+    expect(find.text('착용 중'), findsOneWidget);
+    expect(find.text('보유'), findsOneWidget);
+    await _capture(tester, 'shop_fixed', pixelRatio: 1);
+    await tester.tap(find.text('무기'));
+    await _paint(tester);
+    await tester.tap(find.text('철 도끼'));
+    await _paint(tester);
+    await _capture(tester, 'fit_check', pixelRatio: 1);
+    expect(find.text('착용 중'), findsOneWidget);
   });
 
   testWidgets('설정 탭 크레딧', (tester) async {
@@ -303,6 +325,8 @@ const _artifactShots = {
   'shop_top',
   'shop_bg',
   'home_after',
+  'shop_fixed',
+  'fit_check',
 };
 
 Future<void> _capture(

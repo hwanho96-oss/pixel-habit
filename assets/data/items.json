@@ -1,14 +1,14 @@
 [
   {
     "id": "top_green_tunic",
-    "name": "초록 튜닉",
+    "name": "갈색 튜닉",
     "category": "top",
     "price": 40,
     "asset": "assets/items/tops/top_green_tunic_16.png"
   },
   {
     "id": "top_grey_plate",
-    "name": "회색 판금",
+    "name": "주황 판금",
     "category": "top",
     "price": 80,
     "asset": "assets/items/tops/top_grey_plate_16.png"
@@ -50,7 +50,7 @@
   },
   {
     "id": "top_white_shirt",
-    "name": "흰 셔츠",
+    "name": "초록 셔츠",
     "category": "top",
     "price": 30,
     "asset": "assets/items/tops/top_white_shirt_16.png"
@@ -85,7 +85,7 @@
   },
   {
     "id": "bottom_tan",
-    "name": "황토 바지",
+    "name": "베이지 바지",
     "category": "bottom",
     "price": 35,
     "asset": "assets/items/bottoms/bottom_tan_16.png"

@@ -223,7 +223,10 @@ class _ShopPanel extends StatelessWidget {
                   final item = items[index];
                   return _ShopTile(
                     item: item,
+                    owned: equipment.ownedIds.contains(item.id),
                     equipped: equipment.equippedId(item.category) == item.id,
+                    ownedLabel: l10n.shopOwned,
+                    equippedLabel: l10n.shopEquipped,
                     onTap: () => onItem(item),
                   );
                 },
@@ -286,12 +289,18 @@ class _TabButton extends StatelessWidget {
 class _ShopTile extends StatelessWidget {
   const _ShopTile({
     required this.item,
+    required this.owned,
     required this.equipped,
+    required this.ownedLabel,
+    required this.equippedLabel,
     required this.onTap,
   });
 
   final Item item;
+  final bool owned;
   final bool equipped;
+  final String ownedLabel;
+  final String equippedLabel;
   final VoidCallback onTap;
 
   @override
@@ -338,14 +347,19 @@ class _ShopTile extends StatelessWidget {
                   style: nameStyle,
                 ),
                 const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const PixelCoin(size: 14),
-                    const SizedBox(width: 2),
-                    Text('${item.price}', style: priceStyle),
-                  ],
-                ),
+                if (equipped)
+                  Text(equippedLabel, style: priceStyle)
+                else if (owned)
+                  Text(ownedLabel, style: priceStyle)
+                else
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const PixelCoin(size: 14),
+                      const SizedBox(width: 2),
+                      Text('${item.price}', style: priceStyle),
+                    ],
+                  ),
               ],
             ),
           ),

@@ -385,4 +385,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get shopNeedGold => '골드가 조금 모자라. 퀘스트를 해 보면 어때?';
+
+  @override
+  String get shopOwned => '보유';
+
+  @override
+  String get shopEquipped => '착용 중';
 }

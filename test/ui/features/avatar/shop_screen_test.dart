@@ -29,8 +29,10 @@ void main() {
     expect(find.text('상의'), findsOneWidget);
     expect(find.text('200 골드'), findsWidgets);
 
-    await tester.tap(find.text('초록 튜닉'));
+    await tester.tap(find.text('갈색 튜닉'));
     await tester.pumpAndSettle();
+    expect(find.text('착용 중'), findsOneWidget);
+    expect(find.text('보유'), findsOneWidget);
     expect(find.text('160 골드'), findsWidgets);
     await _openHome(tester);
     expect(
@@ -43,7 +45,7 @@ void main() {
     );
 
     await _openAvatar(tester);
-    await tester.tap(find.text('초록 튜닉'));
+    await tester.tap(find.text('갈색 튜닉'));
     await tester.pumpAndSettle();
     expect(find.text('160 골드'), findsWidgets);
     await _openHome(tester);

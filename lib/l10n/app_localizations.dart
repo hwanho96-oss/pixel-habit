@@ -811,6 +811,18 @@ abstract class AppLocalizations {
   /// In ko, this message translates to:
   /// **'골드가 조금 모자라. 퀘스트를 해 보면 어때?'**
   String get shopNeedGold;
+
+  /// No description provided for @shopOwned.
+  ///
+  /// In ko, this message translates to:
+  /// **'보유'**
+  String get shopOwned;
+
+  /// No description provided for @shopEquipped.
+  ///
+  /// In ko, this message translates to:
+  /// **'착용 중'**
+  String get shopEquipped;
 }
 
 class _AppLocalizationsDelegate
