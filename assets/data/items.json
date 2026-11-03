@@ -1,0 +1,177 @@
+[
+  {
+    "id": "top_green_tunic",
+    "name": "초록 튜닉",
+    "category": "top",
+    "price": 40,
+    "asset": "assets/items/tops/top_green_tunic_16.png"
+  },
+  {
+    "id": "top_grey_plate",
+    "name": "회색 판금",
+    "category": "top",
+    "price": 80,
+    "asset": "assets/items/tops/top_grey_plate_16.png"
+  },
+  {
+    "id": "top_orange_armor",
+    "name": "주황 갑옷",
+    "category": "top",
+    "price": 90,
+    "asset": "assets/items/tops/top_orange_armor_16.png"
+  },
+  {
+    "id": "top_orange_tunic",
+    "name": "주황 튜닉",
+    "category": "top",
+    "price": 45,
+    "asset": "assets/items/tops/top_orange_tunic_16.png"
+  },
+  {
+    "id": "top_purple_robe",
+    "name": "보라 로브",
+    "category": "top",
+    "price": 70,
+    "asset": "assets/items/tops/top_purple_robe_16.png"
+  },
+  {
+    "id": "top_teal_tunic",
+    "name": "청록 튜닉",
+    "category": "top",
+    "price": 40,
+    "asset": "assets/items/tops/top_teal_tunic_16.png"
+  },
+  {
+    "id": "top_teal_vest",
+    "name": "청록 조끼",
+    "category": "top",
+    "price": 50,
+    "asset": "assets/items/tops/top_teal_vest_16.png"
+  },
+  {
+    "id": "top_white_shirt",
+    "name": "흰 셔츠",
+    "category": "top",
+    "price": 30,
+    "asset": "assets/items/tops/top_white_shirt_16.png"
+  },
+  {
+    "id": "bottom_brown",
+    "name": "갈색 바지",
+    "category": "bottom",
+    "price": 30,
+    "asset": "assets/items/bottoms/bottom_brown_16.png"
+  },
+  {
+    "id": "bottom_grey",
+    "name": "회색 바지",
+    "category": "bottom",
+    "price": 40,
+    "asset": "assets/items/bottoms/bottom_grey_16.png"
+  },
+  {
+    "id": "bottom_orange",
+    "name": "주황 바지",
+    "category": "bottom",
+    "price": 45,
+    "asset": "assets/items/bottoms/bottom_orange_16.png"
+  },
+  {
+    "id": "bottom_purple",
+    "name": "보라 바지",
+    "category": "bottom",
+    "price": 50,
+    "asset": "assets/items/bottoms/bottom_purple_16.png"
+  },
+  {
+    "id": "bottom_tan",
+    "name": "황토 바지",
+    "category": "bottom",
+    "price": 35,
+    "asset": "assets/items/bottoms/bottom_tan_16.png"
+  },
+  {
+    "id": "bottom_teal",
+    "name": "청록 바지",
+    "category": "bottom",
+    "price": 40,
+    "asset": "assets/items/bottoms/bottom_teal_16.png"
+  },
+  {
+    "id": "bottom_white",
+    "name": "흰 바지",
+    "category": "bottom",
+    "price": 30,
+    "asset": "assets/items/bottoms/bottom_white_16.png"
+  },
+  {
+    "id": "weapon_axe_iron",
+    "name": "철 도끼",
+    "category": "weapon",
+    "price": 70,
+    "asset": "assets/items/weapons/weapon_axe_iron_16.png"
+  },
+  {
+    "id": "weapon_axe_magic",
+    "name": "마법 도끼",
+    "category": "weapon",
+    "price": 100,
+    "asset": "assets/items/weapons/weapon_axe_magic_16.png"
+  },
+  {
+    "id": "weapon_bow_magic",
+    "name": "마법 활",
+    "category": "weapon",
+    "price": 100,
+    "asset": "assets/items/weapons/weapon_bow_magic_16.png"
+  },
+  {
+    "id": "weapon_bow_wood",
+    "name": "나무 활",
+    "category": "weapon",
+    "price": 50,
+    "asset": "assets/items/weapons/weapon_bow_wood_16.png"
+  },
+  {
+    "id": "weapon_spear",
+    "name": "창",
+    "category": "weapon",
+    "price": 60,
+    "asset": "assets/items/weapons/weapon_spear_16.png"
+  },
+  {
+    "id": "weapon_staff_gem_red",
+    "name": "붉은 보석 지팡이",
+    "category": "weapon",
+    "price": 90,
+    "asset": "assets/items/weapons/weapon_staff_gem_red_16.png"
+  },
+  {
+    "id": "weapon_staff_orb",
+    "name": "오브 지팡이",
+    "category": "weapon",
+    "price": 80,
+    "asset": "assets/items/weapons/weapon_staff_orb_16.png"
+  },
+  {
+    "id": "pet_cat",
+    "name": "봄 고양이",
+    "category": "pet",
+    "price": 60,
+    "asset": "assets/pets/pet_cat_spring_native.png"
+  },
+  {
+    "id": "pet_dog",
+    "name": "봄 강아지",
+    "category": "pet",
+    "price": 60,
+    "asset": "assets/pets/pet_dog_spring_native.png"
+  },
+  {
+    "id": "bg_fantasy_castle",
+    "name": "판타지 성",
+    "category": "background",
+    "price": 100,
+    "asset": "assets/backgrounds/shop_bg_fantasy_castle.png"
+  }
+]

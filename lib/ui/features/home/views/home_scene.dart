@@ -5,9 +5,8 @@ import 'package:pixel_habit/l10n/app_localizations.dart';
 import 'package:pixel_habit/ui/core/l10n/habit_stat_l10n.dart';
 import 'package:pixel_habit/ui/core/theme/app_colors.dart';
 import 'package:pixel_habit/ui/core/theme/app_theme.dart';
-import 'package:pixel_habit/ui/core/theme/home_assets.dart';
+import 'package:pixel_habit/ui/core/widgets/avatar_view.dart';
 import 'package:pixel_habit/ui/core/widgets/gold_badge.dart';
-import 'package:pixel_habit/ui/core/widgets/pixel_asset_image.dart';
 import 'package:pixel_habit/ui/core/widgets/pixel_icon.dart';
 
 class HomeScene extends StatelessWidget {
@@ -23,14 +22,9 @@ class HomeScene extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        const PixelAssetImage(path: HomeAssets.background, fit: BoxFit.cover),
-        const Align(
-          alignment: Alignment(0, 0.55),
-          child: PixelAssetImage(
-            path: HomeAssets.avatar,
-            width: 148,
-            height: 168,
-          ),
+        const AvatarView(
+          characterSize: 160,
+          characterAlignment: Alignment(0, 0.55),
         ),
         IgnorePointer(child: _SparkleBurst(token: burst)),
         SafeArea(
