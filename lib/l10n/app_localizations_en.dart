@@ -363,4 +363,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get soundCreditUrl => 'https://kenney.nl/assets/rpg-audio';
+
+  @override
+  String get shopTab => 'Shop';
+
+  @override
+  String get personalityTab => 'Personality';
+
+  @override
+  String get personalityPlaceholder => 'Personality will land here next.';
+
+  @override
+  String get shopCategoryTop => 'Top';
+
+  @override
+  String get shopCategoryBottom => 'Bottom';
+
+  @override
+  String get shopCategoryWeapon => 'Weapon';
+
+  @override
+  String get shopCategoryPet => 'Pet';
+
+  @override
+  String get shopCategoryBackground => 'Background';
+
+  @override
+  String get shopNeedGold => 'A little short on gold. A quest would help.';
 }

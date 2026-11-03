@@ -168,10 +168,52 @@
     "asset": "assets/pets/pet_dog_spring_native.png"
   },
   {
+    "id": "pet_cat_bonzille",
+    "name": "회색 고양이",
+    "category": "pet",
+    "price": 70,
+    "asset": "assets/pets/pet_cat_bonzille.png"
+  },
+  {
+    "id": "pet_dog_bonzille",
+    "name": "갈색 강아지",
+    "category": "pet",
+    "price": 70,
+    "asset": "assets/pets/pet_dog_bonzille.png"
+  },
+  {
+    "id": "pet_dog_shepard",
+    "name": "작은 들개",
+    "category": "pet",
+    "price": 80,
+    "asset": "assets/pets/pet_dog_shepard_native.png"
+  },
+  {
     "id": "bg_fantasy_castle",
     "name": "판타지 성",
     "category": "background",
     "price": 100,
     "asset": "assets/backgrounds/shop_bg_fantasy_castle.png"
+  },
+  {
+    "id": "bg_fantasy_castle2",
+    "name": "보랏빛 산",
+    "category": "background",
+    "price": 110,
+    "asset": "assets/backgrounds/shop_bg_fantasy_castle2.png"
+  },
+  {
+    "id": "bg_mountain",
+    "name": "설산",
+    "category": "background",
+    "price": 120,
+    "asset": "assets/backgrounds/shop_bg_mountain.png"
+  },
+  {
+    "id": "bg_desert",
+    "name": "사막",
+    "category": "background",
+    "price": 90,
+    "asset": "assets/backgrounds/shop_bg_desert.png"
   }
 ]

@@ -358,4 +358,31 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get soundCreditUrl => 'https://kenney.nl/assets/rpg-audio';
+
+  @override
+  String get shopTab => '상점';
+
+  @override
+  String get personalityTab => '성격';
+
+  @override
+  String get personalityPlaceholder => '성격은 다음에 이 자리에 들어올 거야.';
+
+  @override
+  String get shopCategoryTop => '상의';
+
+  @override
+  String get shopCategoryBottom => '하의';
+
+  @override
+  String get shopCategoryWeapon => '무기';
+
+  @override
+  String get shopCategoryPet => '펫';
+
+  @override
+  String get shopCategoryBackground => '배경';
+
+  @override
+  String get shopNeedGold => '골드가 조금 모자라. 퀘스트를 해 보면 어때?';
 }

@@ -93,6 +93,17 @@ void main() {
       );
     });
 
+    test('골드가 충분할 때만 차감한다', () {
+      const progress = PlayerProgress(xp: 4, gold: 30);
+
+      expect(progress.trySpendGold(30)!.gold, 0);
+      expect(progress.trySpendGold(30)!.xp, 4);
+      expect(progress.trySpendGold(31), isNull);
+      expect(progress.trySpendGold(-1), isNull);
+      expect(progress.trySpendGold(0), same(progress));
+      expect(progress.gold, 30);
+    });
+
     test('음수 골드는 0으로 읽는다', () {
       final decoded = PlayerProgress.fromJson({'xp': 1, 'gold': -5});
 

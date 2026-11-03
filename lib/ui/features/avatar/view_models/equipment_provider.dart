@@ -6,13 +6,15 @@ import 'package:pixel_habit/data/services/local_storage_service.dart';
 import 'package:pixel_habit/domain/models/item.dart';
 import 'package:pixel_habit/ui/core/theme/home_assets.dart';
 
-/// 홈과 아바타 탭이 같이 보는 장비. 상점은 아직 없다.
+/// 홈과 아바타 탭이 같이 보는 장비.
 class EquipmentProvider extends ChangeNotifier {
   EquipmentProvider(this._storage);
 
   static const storageKey = 'equipment_v1';
   static const baseAsset = 'assets/avatar/base.png';
   static const catalogAsset = 'assets/data/items.json';
+  static const starterTopId = 'top_white_shirt';
+  static const starterBottomId = 'bottom_brown';
 
   /// 가진 배경이 없으면 홈에 쓰던 배경을 그대로 깐다.
   static const defaultBackgroundAsset = HomeAssets.background;
@@ -21,6 +23,9 @@ class EquipmentProvider extends ChangeNotifier {
   List<Item> _items = const [];
   final Set<String> _owned = {};
   final Map<ItemCategory, String> _equipped = {};
+
+  // shortcut: 카탈로그는 프로세스에서 한 번만 파싱한다. 실행 중에 JSON을 바꾸면 다시 읽게 바꾼다.
+  static List<Item>? _catalog;
 
   List<Item> get items => List.unmodifiable(_items);
   Set<String> get ownedIds => Set.unmodifiable(_owned);
@@ -39,21 +44,45 @@ class EquipmentProvider extends ChangeNotifier {
       layerAsset(ItemCategory.background) ?? defaultBackgroundAsset;
 
   Future<void> load() async {
-    final raw = await rootBundle.loadString(catalogAsset);
-    final decoded = jsonDecode(raw) as List<dynamic>;
-    _items = [
-      for (final entry in decoded)
-        Item.fromJson(Map<String, Object?>.from(entry as Map)),
-    ];
-    _readSaved();
+    if (_catalog == null) {
+      final raw = await rootBundle.loadString(catalogAsset);
+      final decoded = jsonDecode(raw) as List<dynamic>;
+      _catalog = [
+        for (final entry in decoded)
+          Item.fromJson(Map<String, Object?>.from(entry as Map)),
+      ];
+    }
+    _items = _catalog!;
+    final saved = _storage.readString(storageKey);
+    if (saved == null || saved.isEmpty) {
+      _grantStarter();
+      await _save();
+    } else {
+      _readSaved();
+    }
     notifyListeners();
   }
 
-  /// 상점이 생기기 전에 테스트와 이후 단계에서 소유만 올린다. 골드는 깎지 않는다.
+  /// 소유만 올린다. 골드는 깎지 않는다.
   Future<void> addOwned(String id) async {
     if (_item(id) == null || !_owned.add(id)) {
       return;
     }
+    await _save();
+    notifyListeners();
+  }
+
+  /// 산 뒤에 바로 입힌다. 한 칸에는 하나만 남는다.
+  Future<void> ownAndEquip(String id) async {
+    final item = _item(id);
+    if (item == null) {
+      return;
+    }
+    final added = _owned.add(id);
+    if (!added && _equipped[item.category] == id) {
+      return;
+    }
+    _equipped[item.category] = id;
     await _save();
     notifyListeners();
   }
@@ -77,6 +106,17 @@ class EquipmentProvider extends ChangeNotifier {
     }
     await _save();
     notifyListeners();
+  }
+
+  void _grantStarter() {
+    for (final id in const [starterTopId, starterBottomId]) {
+      final item = _item(id);
+      if (item == null) {
+        continue;
+      }
+      _owned.add(id);
+      _equipped[item.category] = id;
+    }
   }
 
   Item? _item(String id) {

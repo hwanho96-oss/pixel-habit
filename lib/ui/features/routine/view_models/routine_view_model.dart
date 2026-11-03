@@ -140,6 +140,26 @@ class RoutineViewModel extends ChangeNotifier {
     }
   }
 
+  /// 상점 결제. 모자라면 저장하지 않고 false.
+  Future<bool> spendGold(int amount) {
+    var spent = false;
+    final scheduled = _enqueue(() async {
+      await _progressReady.future;
+      final next = _progress.trySpendGold(amount);
+      if (next == null) {
+        return;
+      }
+      spent = true;
+      if (next.gold == _progress.gold) {
+        return;
+      }
+      _progress = next;
+      notifyListeners();
+      await _repository.saveProgress(_progress);
+    });
+    return scheduled.then((_) => spent);
+  }
+
   Future<void> deleteRoutine(String id) async {
     _routines = _routines.where((routine) => routine.id != id).toList();
     notifyListeners();

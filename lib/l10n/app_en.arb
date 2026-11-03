@@ -136,5 +136,14 @@
   "sectionTodoTime": "Time",
   "pickTodoTime": "Pick a time",
   "soundCredit": "Coin sound - Kenney (CC0)",
-  "soundCreditUrl": "https://kenney.nl/assets/rpg-audio"
+  "soundCreditUrl": "https://kenney.nl/assets/rpg-audio",
+  "shopTab": "Shop",
+  "personalityTab": "Personality",
+  "personalityPlaceholder": "Personality will land here next.",
+  "shopCategoryTop": "Top",
+  "shopCategoryBottom": "Bottom",
+  "shopCategoryWeapon": "Weapon",
+  "shopCategoryPet": "Pet",
+  "shopCategoryBackground": "Background",
+  "shopNeedGold": "A little short on gold. A quest would help."
 }
