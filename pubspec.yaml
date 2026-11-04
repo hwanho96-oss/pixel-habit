@@ -80,6 +80,7 @@ flutter:
     - assets/pets/
     - assets/backgrounds/
     - assets/data/items.json
+    - assets/data/personality_nodes.json
 
   fonts:
     - family: Pretendard

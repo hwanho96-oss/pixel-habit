@@ -1,0 +1,93 @@
+﻿[
+  {
+    "id": "relation_1",
+    "name": "따뜻한 인사",
+    "traits": ["relation"],
+    "level": 1,
+    "requires": []
+  },
+  {
+    "id": "relation_3",
+    "name": "배려의 손길",
+    "traits": ["relation"],
+    "level": 3,
+    "requires": ["relation_1"]
+  },
+  {
+    "id": "relation_5",
+    "name": "마음의 다리",
+    "traits": ["relation"],
+    "level": 5,
+    "requires": ["relation_3"]
+  },
+  {
+    "id": "emotion_1",
+    "name": "고요한 숨결",
+    "traits": ["emotion"],
+    "level": 1,
+    "requires": []
+  },
+  {
+    "id": "emotion_3",
+    "name": "감정의 파도",
+    "traits": ["emotion"],
+    "level": 3,
+    "requires": ["emotion_1"]
+  },
+  {
+    "id": "emotion_5",
+    "name": "평온의 호수",
+    "traits": ["emotion"],
+    "level": 5,
+    "requires": ["emotion_3"]
+  },
+  {
+    "id": "action_1",
+    "name": "작은 한 걸음",
+    "traits": ["action"],
+    "level": 1,
+    "requires": []
+  },
+  {
+    "id": "action_3",
+    "name": "꾸준한 손",
+    "traits": ["action"],
+    "level": 3,
+    "requires": ["action_1"]
+  },
+  {
+    "id": "action_5",
+    "name": "실천의 불꽃",
+    "traits": ["action"],
+    "level": 5,
+    "requires": ["action_3"]
+  },
+  {
+    "id": "combo_warm_neighbor",
+    "name": "다정한 이웃",
+    "traits": ["relation", "emotion"],
+    "level": 3,
+    "requires": []
+  },
+  {
+    "id": "combo_calm_doer",
+    "name": "차분한 실천가",
+    "traits": ["emotion", "action"],
+    "level": 3,
+    "requires": []
+  },
+  {
+    "id": "combo_steady_ally",
+    "name": "든든한 동료",
+    "traits": ["relation", "action"],
+    "level": 3,
+    "requires": []
+  },
+  {
+    "id": "golden_balance",
+    "name": "황금의 균형",
+    "traits": ["relation", "emotion", "action"],
+    "level": 5,
+    "requires": []
+  }
+]

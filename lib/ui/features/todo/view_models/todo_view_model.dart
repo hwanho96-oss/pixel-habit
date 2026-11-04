@@ -2,15 +2,21 @@ import 'package:flutter/foundation.dart';
 import 'package:pixel_habit/data/repositories/todo_repository.dart';
 import 'package:pixel_habit/domain/models/habit_stat.dart';
 import 'package:pixel_habit/domain/models/todo.dart';
+import 'package:pixel_habit/ui/features/avatar/view_models/personality_provider.dart';
 import 'package:pixel_habit/ui/features/routine/view_models/routine_view_model.dart';
 import 'package:uuid/uuid.dart';
 
 class TodoViewModel extends ChangeNotifier {
-  TodoViewModel({required this._repository, required this._rewards, Uuid? uuid})
-    : _uuid = uuid ?? const Uuid();
+  TodoViewModel({
+    required this._repository,
+    required this._rewards,
+    this._personality,
+    Uuid? uuid,
+  }) : _uuid = uuid ?? const Uuid();
 
   final TodoRepository _repository;
   final RoutineViewModel _rewards;
+  final PersonalityProvider? _personality;
   final Uuid _uuid;
 
   List<Todo> _todos = const [];
@@ -109,6 +115,11 @@ class TodoViewModel extends ChangeNotifier {
     await _rewards.applyCompletionReward(
       completed: willComplete,
       xpReward: todo.xpReward,
+    );
+    await _personality?.applyTodoTraitXp(
+      stat: todo.stat,
+      xpReward: todo.xpReward,
+      completed: willComplete,
     );
   }
 
